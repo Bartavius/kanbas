@@ -308,7 +308,7 @@ export default function Lab1() {
                 <a id="wd-github" href="https://www.github.com"> here </a>
                 to go to github.com
             </form>
-            </div>
+        </div>
 
 
 
