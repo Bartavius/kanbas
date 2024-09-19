@@ -93,7 +93,7 @@ export default function Dashboard() {
         </div>
 
         <div className="wd-dashboard-course">
-            <img src="/images/bird.jpg" alt="a picture of birdd" width={200} />
+            <img src="/images/bird.jpg" alt="a birdd" width={200} />
             <div id="wd-dashboard-course-FLYN5000">
                 <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/10007/Home">
                 FLYN5000 Flying class
