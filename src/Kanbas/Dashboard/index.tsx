@@ -7,7 +7,7 @@ export default function Dashboard() {
       <div id="wd-dashboard-courses">
 
         <div className="wd-dashboard-course">
-            <img src="/images/reactjs.jpg" width={200} />
+            <img src="/images/reactjs.jpg" alt="" width={200} />
             <div id="wd-dashboad-course-CS1234">
                 <Link className="wd-dashboard-course-link"
                 to="/Kanbas/Courses/CS1234/Home">
@@ -20,7 +20,7 @@ export default function Dashboard() {
         </div>
 
         <div className="wd-dashboard-course"> 
-            <img src="/images/japanese.jpg" width={200} />
+            <img src="/images/japanese.jpg" alt="" width={200} />
             <div id="wd-dashboard-course-JPL1000">
                 <Link className="wd-dashboard-course-link"
                 to="/Kanbas/Courses/JPL1000/Home">
@@ -33,7 +33,7 @@ export default function Dashboard() {
         </div>
 
         <div className="wd-dashboard-course"> 
-            <img src="/images/geoguessr.jpg" width={200} />
+            <img src="/images/geoguessr.jpg" alt="" width={200} />
             <div id="wd-dashboard-course-GEO9999">
                 <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/GEO9999/Home">
                 GEO9999 Geoguessr
@@ -45,7 +45,7 @@ export default function Dashboard() {
         </div>
 
         <div className="wd-dashboard-course">
-            <img src="/images/guitar.jpg" width={200} />
+            <img src="/images/guitar.jpg" alt="" width={200} />
             <div id="wd-dashboard-course-GUIT2000">
                 <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/GUIT2000/Home">
                 GUIT2000 Guitar Class
@@ -57,7 +57,7 @@ export default function Dashboard() {
         </div>
 
         <div className="wd-dashboard-course">
-            <img src="/images/ballroom_dancing.jpg" width={200} />
+            <img src="/images/ballroom_dancing.jpg" alt="" width={200} />
             <div id="wd-dashboard-course-DNCE1001">
                 <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/DNCE1001/Home">
                 DNCE1001 Ballroom Dancing
@@ -69,7 +69,7 @@ export default function Dashboard() {
         </div>
 
         <div className="wd-dashboard-course">
-            <img src="/images/algorithm.jpg" width={200} />
+            <img src="/images/algorithm.jpg" alt="" width={200} />
             <div id="wd-dashboard-course-CS3000">
                 <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/CS3000/Home">
                 CS3000 Algorithms
@@ -81,7 +81,7 @@ export default function Dashboard() {
         </div>
 
         <div className="wd-dashboard-course">
-            <img src="/images/chess.jpg" width={200} />
+            <img src="/images/chess.jpg" alt="" width={200} />
             <div id="wd-dashboard-course-chss3500">
                 <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/CHSS3500/Home">
                 CHSS3500 Chess
@@ -93,7 +93,7 @@ export default function Dashboard() {
         </div>
 
         <div className="wd-dashboard-course">
-            <img src="/images/bird.jpg" width={200} />
+            <img src="/images/bird.jpg" alt="" width={200} />
             <div id="wd-dashboard-course-FLYN5000">
                 <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/FLYN5000/Home">
                 FLYN5000 Flying class
