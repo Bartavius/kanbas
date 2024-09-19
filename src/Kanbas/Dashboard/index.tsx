@@ -10,7 +10,7 @@ export default function Dashboard() {
             <img src="/images/reactjs.jpg" width={200} />
             <div id="wd-dashboad-course-CS1234">
                 <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/CS1234/Home">
+                to="/Kanbas/Courses/10000/Home">
                 CS1234 React JS
                 </Link>
                 <p className="wd-dashboard-course-title">
@@ -23,7 +23,7 @@ export default function Dashboard() {
             <img src="/images/japanese.jpg" width={200} />
             <div id="wd-dashboard-course-JPL1000">
                 <Link className="wd-dashboard-course-link"
-                to="/Kanbas/Courses/JPL1000/Home">
+                to="/Kanbas/Courses/10001/Home">
                 JPL1000 Introduction to Japanese
                 </Link>
                 <p className="wd-dashboard-course-title">
@@ -35,7 +35,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course"> 
             <img src="/images/geoguessr.jpg" width={200} />
             <div id="wd-dashboard-course-GEO9999">
-                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/GEO9999/Home">
+                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/10002/Home">
                 GEO9999 Geoguessr
                 </Link>
                 <p className="wd-dashboard-course-title">
@@ -47,11 +47,11 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
             <img src="/images/guitar.jpg" width={200} />
             <div id="wd-dashboard-course-GUIT2000">
-                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/GUIT2000/Home">
+                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/10003/Home">
                 GUIT2000 Guitar Class
                 </Link>
                 <p className="dw-dashboard-course-title">
-                    Learn the ultimate W Rizz of playing the guitar
+                    Learn the ultimate charismatic charm of playing the guitar
                 </p>
             </div>
         </div>
@@ -59,11 +59,11 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
             <img src="/images/ballroom_dancing.jpg" width={200} />
             <div id="wd-dashboard-course-DNCE1001">
-                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/DNCE1001/Home">
+                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/10004/Home">
                 DNCE1001 Ballroom Dancing
                 </Link>
                 <p className="wd-dashboard-course-title">
-                    Ultimate dancing rizz: Ballroom dancing
+                    Ultimate Ballroom dancing
                 </p>
             </div>
         </div>
@@ -71,7 +71,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
             <img src="/images/algorithm.jpg" width={200} />
             <div id="wd-dashboard-course-CS3000">
-                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/CS3000/Home">
+                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/10005/Home">
                 CS3000 Algorithms
                 </Link>
                 <p className="wd-dashboard-course-title">
@@ -83,7 +83,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
             <img src="/images/chess.jpg" width={200} />
             <div id="wd-dashboard-course-chss3500">
-                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/CHSS3500/Home">
+                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/10006/Home">
                 CHSS3500 Chess
                 </Link>
                 <p className="wd-dashboard-course-title">
@@ -95,7 +95,7 @@ export default function Dashboard() {
         <div className="wd-dashboard-course">
             <img src="/images/bird.jpg" width={200} />
             <div id="wd-dashboard-course-FLYN5000">
-                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/FLYN5000/Home">
+                <Link className="wd-dashboard-course-link" to="/Kanbas/Dashboard/10007/Home">
                 FLYN5000 Flying class
                 </Link>
                 <p className="wd-dashboard-course-title">

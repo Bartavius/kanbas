@@ -4,7 +4,7 @@ import Dashboard from "./Dashboard";
 export default function Kanbas() {
   return (
     <div id="wd-kanbas">
-      <h1>Kanbas</h1>
+      <h1>Kanbas1111</h1>
       <Routes>
         <Route path="/" element={<Navigate to="Account" />} />
         <Route path="/Account/*" element={<Account />} />
