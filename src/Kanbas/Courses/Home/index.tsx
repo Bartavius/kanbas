@@ -1,4 +1,3 @@
-import { Navigate, Route, Routes } from "react-router";
 import Modules from "../Modules";
 import CourseStatus from "./Status";
 
