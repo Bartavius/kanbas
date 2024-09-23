@@ -84,8 +84,6 @@ export default function AssignmentEditor() {
                         <td><input type="date" id="wd-available-until" value="2024-05-20"/></td>
                     </tr>
                 </table>
-            
-                {/* NEED TO CUSTOMIZE LANDING PAGE*/}
             </td>
           </tr>
         
