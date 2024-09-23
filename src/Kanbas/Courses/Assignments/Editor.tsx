@@ -85,7 +85,7 @@ export default function AssignmentEditor() {
                     </tr>
                 </table>
             
-                {/* NEED TO FORMAT THE UNTIL PART AND ADD CANCEL / SAVE BUTTON ALONG WITH SECTION LINE.*/}
+                {/* NEED TO CUSTOMIZE LANDING PAGE*/}
             </td>
           </tr>
         
