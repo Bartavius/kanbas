@@ -310,11 +310,6 @@ export default function Lab1() {
                 to go to github.com
             </form>
         </div>
-
-
-
-
-
     </div>
     );
   }
