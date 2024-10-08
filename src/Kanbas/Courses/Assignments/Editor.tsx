@@ -15,12 +15,12 @@ export default function AssignmentEditor() {
         </textarea>
 
         <form>
-          <div className="flex mt-5 row g-3">
+          <div className="mt-5 row g-3">
             <label htmlFor="wd-points" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Points</label>
             <input id="wd-points" value={100} className="form-control col "/>
           </div>
 
-          <div className="flex mt-2 row g-3">
+          <div className="mt-2 row g-3">
             <label htmlFor="wd-group" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Assignment Group</label>
             <select name="assignment-group" id="wd-group" className="col form-select">
                 <option value="ASSIGNMENTS">ASSIGNMENTS
@@ -29,7 +29,7 @@ export default function AssignmentEditor() {
             </select>
           </div>
 
-          <div className="flex mt-2 row g-3">
+          <div className="mt-2 row g-3">
             <label htmlFor="wd-display-grade-as" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Display Grade as</label>
             <select name="display-grade-as" id="wd-display-grade-as" className="col form-select">
                   <option value="PERCENTAGE">
@@ -39,7 +39,7 @@ export default function AssignmentEditor() {
             </select>
           </div>
 
-          <div className="flex mt-2 row g-3">
+          <div className="mt-2 row g-3">
             <label htmlFor="wd-submission-type" className="form-label col-4 d-flex justify-content-end align-text-end pe-5">Submission Type</label>
             <div className="container border border-dark col rounded-1">
               <select name="submission-type" id="wd-submission-type" className="form-select ml-3 mt-3 mr-3 mb-3 justify-content-center align-items-center">
@@ -74,7 +74,7 @@ export default function AssignmentEditor() {
               </div>
             </div>
 
-            <div className="flex mt-2 row g-3">
+            <div className="mt-2 row g-3">
             <label htmlFor="wd-assign-to" className="form-label col-4 d-flex justify-content-end align-text-end pe-5">Assign</label>
             <div className="container border border-dark col rounded-1">
               <label htmlFor="wd-assign-to" className="form-label mt-3"><h4>Assign to</h4></label>
@@ -91,7 +91,7 @@ export default function AssignmentEditor() {
               </div> 
 
               <div className="row mt-3 mb-3">
-                <div className="col-6 flex">
+                <div className="col-6">
                   <label htmlFor="wd-available-from" className="form-label"><h4>Available from</h4></label>
                   <div className="input-group">
                     <input className="input-group-text rounded-1 form-control" type="text" id="wd-available-from" value="May 6, 2024, 12:00AM"/>

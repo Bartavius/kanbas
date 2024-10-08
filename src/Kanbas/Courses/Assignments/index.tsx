@@ -9,18 +9,23 @@ export default function Assignments() {
     return (
       <div>
         {/* assignment top */}
-        <div id="wd-assignment-top" className="text-nowrap">
-          <label htmlFor="wd-assignment-search-box">
-            {/* search bar */}
-            <span className="input-group-text d-inline form-label"><FaMagnifyingGlass/></span></label>
-            <input id="wd-assignment-search-box" type="text" placeholder="Search..."
-            className="form-control float-front mb-3 d-inline border-top-0 border-left-0" style={{width: "300px"}}/>
-            {/* other buttons */}
-            <button className="btn btn-danger d-inline text-white float-end rounded-1 me-1">
-              <BsPlus className="text-white"/>Assignment</button>
-            <button className="btn btn-secondary d-inline float-end text-dark rounded-1 me-1">
-              <BsPlus />Group</button>
-          </div>
+        <div className="wd-assignment-top text-nowrap row mt-3 mb-3">
+                <div className="col-4 d-flex">
+                  <div className="input-group">
+                    <label htmlFor="wd-assignment-search-box" className="form-label input-group-text"><FaMagnifyingGlass/></label>
+                    <input className="input-group-text rounded-1 form-control" type="text" id="wd-assignment-search-box" placeholder="Search..."/>
+                  </div>
+                </div>
+
+                <div className="col-8 d-flex justify-content-end align-text-end">
+                  <button className="btn btn-danger text-white rounded-1 me-1">
+                  <BsPlus className="text-white"/>Assignment</button>
+                  <button className="btn btn-secondary text-dark rounded-1 me-1">
+                  <BsPlus />Group</button>
+                </div>
+              </div>
+
+
 
         <ul id="wd-assignments-section" className="list-group rounded-0">
           {/* assignment section title */}
