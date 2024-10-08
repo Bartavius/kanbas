@@ -40,40 +40,58 @@ export default function Assignments() {
             {/* assignments list */}
             <ul className="wd-assignments list-group rounded-0">
                 <li className="wd-assignment-list-item list-group-item p-3 ps-1">
-                  <BsGripVertical className="me-2 fs-3" />
-                  <GrNotes className="me-2 fs-3 text-success" />
-                  <LessonControlButtons />
-                  <div className="d-inline">
-                    <a className="wd-assignment-link" 
-                      href="#/Kanbas/Courses/1234/Assignments/123">
-                      A1 - ENV + HTML
-                    </a>
-                    <p>Multiple Modules | <b>Not available until</b> May 6 at 12:00am | <b>Due</b> May 13 at 11:59pm | 100pts</p>
+                  <div className="row">
+                    <div className="col-2">
+                      <BsGripVertical className="me-2 fs-3" />
+                      <GrNotes className="me-2 fs-3 text-success" />
+                    </div>
+                    <div className="col-8 text-start">
+                      <a className="wd-assignment-link" 
+                        href="#/Kanbas/Courses/1234/Assignments/123">
+                        A1 - ENV + HTML
+                      </a>
+                      <p>Multiple Modules | <b>Not available until</b> May 6 at 12:00am | <b>Due</b> May 13 at 11:59pm | 100pts</p>
+                    </div>
+                    <div className="col-2">
+                      <LessonControlButtons />
+                    </div>
                   </div>
                 </li>
 
 
                 <li className="wd-assignment-list-item list-group-item p-3 ps-1">
-                  <BsGripVertical className="me-2 fs-3" />
-                  <GrNotes className="me-2 fs-3 text-success" />
-                  <LessonControlButtons />
-                  <div className="d-inline">
-                    <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/124">
-                    A2 - CSS + BOOTSTRAP
-                    </a>
-                    <p>Multiple Modules | <b>Not available until</b> May 13 at 12:00am | <b>Due</b> May 20 at 11:59pm | 100pts</p>
+                  <div className="row">
+                    <div className="col-2">
+                      <BsGripVertical className="me-2 fs-3" />
+                      <GrNotes className="me-2 fs-3 text-success" />
+                    </div>
+                    <div className="col-8">
+                      <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/124">
+                      A2 - CSS + BOOTSTRAP
+                      </a>
+                      <p>Multiple Modules | <b>Not available until</b> May 13 at 12:00am | <b>Due</b> May 20 at 11:59pm | 100pts</p>
+                    </div>
+                    <div className="col-2">
+                      <LessonControlButtons />
+                    </div>
                   </div>
                 </li>
 
                 <li className="wd-assignment-list-item list-group-item p-3 ps-1">
-                  <BsGripVertical className="me-2 fs-3" />
-                  <GrNotes className="me-2 fs-3 text-success" />
-                  <LessonControlButtons />
-                  <div className="d-inline">
-                    <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/125">
-                    A3 - JAVASCRIPT + REACT
-                    </a>
-                    <p>Multiple Modules | <b>Not available until</b> May 20 at 12:00am | <b>Due</b> May 27 at 11:59pm | 100pts</p>
+                  <div className="row">
+                    <div className="col-2">
+                      <BsGripVertical className="me-2 fs-3" />
+                      <GrNotes className="me-2 fs-3 text-success" />
+                    </div>
+                    <div className="col-8">
+                      <a className="wd-assignment-link" href="#/Kanbas/Courses/1234/Assignments/125">
+                      A3 - JAVASCRIPT + REACT
+                      </a>
+                      <p>Multiple Modules | <b>Not available until</b> May 20 at 12:00am | <b>Due</b> May 27 at 11:59pm | 100pts</p>
+                    </div>
+                    <div className="col-2">
+                      <LessonControlButtons />
+                    </div> 
                   </div>
                 </li>
             </ul>
