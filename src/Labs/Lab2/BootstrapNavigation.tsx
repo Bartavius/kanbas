@@ -27,7 +27,7 @@ export default function BootstrapNavigation() {
   <div className="card"
        style={{ width: "18rem" }}>
     <img src="images/stacked.jpg"
-         className="card-img-top" />
+         className="card-img-top" alt=""/>
     <div className="card-body">
       <h5 className="card-title">
           Stacking Starship
@@ -35,7 +35,7 @@ export default function BootstrapNavigation() {
       <p className="card-text">
         Stacking the most powerful rocket in history. Mars or bust!
       </p>
-      <a href="#"className="btn btn-primary">
+      <a href="#/Labs/Lab2" className="btn btn-primary">
         Boldly Go
       </a>
     </div>
