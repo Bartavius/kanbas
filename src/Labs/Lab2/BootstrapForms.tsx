@@ -5,7 +5,7 @@ export default function BootstrapForms() {
   <div className="mb-3">
     <label htmlFor="input1" className="form-label">
       Email address</label>
-    <input type="email" className="form-control"
+    <input type="email" className="form-control float-front"
       id="input1" placeholder="name@example.com"/>
   </div>
   <div className="mb-3">

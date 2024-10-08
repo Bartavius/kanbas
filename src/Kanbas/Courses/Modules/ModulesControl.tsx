@@ -37,9 +37,6 @@ export default function ModulesControls() {
                 <GreyBan />
                 Unpublish modules only</button>
           </li>
-          {/* Create two more items with IDs wd-unpublish-all-modules-and-items and
-              wd-unpublish-modules-only with labels Unpublish all modules and items
-              and Unpublish modules only */}
         </ul>
 
       </div>
