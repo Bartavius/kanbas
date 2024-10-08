@@ -115,8 +115,8 @@ export default function AssignmentEditor() {
           </div>
           <hr />
           <div id="wd-assignment-submission-buttons">
-            <button className="btn btn-danger float-end text-white">Save</button>
-            <button className="btn btn-secondary float-end">Cancel</button>
+            <button className="btn btn-danger float-end text-white me-1">Save</button>
+            <button className="btn btn-secondary float-end me-1">Cancel</button>
           </div>
         </form>
 
