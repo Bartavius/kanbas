@@ -4,6 +4,7 @@ import Courses from "./Courses";
 import Dashboard from "./Dashboard";
 import KanbasNavigation from "./Navigation";
 import "./styles.css";
+import PeopleTable from "./Courses/People/Table";
 export default function Kanbas() {
   return (
     <div id="wd-kanbas">
