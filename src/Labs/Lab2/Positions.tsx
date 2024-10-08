@@ -1,4 +1,4 @@
-export default function() {
+export default function Positions() {
     return (
         <div>
             <div id="wd-css-position-relative">

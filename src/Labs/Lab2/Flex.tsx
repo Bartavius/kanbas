@@ -1,4 +1,4 @@
-export default function() {
+export default function Flex() {
     return (
         <div id="wd-css-flex">
             <h2>Flex</h2>
