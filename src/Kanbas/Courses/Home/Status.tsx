@@ -7,7 +7,6 @@ import { BsBarChartFill } from "react-icons/bs";
 import { BsMegaphone } from "react-icons/bs";
 import { FaBell } from "react-icons/fa";
 
-
 export default function CourseStatus() {
     return (
       <div id="wd-course-status" style={{ width: "300px" }}>

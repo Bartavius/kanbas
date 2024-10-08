@@ -3,6 +3,7 @@ import GreenCheckmark from "./GreenCheckmark";
 import GreyBan from "./GreyBan";
 export default function ModulesControls() {
   return (
+    <form>
     <div id="wd-modules-controls" className="text-nowrap">
       <button id="wd-add-module-btn" className="btn btn-lg btn-danger me-1 float-end">
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
@@ -13,26 +14,28 @@ export default function ModulesControls() {
           <GreenCheckmark />
           Publish All</button>
     
+        {/* Using <a> prevents me from publishing the site on netlify as it considers href="#" an invalid link, so I'm replacing
+        it with buttons instead */}
         <ul className="dropdown-menu">
           <li>
-            <a id="wd-publish-all-modules-and-items-btn" className="dropdown-item" href="#">
+            <button id="wd-publish-all-modules-and-items-btn" className="dropdown-item">
               <GreenCheckmark />
-              Publish all modules and items</a>
+              Publish all modules and items</button>
           </li>
           <li>
-            <a id="wd-publish-modules-only-button" className="dropdown-item" href="#">
+            <button id="wd-publish-modules-only-button" className="dropdown-item">
               <GreenCheckmark />
-              Publish modules only</a>
+              Publish modules only</button>
           </li>
           <li>
-            <a id="wd-unpublish-all-modules-and-iteams" className="dropdown-item" href="#">
+            <button id="wd-unpublish-all-modules-and-iteams" className="dropdown-item">
                 <GreyBan />
-                Unpublish all modules and items</a>
+                Unpublish all modules and items</button>
           </li>
           <li>
-            <a id="wd-unpublish-modules-only" className="dropdown-item" href="#">
+            <button id="wd-unpublish-modules-only" className="dropdown-item">
                 <GreyBan />
-                Unpublish modules only</a>
+                Unpublish modules only</button>
           </li>
           {/* Create two more items with IDs wd-unpublish-all-modules-and-items and
               wd-unpublish-modules-only with labels Unpublish all modules and items
@@ -44,4 +47,5 @@ export default function ModulesControls() {
       <button id="wd-view-progress" className="btn btn-lg btn-secondary me-1 float-end">View Progress</button>
       <button id="wd-collapse-all" className="btn btn-lg btn-secondary me-1 float-end">Collapse All</button>
     </div>
+    </form>
 );}
