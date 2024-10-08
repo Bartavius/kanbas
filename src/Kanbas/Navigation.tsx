@@ -22,8 +22,9 @@ export default function KanbasNavigation() {
       <FaRegCircleUser className="fs-1 text text-white" /><br />
       Account</Link>
       
+      {/* active, black > white, currently set as white by default*/}
       <Link to="/Kanbas/Dashboard" id="wd-dashboard-link"
-      className="list-group-item text-center border-0
+      className="list-group-item text-center border-0 
       bg-white text-danger">
       <AiOutlineDashboard className="fs-1 text-danger" /><br />
       Dashboard</Link>
