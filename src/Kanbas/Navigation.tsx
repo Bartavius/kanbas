@@ -3,14 +3,14 @@ import { AiOutlineDashboard } from "react-icons/ai";
 import { IoCalendarOutline } from "react-icons/io5";
 import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
 import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
+import { useLocation } from "react-router";
 
 export default function KanbasNavigation() {
+  const { pathname } = useLocation();
   return (
     <div id="wd-kanbas-navigation" style={{ width: 110 }} 
     className="list-group rounded-0 position-fixed
     bottom-0 top-0 d-none d-md-block bg-black z-2">
-
-      {/* not sure how to make it so that bgcolor change with selection */}
       
       <a href="https://www.northeastern.edu/" id="wd-neu-link" target="_blank" rel="noreferrer"
       className="list-group-item bg-black border-0 text-center">
@@ -18,30 +18,31 @@ export default function KanbasNavigation() {
       </a>
       
       <Link to="/Kanbas/Account" id="wd-account-link"
-      className="list-group-item text-center border-0 bg-black text-white">
-      <FaRegCircleUser className="fs-1 text text-white" /><br />
+      className={`nav-link list-group-item text-center border-0 bg-black text-white ${pathname.includes("Account") ? "active" : ""}`}>
+      <FaRegCircleUser className="fs-1 text text-danger" /><br />
       Account</Link>
       
-      {/* active, black > white, currently set as white by default*/}
       <Link to="/Kanbas/Dashboard" id="wd-dashboard-link"
-      className="list-group-item text-center border-0 
-      bg-white text-danger">
+      className={`nav-link list-group-item text-center border-0 
+      bg-black text-white ${pathname.includes("Dashboard") ? "active" : ""}`}>
       <AiOutlineDashboard className="fs-1 text-danger" /><br />
       Dashboard</Link>
       
-      <Link to="/Kanbas/Dashboard" id="wd-course-link"
-      className="list-group-item text-white
-      bg-black text-center border-0">
+      <Link to="/Kanbas/Courses" id="wd-course-link"
+      className={`nav-link list-group-item text-center border-0 
+        bg-black text-white ${pathname.includes("Courses") ? "active" : ""}`}>
       <LiaBookSolid className="fs-1 text-danger" /><br />
       Courses</Link>
 
       <Link to="/Kanbas/Calendar" id="wd-calendar-link"
-      className="list-group-item text-white bg-black text-center border-0">
+      className={`nav-link list-group-item text-center border-0 
+        bg-black text-white ${pathname.includes("Calendar") ? "active" : ""}`}>
       <IoCalendarOutline className="fs-1 text-danger" /><br/>
       Calendar</Link>
       
       <Link to="/Kanbas/Inbox" id="wd-inbox-link"
-      className="list-group-item text-white bg-black text-center border-0">
+      className={`nav-link list-group-item text-center border-0 
+        bg-black text-white ${pathname.includes("Inbox") ? "active" : ""}`}>
       <FaInbox className="fs-1 text-danger"/><br />
       Inbox</Link>
 
