@@ -9,6 +9,14 @@ import LegacyFunctions from "./LegacyFunction";
 import ArrowFunctions from "./ArrowFunctions";
 import TemplateLiterals from "./TemplateLiterals";
 import SimpleArrays from "./SimpleArrays";
+import ArrayIndexAndLength from "./ArrayIndexAndLength";
+import AddingAndRemovingToFromArrays from "./AddingAndRemovingFromToArray";
+import ForLoops from "./ForLoops";
+import MapFunction from "./MapFunction";
+import FindFunction from "./FindFunction";
+import FindIndex from "./FindIndex";
+import FilterFunction from "./FilterFunction";
+import JsonStringify from "./JsonStringify";
 
 export default function Lab3() {
     return (
@@ -25,6 +33,14 @@ export default function Lab3() {
             <ArrowFunctions />
             <TemplateLiterals />
             <SimpleArrays />
+            <ArrayIndexAndLength />
+            <AddingAndRemovingToFromArrays />
+            <ForLoops />
+            <MapFunction />
+            <FindFunction />
+            <FindIndex />
+            <FilterFunction />
+            <JsonStringify />
         </div>
     );
 }
