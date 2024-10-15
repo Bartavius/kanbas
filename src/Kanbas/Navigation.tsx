@@ -18,31 +18,31 @@ export default function KanbasNavigation() {
       </a>
       
       <Link to="/Kanbas/Account" id="wd-account-link"
-      className={`nav-link list-group-item text-center border-0 bg-black text-white ${pathname.includes("Account") ? "active" : ""}`}>
+      className={`nav-link list-group-item text-center border-0 bg-black text-white ${pathname.includes("Account") ? "active-primary" : ""}`}>
       <FaRegCircleUser className="fs-1 text text-danger" /><br />
       Account</Link>
       
       <Link to="/Kanbas/Dashboard" id="wd-dashboard-link"
       className={`nav-link list-group-item text-center border-0 
-      bg-black text-white ${pathname.includes("Dashboard") ? "active" : ""}`}>
+      bg-black text-white ${pathname.includes("Dashboard") ? "active-primary" : ""}`}>
       <AiOutlineDashboard className="fs-1 text-danger" /><br />
       Dashboard</Link>
       
       <Link to="/Kanbas/Courses" id="wd-course-link"
       className={`nav-link list-group-item text-center border-0 
-        bg-black text-white ${pathname.includes("Courses") ? "active" : ""}`}>
+        bg-black text-white ${pathname.includes("Courses") ? "active-primary" : ""}`}>
       <LiaBookSolid className="fs-1 text-danger" /><br />
       Courses</Link>
 
       <Link to="/Kanbas/Calendar" id="wd-calendar-link"
       className={`nav-link list-group-item text-center border-0 
-        bg-black text-white ${pathname.includes("Calendar") ? "active" : ""}`}>
+        bg-black text-white ${pathname.includes("Calendar") ? "active-primary" : ""}`}>
       <IoCalendarOutline className="fs-1 text-danger" /><br/>
       Calendar</Link>
       
       <Link to="/Kanbas/Inbox" id="wd-inbox-link"
       className={`nav-link list-group-item text-center border-0 
-        bg-black text-white ${pathname.includes("Inbox") ? "active" : ""}`}>
+        bg-black text-white ${pathname.includes("Inbox") ? "active-primary" : ""}`}>
       <FaInbox className="fs-1 text-danger"/><br />
       Inbox</Link>
 
