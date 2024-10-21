@@ -1,5 +1,75 @@
 [
     {
+        "_id": "CS101",
+        "name": "React JS",
+        "number": "CS1234",
+        "startDate": "2023-01-10",
+        "endDate": "2023-05-15",
+        "department": "CS123",
+        "credits": 4,
+        "description": "Full Stack software developer."
+    },
+    {
+        "_id": "JPL101",
+        "name": "Japanese",
+        "number": "JPL1000",
+        "startDate": "2023-01-10",
+        "endDate": "2023-05-15",
+        "department": "JP123",
+        "credits": 4,
+        "description": "Introduction to Japanese."
+    },
+    {
+        "_id": "GEO101",
+        "name": "Geoguessr",
+        "number": "GEO9999",
+        "startDate": "2023-01-10",
+        "endDate": "2023-05-15",
+        "department": "GEO123",
+        "credits": 4,
+        "description": "Geolocating where we are in the world!"
+    },
+    {
+        "_id": "GUIT101",
+        "name": "Guitar Class",
+        "number": "GUIT2000",
+        "startDate": "2023-01-10",
+        "endDate": "2023-05-15",
+        "department": "MUSIC123",
+        "credits": 4,
+        "description": "Learn the ultimate W Rizz of playing the guitar!"
+    },
+    {
+        "_id": "DNCE101",
+        "name": "Ballroom Dancing",
+        "number": "DNCE1001",
+        "startDate": "2023-01-10",
+        "endDate": "2023-05-15",
+        "department": "DANCE123",
+        "credits": 4,
+        "description": "Ultimate Dancing Rizz: Ballroom Dancing."
+    },
+    {
+        "_id": "CS102",
+        "name": "Algorithms and Data Structures",
+        "number": "CS3000",
+        "startDate": "2023-01-10",
+        "endDate": "2023-05-15",
+        "department": "CS123",
+        "credits": 4,
+        "description": "Pseudocoding into Oblivion...."
+    },
+    {
+        "_id": "CHSS101",
+        "name": "Chess Openings",
+        "number": "CHSS3500",
+        "startDate": "2023-01-10",
+        "endDate": "2023-05-15",
+        "department": "CHESS123",
+        "credits": 4,
+        "description": "THe Opening Path to Grandmaster."
+    },
+    {
       "_id": "RS101",
       "name": "Rocket Propulsion",
       "number": "RS4550",
