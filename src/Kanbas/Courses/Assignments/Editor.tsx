@@ -3,6 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import { LuCalendarDays } from "react-icons/lu";
 import { useParams } from "react-router";
 import * as db from "../../Database";
+import { Link } from "react-router-dom";
 export default function AssignmentEditor() {
   let { cid } = useParams();
   let { aid } = useParams();
@@ -122,8 +123,23 @@ export default function AssignmentEditor() {
           </div>
           <hr />
           <div id="wd-assignment-submission-buttons">
-            <button className="btn btn-danger float-end text-white me-1">Save</button>
-            <button className="btn btn-secondary float-end me-1">Cancel</button>
+            <ul className="nav nav-pill float-end">
+              <li className="nav-item">
+                <Link
+                  id="wd-course-home-link" to={`/Kanbas/Courses/${cid}/Assignments`}
+                  className={`nav-link text-danger border-0`}>
+                  <button className="btn btn-secondary rounded-1">Cancel</button>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link
+                  id="wd-course-home-link" to={`/Kanbas/Courses/${cid}/Assignments`}
+                  className={`nav-link text-danger border-0`}>
+                  <button className="btn btn-danger text-white rounded-1">Save</button>
+                </Link>
+              </li>
+            </ul>
+            
           </div>
         </form>
 
