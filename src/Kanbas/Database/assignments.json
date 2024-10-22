@@ -1,66 +1,374 @@
 [
-    { "_id": "A101", "title": "Propulsion Assignment", "course": "RS101" },
-    { "_id": "A102", "title": "Combustion Analysis", "course": "RS101" },
-    { "_id": "A103", "title": "Nozzle Design Project", "course": "RS101" },
-    { "_id": "A201", "title": "Aerodynamics Quiz", "course": "RS102" },
-    { "_id": "A202", "title": "Flow Analysis", "course": "RS102" },
-    { "_id": "A203", "title": "Heating Analysis", "course": "RS102" },
-    { "_id": "A301", "title": "Structural Design Task", "course": "RS103" },
-    { "_id": "A302", "title": "Orbital Calculations", "course": "RS103" },
-    { "_id": "A303", "title": "Systems Engineering Exam", "course": "RS103" },
-    
-    { "_id": "A101", "title": "Week 1 Reflection", "course": "CS101" },
-    { "_id": "A102", "title": "Web Development Quiz", "course": "CS101" },
-    { "_id": "A103", "title": "HTML/CSS Assignment", "course": "CS101" },
-    { "_id": "A104", "title": "JavaScript Basic Exercises", "course": "CS101" },
-    { "_id": "A201", "title": "Recursive Algorithms Practice", "course": "CS102" },
-    { "_id": "A202", "title": "Sorting Algorithm Project", "course": "CS102" },
-    { "_id": "A203", "title": "Binary Search Tree Task", "course": "CS102" },
-    { "_id": "A204", "title": "Graph Algorithm Assignment", "course": "CS102" },
-    
-    { "_id": "A301", "title": "Italian Game Practice", "course": "CHSS101" },
-    { "_id": "A302", "title": "Ruy Lopez Opening Analysis", "course": "CHSS101" },
-    { "_id": "A303", "title": "Sicilian Defense Quiz", "course": "CHSS101" },
-    { "_id": "A304", "title": "French Defense Strategy", "course": "CHSS101" },
-    { "_id": "A305", "title": "King's Indian Defense Exploration", "course": "CHSS101" },
-    { "_id": "A306", "title": "Hypermodern Openings Task", "course": "CHSS101" },
-    
-    { "_id": "A401", "title": "Rocket Propulsion Review", "course": "RS101" },
-    { "_id": "A402", "title": "Rocket Engine Types Research", "course": "RS101" },
-    { "_id": "A403", "title": "Fuel and Combustion Study", "course": "RS101" },
-    { "_id": "A404", "title": "Nozzle Performance Analysis", "course": "RS101" },
-    { "_id": "A405", "title": "Combustion Instability Case Study", "course": "RS101" },
-    
-    { "_id": "A501", "title": "Aerodynamics Fundamentals Test", "course": "RS102" },
-    { "_id": "A502", "title": "Subsonic and Supersonic Flow Experiment", "course": "RS102" },
-    { "_id": "A503", "title": "Aerodynamic Heating Research", "course": "RS102" },
-    
-    { "_id": "A601", "title": "Spacecraft Structural Design Proposal", "course": "RS103" },
-    { "_id": "A602", "title": "Orbital Mechanics Calculations", "course": "RS103" },
-    { "_id": "A603", "title": "Systems Engineering Case Study", "course": "RS103" },
-    
-    { "_id": "A701", "title": "Japanese Vocabulary Quiz", "course": "JPL101" },
-    { "_id": "A702", "title": "Kanji Practice Exercise", "course": "JPL101" },
-    { "_id": "A703", "title": "Hiragana and Katakana Test", "course": "JPL101" },
-    { "_id": "A704", "title": "Japanese Culture Reflection", "course": "JPL101" },
-    
-    { "_id": "A801", "title": "Geoguessr Practice Task", "course": "GEO101" },
-    { "_id": "A802", "title": "Geography Quiz", "course": "GEO101" },
-    { "_id": "A803", "title": "Exploring Locations Analysis", "course": "GEO101" },
-    { "_id": "A804", "title": "Mapping Tools Practice", "course": "GEO101" },
-    
-    { "_id": "A901", "title": "Ballroom Dancing Routine", "course": "DNCE101" },
-    { "_id": "A902", "title": "Foxtrot Performance Task", "course": "DNCE101" },
-    { "_id": "A903", "title": "Waltz Technique Assignment", "course": "DNCE101" },
-    { "_id": "A904", "title": "Cha-Cha-Cha Rhythm Practice", "course": "DNCE101" },
-    { "_id": "A905", "title": "Salsa Dancing Practice", "course": "DNCE101" },
-    
-    { "_id": "A101", "title": "Basic Chord Progression Practice", "course": "GUIT101" },
-    { "_id": "A102", "title": "Strumming Pattern Exercise", "course": "GUIT101" },
-    { "_id": "A103", "title": "Fingerstyle Technique Assignment", "course": "GUIT101" },
-    { "_id": "A104", "title": "Simple Song Cover", "course": "GUIT101" },
-    { "_id": "A105", "title": "Music Theory: Scales and Notes Quiz", "course": "GUIT101" },
-    { "_id": "A106", "title": "Chord Transition Challenge", "course": "GUIT101" },
-    { "_id": "A107", "title": "Improvisation Practice", "course": "GUIT101" }
+    {
+      "course": "RS101",
+      "assignment_group": "assignment",
+      "percentage": "50",
+      "assignments": [
+        {
+          "_id": "A101",
+          "title": "Propulsion Assignment",
+          "description": "Analyze the propulsion systems for different spacecraft designs.",
+          "points": "100",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 13 at 12:00am",
+          "available_from": "May 6 at 12:00am",
+          "available_until": "May 13 at 12:00am",
+          "course": "RS101"
+        },
+        {
+          "_id": "A102",
+          "title": "Combustion Analysis",
+          "description": "Study the combustion processes used in rocket propulsion.",
+          "points": "100",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 13 at 12:00am",
+          "available_from": "May 6 at 12:00am",
+          "available_until": "May 13 at 12:00am",
+          "course": "RS101"
+        }
+      ]
+    },
+    {
+      "course": "RS101",
+      "assignment_group": "quiz",
+      "percentage": "30",
+      "assignments": [
+        {
+          "_id": "A103",
+          "title": "Nozzle Design Quiz",
+          "description": "A quiz on nozzle design principles for rocket propulsion.",
+          "points": "50",
+          "assignment_group": "quiz",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 18 at 12:00am",
+          "available_from": "May 11 at 12:00am",
+          "available_until": "May 18 at 12:00am",
+          "course": "RS101"
+        }
+      ]
+    },
+    {
+      "course": "RS101",
+      "assignment_group": "extra credit",
+      "percentage": "20",
+      "assignments": [
+        {
+          "_id": "A104",
+          "title": "Combustion Instability Extra Credit",
+          "description": "Extra credit opportunity to study combustion instability in rocket engines.",
+          "points": "50",
+          "assignment_group": "extra credit",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 25 at 12:00am",
+          "available_from": "May 18 at 12:00am",
+          "available_until": "May 25 at 12:00am",
+          "course": "RS101"
+        }
+      ]
+    },
+    {
+      "course": "RS102",
+      "assignment_group": "assignment",
+      "percentage": "60",
+      "assignments": [
+        {
+          "_id": "A201",
+          "title": "Flow Analysis",
+          "description": "Study the behavior of airflow over various surfaces.",
+          "points": "100",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 15 at 12:00am",
+          "available_from": "May 5 at 12:00am",
+          "available_until": "May 15 at 12:00am",
+          "course": "RS102"
+        }
+      ]
+    },
+    {
+      "course": "RS102",
+      "assignment_group": "quiz",
+      "percentage": "30",
+      "assignments": [
+        {
+          "_id": "A202",
+          "title": "Aerodynamics Quiz",
+          "description": "Test your knowledge on aerodynamics principles.",
+          "points": "50",
+          "assignment_group": "quiz",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 12 at 12:00am",
+          "available_from": "May 3 at 12:00am",
+          "available_until": "May 12 at 12:00am",
+          "course": "RS102"
+        }
+      ]
+    },
+    {
+      "course": "RS102",
+      "assignment_group": "extra credit",
+      "percentage": "10",
+      "assignments": [
+        {
+          "_id": "A203",
+          "title": "Aerodynamic Heating Extra Credit",
+          "description": "Extra credit for researching aerodynamic heating in high-speed flight.",
+          "points": "50",
+          "assignment_group": "extra credit",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 20 at 12:00am",
+          "available_from": "May 10 at 12:00am",
+          "available_until": "May 20 at 12:00am",
+          "course": "RS102"
+        }
+      ]
+    },
+    {
+      "course": "RS103",
+      "assignment_group": "assignment",
+      "percentage": "70",
+      "assignments": [
+        {
+          "_id": "A301",
+          "title": "Structural Design Task",
+          "description": "Design the structural elements of a spacecraft.",
+          "points": "100",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 25 at 12:00am",
+          "available_from": "May 10 at 12:00am",
+          "available_until": "May 25 at 12:00am",
+          "course": "RS103"
+        }
+      ]
+    },
+    {
+      "course": "RS103",
+      "assignment_group": "quiz",
+      "percentage": "20",
+      "assignments": [
+        {
+          "_id": "A302",
+          "title": "Orbital Calculations Quiz",
+          "description": "A quiz to test your knowledge of orbital mechanics.",
+          "points": "50",
+          "assignment_group": "quiz",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 30 at 12:00am",
+          "available_from": "May 15 at 12:00am",
+          "available_until": "May 30 at 12:00am",
+          "course": "RS103"
+        }
+      ]
+    },
+    {
+      "course": "RS103",
+      "assignment_group": "extra credit",
+      "percentage": "10",
+      "assignments": [
+        {
+          "_id": "A303",
+          "title": "Systems Engineering Extra Credit",
+          "description": "Extra credit for advanced study on spacecraft systems engineering.",
+          "points": "50",
+          "assignment_group": "extra credit",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 31 at 12:00am",
+          "available_from": "May 20 at 12:00am",
+          "available_until": "May 31 at 12:00am",
+          "course": "RS103"
+        }
+      ]
+    },
+    {
+      "course": "CS101",
+      "assignment_group": "assignment",
+      "percentage": "50",
+      "assignments": [
+        {
+          "_id": "A101",
+          "title": "Week 1 Reflection",
+          "description": "Reflect on the concepts learned in the first week of the course.",
+          "points": "50",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 6 at 12:00am",
+          "available_from": "May 1 at 12:00am",
+          "available_until": "May 6 at 12:00am",
+          "course": "CS101"
+        }
+      ]
+    },
+    {
+      "course": "CS101",
+      "assignment_group": "quiz",
+      "percentage": "30",
+      "assignments": [
+        {
+          "_id": "A102",
+          "title": "Web Development Quiz",
+          "description": "Test your knowledge on web development basics.",
+          "points": "50",
+          "assignment_group": "quiz",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 8 at 12:00am",
+          "available_from": "May 3 at 12:00am",
+          "available_until": "May 8 at 12:00am",
+          "course": "CS101"
+        }
+      ]
+    },
+    {
+      "course": "CS101",
+      "assignment_group": "extra credit",
+      "percentage": "20",
+      "assignments": [
+        {
+          "_id": "A103",
+          "title": "HTML/CSS Extra Credit",
+          "description": "Extra credit for mastering HTML/CSS techniques.",
+          "points": "50",
+          "assignment_group": "extra credit",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 12 at 12:00am",
+          "available_from": "May 7 at 12:00am",
+          "available_until": "May 12 at 12:00am",
+          "course": "CS101"
+        }
+      ]
+    },
+    {
+      "course": "JPL101",
+      "assignment_group": "assignment",
+      "percentage": "50",
+      "assignments": [
+        {
+          "_id": "A701",
+          "title": "Japanese Vocabulary Quiz",
+          "description": "Master common Japanese vocabulary.",
+          "points": "50",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 10 at 12:00am",
+          "available_from": "May 5 at 12:00am",
+          "available_until": "May 10 at 12:00am",
+          "course": "JPL101"
+        }
+      ]
+    },
+    {
+      "course": "GEO101",
+      "assignment_group": "assignment",
+      "percentage": "60",
+      "assignments": [
+        {
+          "_id": "A801",
+          "title": "Geoguessr Practice Task",
+          "description": "Practice using Geoguessr to identify locations around the world.",
+          "points": "50",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 14 at 12:00am",
+          "available_from": "May 7 at 12:00am",
+          "available_until": "May 14 at 12:00am",
+          "course": "GEO101"
+        }
+      ]
+    },
+    {
+      "course": "GUIT101",
+      "assignment_group": "assignment",
+      "percentage": "50",
+      "assignments": [
+        {
+          "_id": "A101",
+          "title": "Basic Chord Progression Practice",
+          "description": "Practice basic chord progressions on the guitar.",
+          "points": "50",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 15 at 12:00am",
+          "available_from": "May 8 at 12:00am",
+          "available_until": "May 15 at 12:00am",
+          "course": "GUIT101"
+        }
+      ]
+    },
+    {
+      "course": "DNCE101",
+      "assignment_group": "assignment",
+      "percentage": "60",
+      "assignments": [
+        {
+          "_id": "A901",
+          "title": "Ballroom Dancing Routine",
+          "description": "Create and practice a ballroom dancing routine.",
+          "points": "50",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 20 at 12:00am",
+          "available_from": "May 10 at 12:00am",
+          "available_until": "May 20 at 12:00am",
+          "course": "DNCE101"
+        }
+      ]
+    },
+    {
+      "course": "CHSS101",
+      "assignment_group": "assignment",
+      "percentage": "50",
+      "assignments": [
+        {
+          "_id": "A301",
+          "title": "Italian Game Practice",
+          "description": "Practice playing the Italian Game in chess.",
+          "points": "50",
+          "assignment_group": "assignment",
+          "submission_type": "online",
+          "display_grade_as": "percentage",
+          "assign_to": "everyone",
+          "due_date": "May 18 at 12:00am",
+          "available_from": "May 10 at 12:00am",
+          "available_until": "May 18 at 12:00am",
+          "course": "CHSS101"
+        }
+      ]
+    }
   ]
   
