@@ -1,0 +1,66 @@
+[
+    { "_id": "A101", "title": "Propulsion Assignment", "course": "RS101" },
+    { "_id": "A102", "title": "Combustion Analysis", "course": "RS101" },
+    { "_id": "A103", "title": "Nozzle Design Project", "course": "RS101" },
+    { "_id": "A201", "title": "Aerodynamics Quiz", "course": "RS102" },
+    { "_id": "A202", "title": "Flow Analysis", "course": "RS102" },
+    { "_id": "A203", "title": "Heating Analysis", "course": "RS102" },
+    { "_id": "A301", "title": "Structural Design Task", "course": "RS103" },
+    { "_id": "A302", "title": "Orbital Calculations", "course": "RS103" },
+    { "_id": "A303", "title": "Systems Engineering Exam", "course": "RS103" },
+    
+    { "_id": "A101", "title": "Week 1 Reflection", "course": "CS101" },
+    { "_id": "A102", "title": "Web Development Quiz", "course": "CS101" },
+    { "_id": "A103", "title": "HTML/CSS Assignment", "course": "CS101" },
+    { "_id": "A104", "title": "JavaScript Basic Exercises", "course": "CS101" },
+    { "_id": "A201", "title": "Recursive Algorithms Practice", "course": "CS102" },
+    { "_id": "A202", "title": "Sorting Algorithm Project", "course": "CS102" },
+    { "_id": "A203", "title": "Binary Search Tree Task", "course": "CS102" },
+    { "_id": "A204", "title": "Graph Algorithm Assignment", "course": "CS102" },
+    
+    { "_id": "A301", "title": "Italian Game Practice", "course": "CHSS101" },
+    { "_id": "A302", "title": "Ruy Lopez Opening Analysis", "course": "CHSS101" },
+    { "_id": "A303", "title": "Sicilian Defense Quiz", "course": "CHSS101" },
+    { "_id": "A304", "title": "French Defense Strategy", "course": "CHSS101" },
+    { "_id": "A305", "title": "King's Indian Defense Exploration", "course": "CHSS101" },
+    { "_id": "A306", "title": "Hypermodern Openings Task", "course": "CHSS101" },
+    
+    { "_id": "A401", "title": "Rocket Propulsion Review", "course": "RS101" },
+    { "_id": "A402", "title": "Rocket Engine Types Research", "course": "RS101" },
+    { "_id": "A403", "title": "Fuel and Combustion Study", "course": "RS101" },
+    { "_id": "A404", "title": "Nozzle Performance Analysis", "course": "RS101" },
+    { "_id": "A405", "title": "Combustion Instability Case Study", "course": "RS101" },
+    
+    { "_id": "A501", "title": "Aerodynamics Fundamentals Test", "course": "RS102" },
+    { "_id": "A502", "title": "Subsonic and Supersonic Flow Experiment", "course": "RS102" },
+    { "_id": "A503", "title": "Aerodynamic Heating Research", "course": "RS102" },
+    
+    { "_id": "A601", "title": "Spacecraft Structural Design Proposal", "course": "RS103" },
+    { "_id": "A602", "title": "Orbital Mechanics Calculations", "course": "RS103" },
+    { "_id": "A603", "title": "Systems Engineering Case Study", "course": "RS103" },
+    
+    { "_id": "A701", "title": "Japanese Vocabulary Quiz", "course": "JPL101" },
+    { "_id": "A702", "title": "Kanji Practice Exercise", "course": "JPL101" },
+    { "_id": "A703", "title": "Hiragana and Katakana Test", "course": "JPL101" },
+    { "_id": "A704", "title": "Japanese Culture Reflection", "course": "JPL101" },
+    
+    { "_id": "A801", "title": "Geoguessr Practice Task", "course": "GEO101" },
+    { "_id": "A802", "title": "Geography Quiz", "course": "GEO101" },
+    { "_id": "A803", "title": "Exploring Locations Analysis", "course": "GEO101" },
+    { "_id": "A804", "title": "Mapping Tools Practice", "course": "GEO101" },
+    
+    { "_id": "A901", "title": "Ballroom Dancing Routine", "course": "DNCE101" },
+    { "_id": "A902", "title": "Foxtrot Performance Task", "course": "DNCE101" },
+    { "_id": "A903", "title": "Waltz Technique Assignment", "course": "DNCE101" },
+    { "_id": "A904", "title": "Cha-Cha-Cha Rhythm Practice", "course": "DNCE101" },
+    { "_id": "A905", "title": "Salsa Dancing Practice", "course": "DNCE101" },
+    
+    { "_id": "A101", "title": "Basic Chord Progression Practice", "course": "GUIT101" },
+    { "_id": "A102", "title": "Strumming Pattern Exercise", "course": "GUIT101" },
+    { "_id": "A103", "title": "Fingerstyle Technique Assignment", "course": "GUIT101" },
+    { "_id": "A104", "title": "Simple Song Cover", "course": "GUIT101" },
+    { "_id": "A105", "title": "Music Theory: Scales and Notes Quiz", "course": "GUIT101" },
+    { "_id": "A106", "title": "Chord Transition Challenge", "course": "GUIT101" },
+    { "_id": "A107", "title": "Improvisation Practice", "course": "GUIT101" }
+  ]
+  
