@@ -1,29 +1,36 @@
 import { IoIosArrowDown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { LuCalendarDays } from "react-icons/lu";
+import { useParams } from "react-router";
+import * as db from "../../Database";
 export default function AssignmentEditor() {
+  let { cid } = useParams();
+  let { aid } = useParams();
+  let assignments = db.assignments;
+  const course = assignments.filter((course : any) => course.course === cid);
+  const assignment = course.map((a:any) => (
+    a.assignments.filter((assignment: any) => assignment._id === aid))).find(arr => arr.length > 0)[0];
+
     return (
       <div id="wd-assignments-editor">
-        <label htmlFor="wd-name" className="form-label d-block"><h5>Assignment Name</h5></label>
+    
+       <label htmlFor="wd-name" className="form-label d-block"><h5>Assignment Name</h5></label>
 
-        <input id="wd-name" className="form-control" value="A1 - ENV + HTML" />
+        <input id="wd-name" className="form-control" value={assignment ? assignment.title : ""} />
         <textarea id="wd-description" className="form-control mt-5" rows={10} >
-          The assignment is available online Submit a link to the landing page of your web application running
-          on Netlify. The landing page should include the following: Your full name and section Links to each of the lab
-          assignments Link to the Kanbas application Links to all relevant source code repositories
-          The Kanbas application should include a link to navigate back to the landing page.
+          {assignment ? assignment.description : ""}
         </textarea>
 
         <form>
           <div className="mt-5 row g-3">
             <label htmlFor="wd-points" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Points</label>
-            <input id="wd-points" value={100} className="form-control col "/>
+            <input id="wd-points" value={assignment ? assignment.points : ""} className="form-control col "/>
           </div>
 
           <div className="mt-2 row g-3">
             <label htmlFor="wd-group" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Assignment Group</label>
             <select name="assignment-group" id="wd-group" className="col form-select">
-                <option value="ASSIGNMENTS">ASSIGNMENTS
+                <option value={assignment ? assignment.assignment_group.toUpperCase() : ""}>{assignment ? assignment.assignment_group.toUpperCase() : ""}
                   <IoIosArrowDown className="float-end"/>
                 </option>
             </select>
@@ -32,8 +39,8 @@ export default function AssignmentEditor() {
           <div className="mt-2 row g-3">
             <label htmlFor="wd-display-grade-as" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Display Grade as</label>
             <select name="display-grade-as" id="wd-display-grade-as" className="col form-select">
-                  <option value="PERCENTAGE">
-                    Percentage
+                  <option value={assignment ? assignment.display_grade_as.toUpperCase() : ""}>
+                  {assignment ? assignment.display_grade_as.toUpperCase() : ""}
                     <IoIosArrowDown className="float-end" />
                   </option>
             </select>
@@ -43,8 +50,8 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-submission-type" className="form-label col-4 d-flex justify-content-end align-text-end pe-5">Submission Type</label>
             <div className="container border border-dark col rounded-1">
               <select name="submission-type" id="wd-submission-type" className="form-select ml-3 mt-3 mr-3 mb-3 justify-content-center align-items-center">
-                <option value="Online">
-                  Online
+                <option value={assignment ? assignment.submission_type : ""}>
+                  {assignment ? assignment.submission_type : ""}
                   <IoIosArrowDown className="float-end" />
                 </option>
               </select>
@@ -80,13 +87,13 @@ export default function AssignmentEditor() {
               <label htmlFor="wd-assign-to" className="form-label mt-3"><h4>Assign to</h4></label>
               <div className="container border border-dark rounded-1">
                 <button className="flex btn btn-secondary mt-2 mb-2">
-                  Everyone <RxCross2 className="float-end"/>
+                  {assignment ? assignment.assign_to : ""} <RxCross2 className="float-end"/>
                 </button>
               </div>
 
               <label htmlFor="wd-due-date" className="form-label mt-3"><h4>Due</h4></label>
               <div className="input-group">
-                <input type="text" id="wd-due-date" className="input-group-text form-control" value="May 13, 2024, 11:59PM"/>
+                <input type="text" id="wd-due-date" className="input-group-text form-control" value={assignment ? assignment.due_date : ""}/>
                 <label htmlFor= "wd-due-date" className="rounded-1 input-group-text form-label bg-secondary"><LuCalendarDays/></label>
               </div> 
 
@@ -94,7 +101,7 @@ export default function AssignmentEditor() {
                 <div className="col-6">
                   <label htmlFor="wd-available-from" className="form-label"><h4>Available from</h4></label>
                   <div className="input-group">
-                    <input className="input-group-text rounded-1 form-control" type="text" id="wd-available-from" value="May 6, 2024, 12:00AM"/>
+                    <input className="input-group-text rounded-1 form-control" type="text" id="wd-available-from" value={assignment ? assignment.available_from : ""}/>
                     <label htmlFor= "wd-available-from" className="rounded-1 input-group-text form-label bg-secondary"><LuCalendarDays/></label>
                   </div>
                 </div>
@@ -102,7 +109,7 @@ export default function AssignmentEditor() {
                 <div className="col-6 flex">
                   <label htmlFor="wd-available-until" className="form-label"><h4>Until</h4></label>
                   <div className="input-group">
-                    <input className="input-group-text rounded-1 form-control" type="text" id="wd-available-until"/>
+                    <input className="input-group-text rounded-1 form-control" type="text" id="wd-available-until" value={assignment ? assignment.available_until : ""}/>
                     <label htmlFor= "wd-available-until" className="rounded-1 input-group-text form-label bg-secondary"><LuCalendarDays/></label>
                   </div>
                 </div>
