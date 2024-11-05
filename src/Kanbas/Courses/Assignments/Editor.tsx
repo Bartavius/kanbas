@@ -3,18 +3,15 @@ import { RxCross2 } from "react-icons/rx";
 import { LuCalendarDays } from "react-icons/lu";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addAssignment } from "./reducer";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addAssignment, updateAssignment } from "./reducer";
 import formatDate from "./formatDate";
 export default function AssignmentEditor( 
-  // {assignment, setAssignment} :
-  // {assignment: any, setAssignment: (assignment:any) => void}
 ) {
   let { cid } = useParams();
   let { aid } = useParams();
   const dispatch = useDispatch();
-  //const [assignment, setAssignment] = useState(assignments.find((course : any) => course.course === cid && course._id === aid));
   const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
@@ -24,14 +21,13 @@ export default function AssignmentEditor(
     const formattedToday = formatDate({date: today});
     const formattedTomorrow = formatDate({date : tomorrow });
     const formattedTwoDays = formatDate({date: twoDays});
-    
   const [assignment, setAssignment] = useState<any>({
     _id: aid,
     title: "New Assignment",
-    description: "New Assignment Description",
+    description: "New Assignment",
     points: "100",
     assignment_group: "assignments",
-    submissionType: "online",
+    submission_type: "online",
     display_grade_as: "percentage",
     assign_to: "everyone",
     due_date: formattedTomorrow,
@@ -39,15 +35,21 @@ export default function AssignmentEditor(
     available_until: formattedTwoDays,
     course: cid,
 });
+  const assignments = useSelector( (state: any) => state.assignmentReducer.assignments);
+  const existAssignment = assignments.find((a: any) => a._id === aid && a.course === cid);
+  useEffect(() => {
+    if (existAssignment) {
+      setAssignment(existAssignment);
+    }
+  }, [existAssignment]);
 
     return (
       <div id="wd-assignments-editor">
-    
        <label htmlFor="wd-name" className="form-label d-block"><h5>Assignment Name</h5></label>
         
         <input id="wd-name" className="form-control" value={assignment ? assignment.title : ""} onChange={ (e) => setAssignment({ ...assignment, title: e.target.value }) } /> 
-        <textarea id="wd-description" className="form-control mt-5" rows={10} >
-          {assignment ? assignment.description : ""}
+        <textarea id="wd-description" className="form-control mt-5" rows={10} onChange={ (e) => setAssignment({ ...assignment, description: e.target.value }) }>
+        {assignment ? assignment.description : ""}
         </textarea>
 
         <form>
@@ -59,7 +61,8 @@ export default function AssignmentEditor(
           <div className="mt-2 row g-3">
             <label htmlFor="wd-group" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Assignment Group</label>
             <select name="assignment-group" id="wd-group" className="col form-select" onChange={ (e) => setAssignment( {...assignment, assignment_group: e.target.value}) } >
-                <option value={assignment ? assignment.assignment_group.toUpperCase() : ""}>{assignment ? assignment.assignment_group.toUpperCase() : ""}
+                <option value={assignment ? assignment.assignment_group.toUpperCase() : ""}>
+                  {assignment ? assignment.assignment_group.toUpperCase() : ""}
                   <IoIosArrowDown className="float-end"/>
                 </option>
             </select>
@@ -168,12 +171,12 @@ export default function AssignmentEditor(
                   id="wd-course-home-link" to={`/Kanbas/Courses/${cid}/Assignments`}
                   className={`nav-link text-danger border-0`}>
                   <button className="btn btn-danger text-white rounded-1" 
-                  onClick={(e) => dispatch(addAssignment(
-                    {
-                      ...assignment,
-                      course: cid,
-                    }
-                  ))}
+                  onClick={(e) => {
+                    existAssignment ? 
+                    dispatch(updateAssignment(assignment)) :
+                    dispatch(addAssignment({...assignment, course: cid }))
+                  }
+                }
                   >Save</button>
                 </Link>
               </li>

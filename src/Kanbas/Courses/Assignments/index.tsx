@@ -8,16 +8,9 @@ import { useNavigate, useParams } from "react-router";
 import { useSelector } from "react-redux";
 
 export default function Assignments(
-    // {assignment, setAssignment, addAssignment, deleteAssignment, updateAssignment}:
-    // {assignment: any, setAssignment: (assignment: any) => void,
-    //     addAssignment: (assignment: any) => void,
-    //     deleteAssignment: (assignment: any) => void,
-    //     updateAssignment: (assignment: any) => void
-    // }
 ) {
     const { cid } = useParams();
     const navigate = useNavigate();
-    //const [assignments] = useState<any[]>(db.assignments);
     const { assignments } = useSelector((state: any) => state.assignmentReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     

@@ -14,7 +14,7 @@ const assignmentsSlice = createSlice({
         description: assignment.description,
         points: assignment.points,
         assignment_group: assignment.group,
-        submissionType: assignment.submissionType,
+        submission_type: assignment.submission_type,
         display_grade_as: assignment.display_grade_as,
         assign_to: assignment.assign_to,
         due_date: assignment.due_date,
