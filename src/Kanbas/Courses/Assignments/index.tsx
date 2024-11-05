@@ -19,6 +19,7 @@ export default function Assignments(
     const navigate = useNavigate();
     //const [assignments] = useState<any[]>(db.assignments);
     const { assignments } = useSelector((state: any) => state.assignmentReducer);
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
     
     return (
         <div>
@@ -37,22 +38,23 @@ export default function Assignments(
                         />
                     </div>
                 </div>
-
-                <div className="col-8 d-flex justify-content-end align-text-end">
+                {currentUser.role === "FACULTY" ? 
+                <div className="col-8 d-flex justify-content-end align-text-end faculty-access">
                     <button className="btn btn-danger text-white rounded-1 me-1" onClick={ () => navigate(`/Kanbas/Courses/${cid}/Assignments/${new Date().getTime().toString()}`) }>
-                        <BsPlus className="text-white" />
+                        {<BsPlus className="text-white" />}
                         Assignment
                     </button>
                     <button className="btn btn-secondary text-dark rounded-1 me-1">
                         <BsPlus /> Group
                     </button>
                 </div>
+                : <div></div>}
             </div>
             <div>
                 {/* assignment section title */}
                         <ul className="wd-assignment-list list-group-item p-0 mb-5 fs-5 border-gray">
                             <div className="wd-assignment-title p-3 ps-2 bg-secondary">
-                                <BsGripVertical className="me-2 fs-3" />
+                                {currentUser.role === "FACULTY" ? <BsGripVertical className="me-2 fs-3" /> : <div></div> }
                                 <GoTriangleDown />
                                 ASSIGNMENTS {/* can make this part more data driven once json format is finalized */}
                                 <SectionControlButton 
@@ -68,13 +70,21 @@ export default function Assignments(
                                             <li className="wd-assignment-list-item list-group-item p-3 ps-1">
                                                 <div className="row">
                                                     <div className="col-2">
-                                                        <BsGripVertical className="me-2 fs-3" />
-                                                        <GrNotes className="me-2 fs-3 text-success" />
+                                                        { currentUser.role === "FACULTY" ?
+                                                        <div className="faculty-access">
+                                                            <BsGripVertical className="me-2 fs-3" />
+                                                            <GrNotes className="me-2 fs-3 text-success" />
+                                                        </div>
+                                                        : <div></div>}
                                                     </div>
                                                     <div className="col-8 text-start">
-                                                        <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
-                                                            {assignment.title}
-                                                        </a>
+                                                        {currentUser.role === "FACULTY" ? 
+                                                        <div className="faculty-access">
+                                                            <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
+                                                                {assignment.title}
+                                                            </a>
+                                                        </div> : <u><b>{assignment.title}</b></u>
+                                                        }
                                                         <p>
                                                             Multiple Modules {/* not sure what this is to be honest*/}
                                                              | <b>Not available until</b> {assignment.available_from}
@@ -83,7 +93,9 @@ export default function Assignments(
                                                         </p>
                                                     </div>
                                                     <div className="col-2">
-                                                        <LessonControlButtons />
+                                                        {currentUser.role === "FACULTY" ?
+                                                        <div className="faculty-access">
+                                                        <LessonControlButtons /></div> : <div></div>}
                                                     </div>
                                                 </div>
                                             </li>
