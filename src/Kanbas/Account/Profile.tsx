@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "./reducer";
@@ -15,16 +15,7 @@ export default function Profile() {
     dispatch(setCurrentUser(null));
     navigate("/Kanbas/Account/Signin");
   };
-  ////////////// did look this part up since eslint was very very mad
-  useEffect(() => {
-    const fetchProfile = () => {
-      if (!currentUser) return navigate("/Kanbas/Account/Signin");
-      setProfile(currentUser);
-    };
-
-    fetchProfile(); // Call fetchProfile whenever currentUser changes
-  }, [currentUser, navigate]); // Dependencies: currentUser and navigate
-  ////////////////////////////////////////
+  useEffect(() => { fetchProfile(); }, []);
   return (
     <div className="wd-profile-screen">
       <h3>Profile</h3>
