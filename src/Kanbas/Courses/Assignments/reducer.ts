@@ -8,28 +8,6 @@ const assignmentsSlice = createSlice({
   initialState,
   reducers: {
     addAssignment: (state, { payload: assignment }) => {
-
-        {/* {
-      "course": "CS101",
-      "assignment_group": "extra credit",
-      "percentage": "20",
-      "assignments": [
-        {
-          "_id": "A103",
-          "title": "HTML/CSS Extra Credit",
-          "description": "Extra credit for mastering HTML/CSS techniques.",
-          "points": "50",
-          "assignment_group": "extra credit",
-          "submission_type": "online",
-          "display_grade_as": "percentage",
-          "assign_to": "everyone",
-          "due_date": "May 12 at 12:00am",
-          "available_from": "May 7 at 12:00am",
-          "available_until": "May 12 at 12:00am",
-          "course": "CS101"
-        }
-      ]
-    }, */}
       const newAssignment: any = {
         _id: new Date().getTime().toString(),
         title: assignment.name,
@@ -52,7 +30,7 @@ const assignmentsSlice = createSlice({
     },
     updateAssignment: (state, { payload: assignment }) => {
       state.assignments = state.assignments.map((a: any) =>
-        a._id === a._id ? assignment : a
+        a._id === assignment._id ? assignment : a
       ) as any;
     }
   },

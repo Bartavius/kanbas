@@ -15,7 +15,7 @@ export default function Account() {
         <div className="col-6 wd-main-content-offset p-1">
           <Routes>
             <Route path="/"
-                  element={<Navigate to = {currentUser ? "/Kanbas/Account/Profile" : "/Kanbas/Account/Signin"} /> } />
+                  element={<Navigate to = {currentUser ? "/Kanbas/Account/Profile" : "/Kanbas/Account/Signin"} />} />
             <Route path="/Signin" element={<Signin />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/Signup" element={<Signup />} />

@@ -7,8 +7,8 @@ import LessonControlButtons from "../Modules/LessonControlButtons";
 import { useNavigate, useParams } from "react-router";
 import * as db from "../../Database";
 import { useDispatch } from "react-redux";
-import { addAssignment, deleteAssignment, updateAssignment }
-  from "./reducer";
+// import { addAssignment, deleteAssignment, updateAssignment }
+//   from "./reducer";
 
 export default function Assignments() {
     const { cid } = useParams();
@@ -45,23 +45,20 @@ export default function Assignments() {
             </div>
             <div>
                 {/* assignment section title */}
-                {assignments
-                    .filter( (assignmentGroup: any) => assignmentGroup.course === cid)
-                    .map((assignmentGroup: any) => (
                         <ul className="wd-assignment-list list-group-item p-0 mb-5 fs-5 border-gray">
                             <div className="wd-assignment-title p-3 ps-2 bg-secondary">
                                 <BsGripVertical className="me-2 fs-3" />
                                 <GoTriangleDown />
-                                {assignmentGroup.assignment_group.toUpperCase()}
+                                ASSIGNMENTS {/* can make this part more data driven once json format is finalized */}
                                 <SectionControlButton 
-                                    percent={ assignmentGroup.percentage }
+                                    percent="100" 
                                     />
                             </div>
                             <li className="list-group-item">
 
                               {/* assignment list */}
                                 <ul className="wd-assignments list-group rounded-0">
-                                    {assignmentGroup.assignments
+                                    {assignments
                                         .map((assignment: any) => (
                                             <li className="wd-assignment-list-item list-group-item p-3 ps-1">
                                                 <div className="row">
@@ -89,7 +86,7 @@ export default function Assignments() {
                                 </ul>
                             </li>
                         </ul>
-                    ))}
+                    
             </div>
         </div>
     );
