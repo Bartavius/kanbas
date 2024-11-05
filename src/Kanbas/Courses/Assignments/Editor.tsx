@@ -8,16 +8,14 @@ export default function AssignmentEditor() {
   let { cid } = useParams();
   let { aid } = useParams();
   let assignments = db.assignments;
-  const course = assignments.filter((course : any) => course.course === cid);
-  const assignment = course.map((a:any) => (
-    a.assignments.filter((assignment: any) => assignment._id === aid))).find(arr => arr.length > 0)[0];
+  const assignment = assignments.find((course : any) => course.course === cid && course._id === aid);
 
     return (
       <div id="wd-assignments-editor">
     
        <label htmlFor="wd-name" className="form-label d-block"><h5>Assignment Name</h5></label>
 
-        <input id="wd-name" className="form-control" value={assignment ? assignment.title : ""} />
+        <input id="wd-name" className="form-control" value={assignment ? assignment.title : "" }/>
         <textarea id="wd-description" className="form-control mt-5" rows={10} >
           {assignment ? assignment.description : ""}
         </textarea>
