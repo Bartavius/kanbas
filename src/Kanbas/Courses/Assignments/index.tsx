@@ -6,15 +6,21 @@ import { GrNotes } from "react-icons/gr";
 import LessonControlButtons from "../Modules/LessonControlButtons";
 import { useNavigate, useParams } from "react-router";
 import * as db from "../../Database";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
+// import { useState } from "react";
 // import { addAssignment, deleteAssignment, updateAssignment }
 //   from "./reducer";
 
 export default function Assignments() {
     const { cid } = useParams();
-    const dispatch = useDispatch();
-    const assignments = db.assignments;
+    //const dispatch = useDispatch();
     const navigate = useNavigate();
+    let assignments = db.assignments;
+    //const [assignments, setAssignments] = useState<any[]>(db.courses);
+    //const [assignment, setAssignment] = useState<any>({
+    // _id: "1234", name: "New Course", number: "New Number",
+    // startDate: "2023-09-10", endDate: "2023-12-15", description: "New Description",
+    // });
     return (
         <div>
             {/* assignment top */}

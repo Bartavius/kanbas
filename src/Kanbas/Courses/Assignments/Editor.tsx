@@ -4,7 +4,13 @@ import { LuCalendarDays } from "react-icons/lu";
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import { Link } from "react-router-dom";
-export default function AssignmentEditor(){
+export default function AssignmentEditor(
+  // { assignment, setAssignment,
+  //   addAssignment, updateAssignment
+  // }:
+  // { assignment: any; setAssignment: (assignment: any) => void;
+  //   addAssignment: () => void; updateAssignment: (assignment: any) => void; }
+) {
   let { cid } = useParams();
   let { aid } = useParams();
   let assignments = db.assignments;
