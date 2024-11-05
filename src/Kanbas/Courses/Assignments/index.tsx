@@ -5,8 +5,6 @@ import SectionControlButton from "./SectionControlButton";
 import { GrNotes } from "react-icons/gr";
 import LessonControlButtons from "../Modules/LessonControlButtons";
 import { useNavigate, useParams } from "react-router";
-import * as db from "../../Database";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 
 export default function Assignments(

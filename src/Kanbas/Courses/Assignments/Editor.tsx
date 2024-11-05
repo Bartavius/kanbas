@@ -171,7 +171,7 @@ export default function AssignmentEditor(
                   onClick={(e) => dispatch(addAssignment(
                     {
                       ...assignment,
-                      course: {cid},
+                      course: cid,
                     }
                   ))}
                   >Save</button>
