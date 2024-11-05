@@ -4,16 +4,18 @@ import { LuCalendarDays } from "react-icons/lu";
 import { useParams } from "react-router";
 import * as db from "../../Database";
 import { Link } from "react-router-dom";
-export default function AssignmentEditor(
-  // { assignment, setAssignment,
-  //   addAssignment, updateAssignment
-  // }:
-  // { assignment: any; setAssignment: (assignment: any) => void;
-  //   addAssignment: () => void; updateAssignment: (assignment: any) => void; }
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addAssignment } from "./reducer";
+export default function AssignmentEditor( 
+  //{assignment, setAssignment} :
+  //{assignment: any[], setAssignment: (assignment:any) => void}
 ) {
   let { cid } = useParams();
   let { aid } = useParams();
-  let assignments = db.assignments;
+  const dispatch = useDispatch();
+  const [assignments, setAssignments] = useState<any[]>(db.assignments);
+
   const assignment = assignments.find((course : any) => course.course === cid && course._id === aid);
 
     return (
@@ -21,20 +23,20 @@ export default function AssignmentEditor(
     
        <label htmlFor="wd-name" className="form-label d-block"><h5>Assignment Name</h5></label>
 
-        <input id="wd-name" className="form-control" value={assignment ? assignment.title : "" }/>
-        <textarea id="wd-description" className="form-control mt-5" rows={10} >
+        <input id="wd-name" className="form-control" value={assignment ? assignment.title : "" } /> {/* onChange={ (e) => setAssignment(...assignment,title: e.target.value) } */}
+        <textarea id="wd-description" className="form-control mt-5" rows={10} > {/* description */}
           {assignment ? assignment.description : ""}
         </textarea>
 
         <form>
           <div className="mt-5 row g-3">
             <label htmlFor="wd-points" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Points</label>
-            <input id="wd-points" value={assignment ? assignment.points : ""} className="form-control col "/>
+            <input id="wd-points" value={assignment ? assignment.points : ""} className="form-control col " /> {/* onChange={ (e) => setAssignment(...assignment, points: e.target.value) } */}
           </div>
 
           <div className="mt-2 row g-3">
             <label htmlFor="wd-group" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Assignment Group</label>
-            <select name="assignment-group" id="wd-group" className="col form-select">
+            <select name="assignment-group" id="wd-group" className="col form-select"> {/* onClick={ (e) => setAssignment(...assignment, assignment_group: e.target.value) } */}
                 <option value={assignment ? assignment.assignment_group.toUpperCase() : ""}>{assignment ? assignment.assignment_group.toUpperCase() : ""}
                   <IoIosArrowDown className="float-end"/>
                 </option>
@@ -44,7 +46,7 @@ export default function AssignmentEditor(
           <div className="mt-2 row g-3">
             <label htmlFor="wd-display-grade-as" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Display Grade as</label>
             <select name="display-grade-as" id="wd-display-grade-as" className="col form-select">
-                  <option value={assignment ? assignment.display_grade_as.toUpperCase() : ""}>
+                  <option value={assignment ? assignment.display_grade_as.toUpperCase() : ""}> {/* onClick={ (e) => setAssignment(...assignment, display_grade_as: e.target.value) } */}
                   {assignment ? assignment.display_grade_as.toUpperCase() : ""}
                     <IoIosArrowDown className="float-end" />
                   </option>
@@ -55,13 +57,13 @@ export default function AssignmentEditor(
             <label htmlFor="wd-submission-type" className="form-label col-4 d-flex justify-content-end align-text-end pe-5">Submission Type</label>
             <div className="container border border-dark col rounded-1">
               <select name="submission-type" id="wd-submission-type" className="form-select ml-3 mt-3 mr-3 mb-3 justify-content-center align-items-center">
-                <option value={assignment ? assignment.submission_type : ""}>
+                <option value={assignment ? assignment.submission_type : ""}> {/* onClick={ (e) => setAssignment(...assignment, submission_type: e.target.value) } */}
                   {assignment ? assignment.submission_type : ""}
                   <IoIosArrowDown className="float-end" />
                 </option>
               </select>
 
-              <div>
+              <div> {/*not sure what this stuff is yet*/}
                 <label htmlFor="wd-submission-type-online" className="form-check-label"><h6>Online Entry Options:</h6></label>
                 <div className="form-check mb-3">
                   <input type="checkbox" id="wd-text-entry" className="form-check-input"/>
@@ -91,13 +93,13 @@ export default function AssignmentEditor(
             <div className="container border border-dark col rounded-1">
               <label htmlFor="wd-assign-to" className="form-label mt-3"><h4>Assign to</h4></label>
               <div className="container border border-dark rounded-1">
-                <button className="flex btn btn-secondary mt-2 mb-2">
+                <button className="flex btn btn-secondary mt-2 mb-2"> {/* onClick={ (e) => setAssignment(...assignment, assign_to: e.target.value) } */}
                   {assignment ? assignment.assign_to : ""} <RxCross2 className="float-end"/>
                 </button>
               </div>
 
               <label htmlFor="wd-due-date" className="form-label mt-3"><h4>Due</h4></label>
-              <div className="input-group">
+              <div className="input-group"> {/* onChange={ (e) => setAssignment(...assignment, due_date: e.target.value) } */}
                 <input type="text" id="wd-due-date" className="input-group-text form-control" value={assignment ? assignment.due_date : ""}/>
                 <label htmlFor= "wd-due-date" className="rounded-1 input-group-text form-label bg-secondary"><LuCalendarDays/></label>
               </div> 
@@ -105,7 +107,7 @@ export default function AssignmentEditor(
               <div className="row mt-3 mb-3">
                 <div className="col-6">
                   <label htmlFor="wd-available-from" className="form-label"><h4>Available from</h4></label>
-                  <div className="input-group">
+                  <div className="input-group"> {/* onChange={ (e) => setAssignment(...assignment, available_from: e.target.value) } */}
                     <input className="input-group-text rounded-1 form-control" type="text" id="wd-available-from" value={assignment ? assignment.available_from : ""}/>
                     <label htmlFor= "wd-available-from" className="rounded-1 input-group-text form-label bg-secondary"><LuCalendarDays/></label>
                   </div>
@@ -113,7 +115,7 @@ export default function AssignmentEditor(
 
                 <div className="col-6 flex">
                   <label htmlFor="wd-available-until" className="form-label"><h4>Until</h4></label>
-                  <div className="input-group">
+                  <div className="input-group"> {/* onChange={ (e) => setAssignment(...assignment, available_until: e.target.value) } */}
                     <input className="input-group-text rounded-1 form-control" type="text" id="wd-available-until" value={assignment ? assignment.available_until : ""}/>
                     <label htmlFor= "wd-available-until" className="rounded-1 input-group-text form-label bg-secondary"><LuCalendarDays/></label>
                   </div>
@@ -139,7 +141,14 @@ export default function AssignmentEditor(
                 <Link
                   id="wd-course-home-link" to={`/Kanbas/Courses/${cid}/Assignments`}
                   className={`nav-link text-danger border-0`}>
-                  <button className="btn btn-danger text-white rounded-1">Save</button>
+                  <button className="btn btn-danger text-white rounded-1" 
+                  onClick={(e) => dispatch(addAssignment(
+                    {
+                      ...assignment,
+                      course: {cid},
+                    }
+                  ))}
+                  >Save</button>
                 </Link>
               </li>
             </ul>
