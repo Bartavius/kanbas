@@ -15,7 +15,16 @@ export default function Profile() {
     dispatch(setCurrentUser(null));
     navigate("/Kanbas/Account/Signin");
   };
-  useEffect(() => { fetchProfile(); }, [fetchProfile]);
+  /////// I did have to look this part up because eslint was very mad and I didn't know how to fix it
+  useEffect(() => {
+    const fetchProfile = () => {
+      if (!currentUser) return navigate("/Kanbas/Account/Signin");
+      setProfile(currentUser);
+    };
+
+    fetchProfile();
+  }, [currentUser, navigate]);
+  /////////
   return (
     <div className="wd-profile-screen">
       <h3>Profile</h3>
