@@ -4,12 +4,17 @@ import { GoTriangleDown } from "react-icons/go";
 import SectionControlButton from "./SectionControlButton";
 import { GrNotes } from "react-icons/gr";
 import LessonControlButtons from "../Modules/LessonControlButtons";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import * as db from "../../Database";
+import { useDispatch } from "react-redux";
+import { addAssignment, deleteAssignment, updateAssignment }
+  from "./reducer";
 
 export default function Assignments() {
     const { cid } = useParams();
+    const dispatch = useDispatch();
     const assignments = db.assignments;
+    const navigate = useNavigate();
     return (
         <div>
             {/* assignment top */}
@@ -29,7 +34,7 @@ export default function Assignments() {
                 </div>
 
                 <div className="col-8 d-flex justify-content-end align-text-end">
-                    <button className="btn btn-danger text-white rounded-1 me-1">
+                    <button className="btn btn-danger text-white rounded-1 me-1" onClick={ () => navigate(`/Kanbas/Courses/${cid}/Assignments/${new Date().getTime().toString()}`) }>
                         <BsPlus className="text-white" />
                         Assignment
                     </button>
@@ -48,7 +53,9 @@ export default function Assignments() {
                                 <BsGripVertical className="me-2 fs-3" />
                                 <GoTriangleDown />
                                 {assignmentGroup.assignment_group.toUpperCase()}
-                                <SectionControlButton percent = {assignmentGroup.percentage } />
+                                <SectionControlButton 
+                                    percent={ assignmentGroup.percentage }
+                                    />
                             </div>
                             <li className="list-group-item">
 

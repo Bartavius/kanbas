@@ -7,7 +7,6 @@ import { useState } from "react";
 import { addModule, editModule, updateModule, deleteModule }
   from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
-import { divide } from "../../../Labs/Lab3/Math";
 
 export default function Modules() {
     const { cid } = useParams();
