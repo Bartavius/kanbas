@@ -7,9 +7,9 @@ export default function SectionControlButton(
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   return (
     <div className="float-end">
-        <p className="rounded-3 d-inline border border-dark me-1">{percent}% of total</p>
       {currentUser.role === "FACULTY" ? <div>
+      <p className="rounded-3 d-inline border border-dark me-1">{percent}% of total</p>
       <BsPlus />
-      <IoEllipsisVertical className="fs-4" /></div> : <div></div>}
+      <IoEllipsisVertical className="fs-4" /></div> : <p className="rounded-3 d-inline border border-dark me-1">{percent}% of total</p>}
     </div>
 );}
