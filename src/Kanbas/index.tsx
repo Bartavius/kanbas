@@ -7,6 +7,7 @@ import "./styles.css";
 import * as db from "./Database";
 import { useState } from "react";
 import ProtectedRoute from "./Account/ProtectedRoute";
+import { useSelector } from "react-redux";
 export default function Kanbas() {
   const [courses, setCourses] = useState<any[]>(db.courses);
   const [course, setCourse] = useState<any>({
@@ -30,14 +31,15 @@ export default function Kanbas() {
       })
     );
   };
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
 
   return (
     <div id="wd-kanbas">
       <KanbasNavigation />
       <div className="wd-main-content-offset p-3">
         <Routes>
-          <Route path="/" element={<Navigate to="/Kanbas/Account/Signin" />} />
-           {/* can change to redirect to account if user hasn't logged in */}
+          {/* why does this redirects incorrectly? */}
+          <Route path="/" element={<Navigate to={ currentUser ? "/Kanbas/Account/Profile" : "/Kanbas/Account/Signin" } />} />
           <Route path="/Account/*" element={<Account />} />
           <Route path="/Dashboard" element={<ProtectedRoute> <Dashboard
               courses={courses}
