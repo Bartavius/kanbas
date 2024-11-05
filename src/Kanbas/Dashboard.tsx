@@ -10,6 +10,12 @@ export default function Dashboard(
   
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = db;
+  let enrolledCourses = courses.filter(
+    (course) => enrollments.some(
+        (enrollment) =>
+        enrollment.user === currentUser._id &&
+        enrollment.course === course._id
+      ))
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
@@ -30,16 +36,13 @@ export default function Dashboard(
       </div>
       <br /><hr />
       
-      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2> <hr />
+      <h2 id="wd-dashboard-published">Published Courses ({ enrolledCourses.length })</h2> <hr />
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {courses
-          .filter((course) => enrollments.some((enrollment) =>
-              enrollment.user === currentUser._id &&
-              enrollment.course === course._id
-            ))
-          .map((course) => (
+          {enrolledCourses.map(
+            (course) => (
             <div className="wd-dashboard-course col" style={{ width: "300px" }}>
+              
               <div className="card rounded-3 overflow-hidden">
                 <Link to={`/Kanbas/Courses/${course._id}/Home`}
                       className="wd-dashboard-course-link text-decoration-none text-dark" >
