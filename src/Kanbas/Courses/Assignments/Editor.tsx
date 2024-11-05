@@ -21,20 +21,20 @@ export default function AssignmentEditor(
     const formattedToday = formatDate({date: today});
     const formattedTomorrow = formatDate({date : tomorrow });
     const formattedTwoDays = formatDate({date: twoDays});
-  const [assignment, setAssignment] = useState<any>({
-    _id: aid,
-    title: "New Assignment",
-    description: "New Assignment",
-    points: "100",
-    assignment_group: "assignments",
-    submission_type: "online",
-    display_grade_as: "percentage",
-    assign_to: "everyone",
-    due_date: formattedTomorrow,
-    available_from: formattedToday,
-    available_until: formattedTwoDays,
-    course: cid,
-});
+    const [assignment, setAssignment] = useState<any>({
+      _id: aid,
+      title: "New Assignment",
+      description: "New Assignment",
+      points: "100",
+      assignment_group: "assignments",
+      submission_type: "online",
+      display_grade_as: "percentage",
+      assign_to: "everyone",
+      due_date: formattedTomorrow,
+      available_from: formattedToday,
+      available_until: formattedTwoDays,
+      course: cid,
+  });
   const assignments = useSelector( (state: any) => state.assignmentReducer.assignments);
   const existAssignment = assignments.find((a: any) => a._id === aid && a.course === cid);
   useEffect(() => {
