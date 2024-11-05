@@ -3,25 +3,29 @@ import ModuleControlButtons from "./ModuleControlButtons";
 import ModulesControls from "./ModulesControl";
 import LessonControlButtons from "./LessonControlButtons";
 import { useParams } from "react-router";
-import * as db from "../../Database";
 import { useState } from "react";
 import { addModule, editModule, updateModule, deleteModule }
   from "./reducer";
 import { useSelector, useDispatch } from "react-redux";
+import { divide } from "../../../Labs/Lab3/Math";
 
 export default function Modules() {
     const { cid } = useParams();
     const [moduleName, setModuleName] = useState("");
     const { modules } = useSelector((state: any) => state.modulesReducer);
     const dispatch = useDispatch();
+    const { currentUser } = useSelector((state: any) => state.accountReducer);
     return (
       <div className="container">
 
+        { currentUser.role === "FACULTY" ? <div className="faculty-access">
         <ModulesControls setModuleName={setModuleName} moduleName={moduleName}
           addModule={
             () => {
             dispatch(addModule({ name: moduleName, course: cid }));
             setModuleName("")}} /><br /><br /><br /><br />
+          </div> : <div></div>
+          }
 
         <ul id="wd-modules" className="list-group rounded-0">
           {modules
@@ -29,6 +33,8 @@ export default function Modules() {
             .map((module: any) => (
               <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
                 <div className="wd-title wd-title p-3 ps-2 bg-secondary">
+                  { currentUser.role === "FACULTY" ? 
+                  <div className="faculty-access">
                   <BsGripVertical className="me-2 fs-3" />
                   {!module.editing && module.name}
                   { module.editing && (
@@ -44,6 +50,8 @@ export default function Modules() {
                   <ModuleControlButtons moduleId={module._id}
                       deleteModule={ (moduleId) => {dispatch(deleteModule(moduleId))} }
                       editModule={ (moduleId) => {dispatch(editModule(moduleId))} } />
+                  </div>
+                  : <div>{module.name}</div>}
                   
                 </div>
 
@@ -52,9 +60,13 @@ export default function Modules() {
                   <ul className="wd-lessons list-group rounded-0">
                     {module.lessons.map((lesson: any) => (
                       <li className="wd-lesson list-group-item p-3 ps-1">
+                        { currentUser.role === "FACULTY" ? 
+                        <div className="faculty-access">
                         <BsGripVertical className="me-2 fs-3" />
                           {lesson.name}
                         <LessonControlButtons />
+                        </div>
+                        : <div>{lesson.name}</div>}
                       </li>
                     ))}
                   </ul>

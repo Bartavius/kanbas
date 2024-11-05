@@ -22,7 +22,7 @@ export default function Dashboard(
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
 
       { currentUser.role === "FACULTY" ? 
-      <div id="course-addition-menu">
+      <div id="course-addition-menu" className="faculty-access">
         <h5>New Course
             <button className="btn btn-primary float-end"
                     id="wd-add-new-course-click"
@@ -60,7 +60,7 @@ export default function Dashboard(
                     
                     
                       { currentUser.role === "FACULTY" ? 
-                        <div id="course-edit-buttons">
+                        <div id="course-edit-buttons" className="faculty-access">
                           <button className="btn btn-primary"> Go </button>
                           <button onClick={(event) => {
                               event.preventDefault();
