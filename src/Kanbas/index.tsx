@@ -35,7 +35,7 @@ export default function Kanbas() {
       <KanbasNavigation />
       <div className="wd-main-content-offset p-3">
         <Routes>
-          <Route path="/" element={<Navigate to="Dashboard" />} />
+          <Route path="/" element={<Navigate to="/Kanbas/Account/Signin" />} />
            {/* can change to redirect to account if user hasn't logged in */}
           <Route path="/Account/*" element={<Account />} />
           <Route path="/Dashboard" element={ <Dashboard
