@@ -16,9 +16,12 @@ export default function Dashboard(
         enrollment.user === currentUser._id &&
         enrollment.course === course._id
       ))
+
   return (
     <div id="wd-dashboard">
       <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
+
+      { currentUser.role === "FACULTY" ? 
       <div id="course-addition-menu">
         <h5>New Course
             <button className="btn btn-primary float-end"
@@ -33,8 +36,10 @@ export default function Dashboard(
         onChange={(e) => setCourse( {...course, name: e.target.value} )}/>
         <textarea value={course.description} className="form-control"
         onChange={(e) => setCourse( {...course, description: e.target.value} )}/>
-      </div>
-      <br /><hr />
+  
+        <br /><hr />
+      </div> : <div></div>
+    }
       
       <h2 id="wd-dashboard-published">Published Courses ({ enrolledCourses.length })</h2> <hr />
       <div id="wd-dashboard-courses" className="row">
@@ -53,25 +58,27 @@ export default function Dashboard(
                     <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                       {course.description} </p>
                     
-                    <div id="course-buttons">
-                      <button className="btn btn-primary"> Go </button>
-                      <button onClick={(event) => {
-                          event.preventDefault();
-                          deleteCourse(course._id);
-                        }} className="btn btn-danger float-end"
-                        id="wd-delete-course-click">
-                        Delete
-                      </button>
-                      <button id="wd-edit-course-click"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          setCourse(course);
-                        }}
-                        className="btn btn-warning me-2 float-end" >
-                        Edit
-                      </button>
-                    </div>
-
+                    
+                      { currentUser.role === "FACULTY" ? 
+                        <div id="course-edit-buttons">
+                          <button className="btn btn-primary"> Go </button>
+                          <button onClick={(event) => {
+                              event.preventDefault();
+                              deleteCourse(course._id);
+                            }} className="btn btn-danger float-end"
+                            id="wd-delete-course-click">
+                            Delete
+                          </button>
+                          <button id="wd-edit-course-click"
+                            onClick={(event) => {
+                              event.preventDefault();
+                              setCourse(course);
+                            }}
+                            className="btn btn-warning me-2 float-end" >
+                            Edit
+                          </button>
+                        </div> : <div id="course-buttons"><button className="btn btn-primary"> Go </button></div>
+                      }
                   </div>
                 </Link>
               </div>
