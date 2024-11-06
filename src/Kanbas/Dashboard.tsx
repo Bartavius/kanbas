@@ -26,7 +26,12 @@ export default function Dashboard(
 
   useEffect( () => {
     if (showEnrolled) {
-    setDisplayedCourses(enrolledCourses);
+    setDisplayedCourses(courses.filter(
+      (course) => enrollments.some(
+          (enrollment: any) =>
+          enrollment.user === currentUser._id &&
+          enrollment.course === course._id
+        )));
       } else {
         setDisplayedCourses(courses);
       }
@@ -108,9 +113,11 @@ export default function Dashboard(
                           <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
                           {enrolledCourses.find( (c) => c._id === course._id) ? 
                             <button className="btn btn-danger float-end"
-                              onClick={() => dispatch(unenroll(enrollments.find( (e: any) => e.user === currentUser._id && e.course === course._id)))}>
+                              onClick={() => {
+                                dispatch(unenroll(enrollments.find( (e: any) => e.user === currentUser._id && e.course === course._id)._id))}
+                                }>
                               Unenroll</button>
-                            : <button className="btn btn-warning float-end" onClick={() => dispatch(enroll( {userId: currentUser._id, courseId: course._id}))}>
+                            : <button className="btn btn-success float-end" onClick={() => dispatch(enroll( {userId: currentUser._id, courseId: course._id}))}>
                               Enroll</button>
                           }
                         </div>
