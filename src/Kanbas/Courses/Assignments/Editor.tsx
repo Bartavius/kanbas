@@ -39,7 +39,7 @@ export default function AssignmentEditor(
   const existAssignment = assignments.find((a: any) => a._id === aid && a.course === cid);
   useEffect(() => {
     if (existAssignment) {
-      setAssignment({...assignment, description: existAssignment.description});
+      setAssignment({...existAssignment, description: existAssignment.description});
     }
   }, [existAssignment]);
 
@@ -48,9 +48,7 @@ export default function AssignmentEditor(
        <label htmlFor="wd-name" className="form-label d-block"><h5>Assignment Name</h5></label>
         
         <input id="wd-name" className="form-control" value={assignment ? assignment.title : ""} onChange={ (e) => setAssignment({ ...assignment, title: e.target.value }) } /> 
-        <textarea id="wd-description" className="form-control mt-5" rows={10} onChange={ (e) => setAssignment({ ...assignment, description: e.target.value }) }>
-        {assignment ? assignment.description : ""}
-        </textarea>
+        <textarea id="wd-description" className="form-control mt-5" rows={10} value={assignment ? assignment.description : ""} onChange={ (e) => setAssignment({ ...assignment, description: e.target.value }) } />
 
         <form>
           <div className="mt-5 row g-3">
