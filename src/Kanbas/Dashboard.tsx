@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import * as db from "./Database";
+import { useEffect, useState } from "react";
 export default function Dashboard(
   { courses, course, setCourse, addNewCourse,
     deleteCourse, updateCourse }: {
@@ -10,16 +11,34 @@ export default function Dashboard(
   
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { enrollments } = db;
-  let enrolledCourses = courses.filter(
-    (course) => enrollments.some(
-        (enrollment) =>
-        enrollment.user === currentUser._id &&
-        enrollment.course === course._id
-      ))
+  const [ showEnrolled, setShowEnrolled ] = useState(true);
+  const [ displayedCourses, setDisplayedCourses ] = useState(courses);
+
+  useEffect( () => {
+    if (showEnrolled) {
+    setDisplayedCourses(courses.filter(
+      (course) => enrollments.some(
+          (enrollment) =>
+          enrollment.user === currentUser._id &&
+          enrollment.course === course._id
+        )));
+      } else {
+        setDisplayedCourses(courses);
+      }
+    }, [showEnrolled]
+  )
+  
 
   return (
     <div id="wd-dashboard">
-      <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
+      { currentUser.role === "STUDENT" ? 
+        <div className="row">
+          <h1 id="wd-dashboard-title" className="col-sm-8 col-9 d-inline">Dashboard</h1>
+          <button className="btn btn-primary d-inline float-end col-sm-4 col-3" onClick={() => setShowEnrolled(!showEnrolled)}>Enrollments</button>
+        </div> :
+        <h1 id="wd-dashboard-title">Dashboard</h1> 
+      }
+       <hr />
 
       { currentUser.role === "FACULTY" ? 
       <div id="course-addition-menu" className="faculty-access">
@@ -41,10 +60,10 @@ export default function Dashboard(
       </div> : <div></div>
     }
       
-      <h2 id="wd-dashboard-published">Published Courses ({ enrolledCourses.length })</h2> <hr />
+      <h2 id="wd-dashboard-published">Published Courses ({ displayedCourses.length })</h2> <hr />
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {enrolledCourses.map(
+          {displayedCourses.map(
             (course) => (
             <div className="wd-dashboard-course col" style={{ width: "300px" }}>
               
