@@ -2,14 +2,16 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { BsGripVertical, BsPlus } from "react-icons/bs";
 import { GoTriangleDown } from "react-icons/go";
 import SectionControlButton from "./SectionControlButton";
-import { GrNotes } from "react-icons/gr";
-import LessonControlButtons from "../Modules/LessonControlButtons";
 import { useNavigate, useParams } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import AssignmentControlButtons from "./AssignmentControlButtons";
+import { deleteAssignment } from "./reducer";
+import AssignmentControlButtonLeft from "./AssignmentControlButtonLeft";
 
 export default function Assignments(
 ) {
     const { cid } = useParams();
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const { assignments } = useSelector((state: any) => state.assignmentReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -61,12 +63,11 @@ export default function Assignments(
                                     {assignments
                                         .map((assignment: any) => (
                                             <li className="wd-assignment-list-item list-group-item p-3 ps-1">
-                                                <div className="row">
+                                                <div className="row align-items-center">
                                                     <div className="col-2">
                                                         { currentUser.role === "FACULTY" ?
                                                         <div className="faculty-access">
-                                                            <BsGripVertical className="me-2 fs-3" />
-                                                            <GrNotes className="me-2 fs-3 text-success" />
+                                                            <AssignmentControlButtonLeft />
                                                         </div>
                                                         : <div></div>}
                                                     </div>
@@ -85,10 +86,14 @@ export default function Assignments(
                                                              | {assignment.points}pts
                                                         </p>
                                                     </div>
-                                                    <div className="col-2">
+                                                    <div className="col-2 float-end">
                                                         {currentUser.role === "FACULTY" ?
-                                                        <div className="faculty-access">
-                                                        <LessonControlButtons /></div> : <div></div>}
+                                                        <div className="faculty-access float-end">
+                                                        <AssignmentControlButtons
+                                                            assignmentId={assignment._id} 
+                                                            deleteAssignment={ (assignmentId) => dispatch(deleteAssignment(assignmentId)) }
+                                                            />
+                                                        </div> : <div></div>}
                                                     </div>
                                                 </div>
                                             </li>
