@@ -8,6 +8,7 @@ import * as db from "./Database";
 import { useState } from "react";
 import ProtectedRoute from "./Account/ProtectedRoute";
 import { useSelector } from "react-redux";
+import ProtectedCourseRoute from "./ProtectedCourseRoute";
 export default function Kanbas() {
   const [courses, setCourses] = useState<any[]>(db.courses);
   const [course, setCourse] = useState<any>({
@@ -55,7 +56,7 @@ export default function Kanbas() {
               addNewCourse={addNewCourse}
               deleteCourse={deleteCourse}
               updateCourse={updateCourse} /> </ProtectedRoute> } />
-          <Route path="/Courses/:cid/*" element={  <Courses courses={courses}/> } />
+          <Route path="/Courses/:cid/*" element={  <ProtectedCourseRoute><Courses courses={courses}/></ProtectedCourseRoute> } />
           <Route path="/Calendar" element={<h1>Calendar</h1>} />
           <Route path="/Inbox" element={<h1>Inbox</h1>} />
         </Routes>
