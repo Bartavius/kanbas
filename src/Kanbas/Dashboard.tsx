@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import * as db from "./Database";
 import { useEffect, useState } from "react";
 import { enroll, unenroll }
   from "./reducer";
@@ -23,7 +22,7 @@ export default function Dashboard(
         enrollment.user === currentUser._id &&
         enrollment.course === course._id
       ));
-      
+
   useEffect( () => {
     if (showEnrolled) {
     setDisplayedCourses(courses.filter(
@@ -35,7 +34,7 @@ export default function Dashboard(
       } else {
         setDisplayedCourses(courses);
       }
-    }, [showEnrolled, enrollments]
+    }, [showEnrolled, enrollments, courses, currentUser._id]
   )
   
 
