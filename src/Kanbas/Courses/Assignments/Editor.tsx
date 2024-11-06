@@ -39,7 +39,7 @@ export default function AssignmentEditor(
   const existAssignment = assignments.find((a: any) => a._id === aid && a.course === cid);
   useEffect(() => {
     if (existAssignment) {
-      setAssignment({...existAssignment, description: existAssignment.description});
+      setAssignment(existAssignment);
     }
   }, [existAssignment]);
 

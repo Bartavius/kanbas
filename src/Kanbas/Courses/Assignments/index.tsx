@@ -61,6 +61,7 @@ export default function Assignments(
                               {/* assignment list */}
                                 <ul className="wd-assignments list-group rounded-0">
                                     {assignments
+                                        .filter((a:any) => (a.course === cid))
                                         .map((assignment: any) => (
                                             <li className="wd-assignment-list-item list-group-item p-3 ps-1">
                                                 <div className="row align-items-center">
@@ -86,7 +87,7 @@ export default function Assignments(
                                                              | {assignment.points}pts
                                                         </p>
                                                     </div>
-                                                    <div className="col-2 float-end">
+                                                    <div className="col-2">
                                                         {currentUser.role === "FACULTY" ?
                                                         <div className="faculty-access float-end">
                                                         <AssignmentControlButtons
