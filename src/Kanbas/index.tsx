@@ -56,7 +56,7 @@ export default function Kanbas() {
               addNewCourse={addNewCourse}
               deleteCourse={deleteCourse}
               updateCourse={updateCourse} /> </ProtectedRoute> } />
-          <Route path="/Courses/:cid/*" element={  <ProtectedCourseRoute><Courses courses={courses}/></ProtectedCourseRoute> } />
+          <Route path="/Courses/:cid/*" element={ <ProtectedRoute><ProtectedCourseRoute><Courses courses={courses}/></ProtectedCourseRoute></ProtectedRoute> } />
           <Route path="/Calendar" element={<h1>Calendar</h1>} />
           <Route path="/Inbox" element={<h1>Inbox</h1>} />
         </Routes>
