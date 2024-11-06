@@ -11,7 +11,7 @@ export default function ModulesControls(
   return (
     <form>
     <div id="wd-modules-controls" className="text-nowrap">
-      <button id="wd-add-module-btn" className="btn btn-lg btn-danger me-1 float-end" data-bs-toggle="modal" data-bs-target="#wd-add-module-dialog">
+      <button id="wd-add-module-btn" className="btn btn-lg btn-danger me-1 float-end" data-bs-toggle="modal" data-bs-target="#wd-add-module-dialog" onClick={(e) => e.preventDefault()}>
         <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
         Module</button>
         

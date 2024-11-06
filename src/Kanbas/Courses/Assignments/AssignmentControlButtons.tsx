@@ -7,7 +7,7 @@ export default function AssignmentControlButtons(
 ) {
     return (
         <div>
-            <FaTrash className="text-danger me-2 mb-1" data-bs-toggle="modal" data-bs-target="#wd-delete-assignment-dialog"/>
+            <FaTrash className="text-danger me-2 mb-1" data-bs-toggle="modal" data-bs-target="#wd-delete-assignment-dialog" onClick={(e) => e.preventDefault()}/>
             <GreenCheckmark />
             <IoEllipsisVertical className="fs-4" />
         </div>
