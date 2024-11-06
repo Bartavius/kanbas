@@ -14,16 +14,16 @@ export default function Dashboard(
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const enrollments = useSelector((state: any) => state.enrollmentReducer.enrollments);
   const [ showEnrolled, setShowEnrolled ] = useState(true);
-  const [ displayedCourses, setDisplayedCourses ] = useState(courses);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [ displayedCourses, setDisplayedCourses ] = useState(courses);
   const enrolledCourses = courses.filter(
     (course) => enrollments.some(
         (enrollment: any) =>
         enrollment.user === currentUser._id &&
         enrollment.course === course._id
       ));
-
+      
   useEffect( () => {
     if (showEnrolled) {
     setDisplayedCourses(courses.filter(
@@ -35,7 +35,7 @@ export default function Dashboard(
       } else {
         setDisplayedCourses(courses);
       }
-    }, [showEnrolled]
+    }, [showEnrolled, enrollments]
   )
   
 
