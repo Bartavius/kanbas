@@ -13,15 +13,16 @@ export default function Dashboard(
   const { enrollments } = db;
   const [ showEnrolled, setShowEnrolled ] = useState(true);
   const [ displayedCourses, setDisplayedCourses ] = useState(courses);
+  const enrolledCourses = courses.filter(
+    (course) => enrollments.some(
+        (enrollment) =>
+        enrollment.user === currentUser._id &&
+        enrollment.course === course._id
+      ));
 
   useEffect( () => {
     if (showEnrolled) {
-    setDisplayedCourses(courses.filter(
-      (course) => enrollments.some(
-          (enrollment) =>
-          enrollment.user === currentUser._id &&
-          enrollment.course === course._id
-        )));
+    setDisplayedCourses(enrolledCourses);
       } else {
         setDisplayedCourses(courses);
       }
@@ -96,7 +97,13 @@ export default function Dashboard(
                             className="btn btn-warning me-2 float-end" >
                             Edit
                           </button>
-                        </div> : <div id="course-buttons"><button className="btn btn-primary"> Go </button></div>
+                        </div> : 
+                        <div id="course-buttons">
+                          <button className="btn btn-primary"> Go </button>
+                          {enrolledCourses.find( (c) => c._id === course._id) ? 
+                            <button className="btn btn-danger float-end">Unenroll</button> : <button className="btn btn-warning float-end">Enroll</button>
+                          }
+                        </div>
                       }
                   </div>
                 </Link>
