@@ -1,7 +1,9 @@
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import * as db from "./Database";
 import { useEffect, useState } from "react";
+import { enroll, unenroll }
+  from "./reducer";
 export default function Dashboard(
   { courses, course, setCourse, addNewCourse,
     deleteCourse, updateCourse }: {
@@ -10,12 +12,14 @@ export default function Dashboard(
     updateCourse: () => void; }) {
   
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const { enrollments } = db;
+  const enrollments = useSelector((state: any) => state.enrollmentReducer.enrollments);
   const [ showEnrolled, setShowEnrolled ] = useState(true);
   const [ displayedCourses, setDisplayedCourses ] = useState(courses);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const enrolledCourses = courses.filter(
     (course) => enrollments.some(
-        (enrollment) =>
+        (enrollment: any) =>
         enrollment.user === currentUser._id &&
         enrollment.course === course._id
       ));
@@ -72,16 +76,18 @@ export default function Dashboard(
                 <Link to={`/Kanbas/Courses/${course._id}/Home`}
                       className="wd-dashboard-course-link text-decoration-none text-dark" >
                   <img src={course.image && course.image !== "" ? `/images/${course.image}` : "/images/reactjs.jpg"} width="100%" height={160} alt=""/>
+                  </Link>
                   <div className="card-body">
                     <h5 className="wd-dashboard-course-title card-title">
                       {course.name} </h5>
                     <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                       {course.description} </p>
+              
                     
                     
                       { currentUser.role === "FACULTY" ? 
                         <div id="course-edit-buttons" className="faculty-access">
-                          <button className="btn btn-primary"> Go </button>
+                          <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
                           <button onClick={(event) => {
                               event.preventDefault();
                               deleteCourse(course._id);
@@ -99,14 +105,18 @@ export default function Dashboard(
                           </button>
                         </div> : 
                         <div id="course-buttons">
-                          <button className="btn btn-primary"> Go </button>
+                          <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
                           {enrolledCourses.find( (c) => c._id === course._id) ? 
-                            <button className="btn btn-danger float-end">Unenroll</button> : <button className="btn btn-warning float-end">Enroll</button>
+                            <button className="btn btn-danger float-end"
+                              onClick={() => dispatch(unenroll(enrollments.find( (e: any) => e.user === currentUser._id && e.course === course._id)))}>
+                              Unenroll</button>
+                            : <button className="btn btn-warning float-end" onClick={() => dispatch(enroll( {userId: currentUser._id, courseId: course._id}))}>
+                              Enroll</button>
                           }
                         </div>
                       }
                   </div>
-                </Link>
+              
               </div>
             </div>
           ))}
