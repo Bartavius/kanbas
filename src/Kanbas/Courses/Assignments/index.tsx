@@ -1,4 +1,4 @@
-import { FaMagnifyingGlass, FaTrash } from "react-icons/fa6";
+import { FaMagnifyingGlass } from "react-icons/fa6";
 import { BsGripVertical, BsPlus } from "react-icons/bs";
 import { GoTriangleDown } from "react-icons/go";
 import SectionControlButton from "./SectionControlButton";
@@ -7,8 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteAssignment } from "./reducer";
 import AssignmentControlButtonLeft from "./AssignmentControlButtonLeft";
 import AssignmentDeletion from "./AssignmentDeletion";
-import GreenCheckmark from "../Modules/GreenCheckmark";
-import { IoEllipsisVertical } from "react-icons/io5";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 
 export default function Assignments(
