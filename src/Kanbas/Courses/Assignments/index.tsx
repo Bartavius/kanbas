@@ -1,12 +1,15 @@
-import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaMagnifyingGlass, FaTrash } from "react-icons/fa6";
 import { BsGripVertical, BsPlus } from "react-icons/bs";
 import { GoTriangleDown } from "react-icons/go";
 import SectionControlButton from "./SectionControlButton";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import AssignmentControlButtons from "./AssignmentControlButtons";
 import { deleteAssignment } from "./reducer";
 import AssignmentControlButtonLeft from "./AssignmentControlButtonLeft";
+import AssignmentDeletion from "./AssignmentDeletion";
+import GreenCheckmark from "../Modules/GreenCheckmark";
+import { IoEllipsisVertical } from "react-icons/io5";
+import AssignmentControlButtons from "./AssignmentControlButtons";
 
 export default function Assignments(
 ) {
@@ -89,10 +92,12 @@ export default function Assignments(
                                                     </div>
                                                     <div className="col-2">
                                                         {currentUser.role === "FACULTY" ?
-                                                        <div className="faculty-access float-end">
-                                                        <AssignmentControlButtons
+                                                        <div className="faculty-access float-end"> 
+                                                        <AssignmentControlButtons />
+                                                        <AssignmentDeletion
+                                                            assignmentName={assignment.title}
                                                             assignmentId={assignment._id} 
-                                                            deleteAssignment={ (assignmentId) => dispatch(deleteAssignment(assignmentId)) }
+                                                            deleteAssignment={ () => dispatch(deleteAssignment(assignment._id)) }
                                                             />
                                                         </div> : <div></div>}
                                                     </div>
