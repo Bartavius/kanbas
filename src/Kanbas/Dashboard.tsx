@@ -22,7 +22,6 @@ export default function Dashboard() {
       ));
       
   useEffect( () => {
-    console.log(enrollments);
     if (showEnrolled) {
     setDisplayedCourses(courses.filter(
       (course: any) => enrollments.some(

@@ -5,8 +5,6 @@ export default function ProtectedCourseRoute({ children }: { children: any }) {
     const { enrollments } = useSelector((state:any) => state.enrollmentReducer);
     const { cid } = useParams();
     const userIsEnrolled = enrollments.find( (e: any) => currentUser._id === e.user && cid === e.course);
-    console.log(`protectedRoute: ${JSON.stringify(enrollments)}`)
-    console.log(`enrollmentFind: ${JSON.stringify(userIsEnrolled)}`);
     if (userIsEnrolled) {
         return children;
     } else {
