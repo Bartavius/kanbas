@@ -19,9 +19,9 @@ export default function Kanbas() {
           <Route path="/Account/*" element={<Account />} />
           <Route path="/Dashboard" element={<ProtectedRoute> <Dashboard/> </ProtectedRoute> } />
           <Route path="/Courses" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute> } />
-          <Route path="/Courses/:cid/*" element={ <ProtectedRoute> <ProtectedCourseRoute><Courses/></ProtectedCourseRoute> </ProtectedRoute> } />
+          <Route path="/Courses/:cid/*" element={ <ProtectedRoute> <ProtectedCourseRoute> <Courses/> </ProtectedCourseRoute> </ProtectedRoute> } />
           <Route path="/Calendar" element={<h1>Calendar</h1>} />
-          <Route path="/Inbox" element={<h1>Inbox</h1>} />
+          <Route path="/Inbox" element={<ProtectedRoute><h1>Inbox</h1></ProtectedRoute>} />
         </Routes>
       </div>
     </div>

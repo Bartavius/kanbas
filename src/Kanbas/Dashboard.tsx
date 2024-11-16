@@ -22,6 +22,7 @@ export default function Dashboard() {
       ));
       
   useEffect( () => {
+    console.log(enrollments);
     if (showEnrolled) {
     setDisplayedCourses(courses.filter(
       (course: any) => enrollments.some(
@@ -70,7 +71,6 @@ export default function Dashboard() {
     }} > Add </button>
             <button className="btn btn-warning float-end me-2"
                     onClick={() => {
-                      alert( `${JSON.stringify(editCourse)}` );
                       dispatch(updateCourse(editCourse));
                       setCourse(defaultCourse);
                     }
@@ -82,7 +82,6 @@ export default function Dashboard() {
         onChange={(e) => setCourse( {...editCourse, name: e.target.value} )}/>
         <textarea value={editCourse.description} className="form-control"
         onChange={(e) => setCourse( {...editCourse, description: e.target.value} )}/>
-        <h5>{editCourse._id}</h5>
   
         <br /><hr />
       </div> : <div></div>
@@ -102,7 +101,7 @@ export default function Dashboard() {
                   </Link>
                   <div className="card-body">
                     <h5 className="wd-dashboard-course-title card-title">
-                      {course.name} {course._id} </h5>
+                      {course.name} </h5>
                     <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                       {course.description} </p>
 
