@@ -3,21 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { enroll, unenroll }
   from "./reducer";
-export default function Dashboard(
-  { courses, course, setCourse, addNewCourse,
-    deleteCourse, updateCourse }: {
-    courses: any[]; course: any; setCourse: (course: any) => void;
-    addNewCourse: () => void; deleteCourse: (course: any) => void;
-    updateCourse: () => void; }) {
+import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
+export default function Dashboard() {
   
   const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const courses = useSelector((state: any) => state.coursesReducer.courses);
   const enrollments = useSelector((state: any) => state.enrollmentReducer.enrollments);
   const [ showEnrolled, setShowEnrolled ] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ displayedCourses, setDisplayedCourses ] = useState(courses);
+  
   const enrolledCourses = courses.filter(
-    (course) => enrollments.some(
+    (course: { _id: any; }) => enrollments.some(
         (enrollment: any) =>
         enrollment.user === currentUser._id &&
         enrollment.course === course._id
@@ -26,7 +24,7 @@ export default function Dashboard(
   useEffect( () => {
     if (showEnrolled) {
     setDisplayedCourses(courses.filter(
-      (course) => enrollments.some(
+      (course: { _id: any; }) => enrollments.some(
           (enrollment: any) =>
           enrollment.user === currentUser._id &&
           enrollment.course === course._id
@@ -36,8 +34,16 @@ export default function Dashboard(
       }
     }, [showEnrolled, enrollments, courses, currentUser._id]
   )
-  
 
+  const defaultCourse = {
+    _id: new Date().getDate().toString(), name: "New Course", number: "New Number",
+    startDate: "2023-09-10", endDate: "2023-12-15", description: "New description",
+    }
+
+  // reserved for editing when adding courses.
+  const [ editCourse, setCourse ] = useState(defaultCourse);
+
+  
   return (
     <div id="wd-dashboard">
       { currentUser.role === "STUDENT" ? 
@@ -54,16 +60,24 @@ export default function Dashboard(
         <h5>New Course
             <button className="btn btn-primary float-end"
                     id="wd-add-new-course-click"
-                    onClick={addNewCourse} > Add </button>
+                    onClick= { () => {
+                      dispatch(addCourse(editCourse));
+                      dispatch(enroll( {userId: currentUser._id, courseId: editCourse._id} ));
+                      setCourse(defaultCourse);
+    }} > Add </button>
             <button className="btn btn-warning float-end me-2"
-                    onClick={updateCourse} id="wd-update-course-click">
+                    onClick={() => {
+                      dispatch(updateCourse(editCourse));
+                      setCourse(defaultCourse);
+                    }
+                    } id="wd-update-course-click">
                     Update
             </button>
         </h5><br />
-        <input    value={course.name} className="form-control mb-2" 
-        onChange={(e) => setCourse( {...course, name: e.target.value} )}/>
-        <textarea value={course.description} className="form-control"
-        onChange={(e) => setCourse( {...course, description: e.target.value} )}/>
+        <input    value={editCourse.name} className="form-control mb-2" 
+        onChange={(e) => setCourse( {...editCourse, name: e.target.value} )}/>
+        <textarea value={editCourse.description} className="form-control"
+        onChange={(e) => setCourse( {...editCourse, description: e.target.value} )}/>
   
         <br /><hr />
       </div> : <div></div>
@@ -73,7 +87,7 @@ export default function Dashboard(
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
           {displayedCourses.map(
-            (course) => (
+            (course: any) => (
             <div className="wd-dashboard-course col" style={{ width: "300px" }}>
               
               <div className="card rounded-3 overflow-hidden">
@@ -86,21 +100,20 @@ export default function Dashboard(
                       {course.name} </h5>
                     <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                       {course.description} </p>
-              
-                    
-                    
+            
                       { currentUser.role === "FACULTY" ? 
                         <div id="course-edit-buttons" className="faculty-access">
                           <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
                           <button onClick={(event) => {
                               event.preventDefault();
-                              deleteCourse(course._id);
+                              dispatch(deleteCourse(course._id));
+                              dispatch(unenroll(enrollments.find( (e: any) => e.user === currentUser._id && e.course === course._id)._id))
                             }} className="btn btn-danger float-end"
                             id="wd-delete-course-click">
                             Delete
                           </button>
                           <button id="wd-edit-course-click"
-                            onClick={(event) => {
+                            onClick={ (event) => {
                               event.preventDefault();
                               setCourse(course);
                             }}
@@ -110,7 +123,7 @@ export default function Dashboard(
                         </div> : 
                         <div id="course-buttons">
                           <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
-                          {enrolledCourses.find( (c) => c._id === course._id) ? 
+                          {enrolledCourses.find( (c: { _id: any; }) => c._id === course._id) ? 
                             <button className="btn btn-danger float-end"
                               onClick={() => {
                                 dispatch(unenroll(enrollments.find( (e: any) => e.user === currentUser._id && e.course === course._id)._id))}

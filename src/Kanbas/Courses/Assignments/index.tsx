@@ -94,7 +94,6 @@ export default function Assignments(
                                                         <AssignmentControlButtons />
                                                         <AssignmentDeletion
                                                             assignmentName={assignment.title}
-                                                            assignmentId={assignment._id} 
                                                             deleteAssignment={ () => dispatch(deleteAssignment(assignment._id)) }
                                                             />
                                                         </div> : <div></div>}
