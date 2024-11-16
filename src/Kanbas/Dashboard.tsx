@@ -20,11 +20,11 @@ export default function Dashboard() {
         enrollment.user === currentUser._id &&
         enrollment.course === course._id
       ));
-
+      
   useEffect( () => {
     if (showEnrolled) {
     setDisplayedCourses(courses.filter(
-      (course: { _id: any; }) => enrollments.some(
+      (course: any) => enrollments.some(
           (enrollment: any) =>
           enrollment.user === currentUser._id &&
           enrollment.course === course._id
@@ -70,6 +70,7 @@ export default function Dashboard() {
     }} > Add </button>
             <button className="btn btn-warning float-end me-2"
                     onClick={() => {
+                      alert( `${JSON.stringify(editCourse)}` );
                       dispatch(updateCourse(editCourse));
                       setCourse(defaultCourse);
                     }
@@ -81,6 +82,7 @@ export default function Dashboard() {
         onChange={(e) => setCourse( {...editCourse, name: e.target.value} )}/>
         <textarea value={editCourse.description} className="form-control"
         onChange={(e) => setCourse( {...editCourse, description: e.target.value} )}/>
+        <h5>{editCourse._id}</h5>
   
         <br /><hr />
       </div> : <div></div>

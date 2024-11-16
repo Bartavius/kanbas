@@ -17,10 +17,10 @@ const coursesSlice = createSlice({
             state.courses = [...state.courses, course] as any;
         },
         deleteCourse: (state, { payload: courseId}) => {
-            state.courses.filter((course) => course._id !== courseId)
+            state.courses = state.courses.filter((course) => course._id !== courseId)
         },
         updateCourse: (state, {payload: course}) => {
-            state.courses.map((c) => {
+            state.courses = state.courses.map((c) => {
                 if (c._id === course._id) {
                   return course;
                 } else {
