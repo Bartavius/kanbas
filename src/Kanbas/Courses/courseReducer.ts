@@ -10,11 +10,11 @@ const coursesSlice = createSlice({
     initialState,
     reducers: {
         addCourse: (state, { payload: course }) => {
-            const newCourse: any = {
-                    _id: new Date().getDate().toString(), name: course.name, number: "New Number",
-                    startDate: "2023-09-10", endDate: "2023-12-15", description: course.description,
-                  }
-            state.courses = [...state.courses, newCourse] as any;
+            // const newCourse: any = {
+            //         _id: course._id, name: course.name, number: "New Number",
+            //         startDate: "2023-09-10", endDate: "2023-12-15", description: course.description,
+            //       }
+            state.courses = [...state.courses, course] as any;
         },
         deleteCourse: (state, { payload: courseId}) => {
             state.courses.filter((course) => course._id !== courseId)

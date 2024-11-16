@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useParams } from "react-router-dom";
 export default function ProtectedCourseRoute({ children }: { children: any }) {
     const { currentUser } = useSelector((state: any) => state.accountReducer);
-    const enrollments = useSelector((state:any) => state.enrollmentReducer.enrollments);
+    const { enrollments } = useSelector((state:any) => state.enrollmentReducer);
     const { cid } = useParams();
     const userIsEnrolled = enrollments.find( (e: any) => currentUser._id === e.user && cid === e.course);
     if (userIsEnrolled) {

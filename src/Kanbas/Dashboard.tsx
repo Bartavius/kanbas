@@ -7,15 +7,15 @@ import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
 export default function Dashboard() {
   
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const courses = useSelector((state: any) => state.coursesReducer.courses);
-  const enrollments = useSelector((state: any) => state.enrollmentReducer.enrollments);
+  const { courses }= useSelector((state: any) => state.coursesReducer);
+  const { enrollments } = useSelector((state: any) => state.enrollmentReducer);
   const [ showEnrolled, setShowEnrolled ] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [ displayedCourses, setDisplayedCourses ] = useState(courses);
   
   const enrolledCourses = courses.filter(
-    (course: { _id: any; }) => enrollments.some(
+    (course: any) => enrollments.some(
         (enrollment: any) =>
         enrollment.user === currentUser._id &&
         enrollment.course === course._id
@@ -36,12 +36,12 @@ export default function Dashboard() {
   )
 
   const defaultCourse = {
-    _id: new Date().getDate().toString(), name: "New Course", number: "New Number",
+    _id: new Date().getTime().toString(), name: "New Course", number: "New Number",
     startDate: "2023-09-10", endDate: "2023-12-15", description: "New description",
     }
 
   // reserved for editing when adding courses.
-  const [ editCourse, setCourse ] = useState(defaultCourse);
+  const [ editCourse, setCourse ] = useState({...defaultCourse});
 
   
   return (
@@ -61,6 +61,9 @@ export default function Dashboard() {
             <button className="btn btn-primary float-end"
                     id="wd-add-new-course-click"
                     onClick= { () => {
+                      if (courses.find( (c:any) => editCourse._id === c._id )) {
+                        editCourse._id = new Date().getTime().toString();
+                      }
                       dispatch(addCourse(editCourse));
                       dispatch(enroll( {userId: currentUser._id, courseId: editCourse._id} ));
                       setCourse(defaultCourse);
@@ -97,9 +100,10 @@ export default function Dashboard() {
                   </Link>
                   <div className="card-body">
                     <h5 className="wd-dashboard-course-title card-title">
-                      {course.name} </h5>
+                      {course.name} {course._id} </h5>
                     <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                       {course.description} </p>
+
             
                       { currentUser.role === "FACULTY" ? 
                         <div id="course-edit-buttons" className="faculty-access">
