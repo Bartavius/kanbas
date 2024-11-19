@@ -7,7 +7,7 @@ export default function TOC() {
     {path: "#/Labs/Lab2", ref: "Lab2", name: "Lab 2", id: "a2"},
     {path: "#/Labs/Lab3", ref: "Lab3", name: "Lab 3", id: "a3"},
     {path: "#/Labs/Lab4", ref: "Lab4", name: "Lab 4", id: "a4"},
-    {path: "http://localhost:4000/lab5/welcome", ref: "Lab5", name: "Lab 5", id: "a5"}
+    {path: "#/Labs/Lab5", ref: "Lab5", name: "Lab 5", id: "a5"}
   ];
   return (
     <ul className="nav nav-pills">
