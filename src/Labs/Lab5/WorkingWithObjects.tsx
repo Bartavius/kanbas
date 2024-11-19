@@ -27,10 +27,31 @@ export default function WorkingWithObjects() {
          href={`${ASSIGNMENT_API_URL}/title/${assignment.title}`}>
         Update Title
       </a>
-      <input className="form-control w-75" id="wd-assignment-title"
+      <input className="form-control w-75 mb-2" id="wd-assignment-title"
         defaultValue={assignment.title} onChange={(e) =>
           setAssignment({ ...assignment, title: e.target.value })}/>
-          <br />
+
+      <a id="wd-update-assignment-score"
+        className="btn btn-primary float-end"
+        href={`${ASSIGNMENT_API_URL}/score/${assignment.score}`}>
+      Update Score
+      </a>
+      <input className="form-control w-75 mb-2" type="number" id="wd-assignment-score"
+        defaultValue={assignment.score} onChange={(e) =>
+          setAssignment({ ...assignment, score: parseInt(e.target.value) })}/>
+      
+      <a id="wd-update-assignment-complete"
+        className="btn btn-primary float-end"
+        href={`${ASSIGNMENT_API_URL}/complete/${assignment.completed}`}>
+      Update Complete
+      </a>
+      <input className="form-check-input mb-2 me-2" type="checkbox" id="wd-assignment-completed" checked={assignment.completed}
+        onChange={(e) =>
+          setAssignment({ ...assignment, completed: e.target.checked })}/>
+      <label htmlFor="wd-assignment-completed" className="form-check-label">Complete</label>
+        
+      <br /><br />
+
       <h5>Module: </h5>
       <a id="wd-update-module-title"
          className="btn btn-primary float-end"
