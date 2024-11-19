@@ -2,6 +2,13 @@ import { useLocation } from "react-router";
 
 export default function TOC() {
   const { pathname } = useLocation();
+  const links = [
+    {path: "#/Labs/Lab1", ref: "Lab1", name: "Lab 1", id: "a1"},
+    {path: "#/Labs/Lab2", ref: "Lab2", name: "Lab 2", id: "a2"},
+    {path: "#/Labs/Lab3", ref: "Lab3", name: "Lab 3", id: "a3"},
+    {path: "#/Labs/Lab4", ref: "Lab4", name: "Lab 4", id: "a4"},
+    {path: "http://localhost:4000/lab5/welcome", ref: "Lab5", name: "Lab 5", id: "a5"}
+  ];
   return (
     <ul className="nav nav-pills">
       <li className="nav-item">
@@ -9,30 +16,14 @@ export default function TOC() {
           Labs
         </a>
       </li>
-      <li className="nav-item">
-        <a id="wd-a1" href="#/Labs/Lab1"
-          className={`nav-link ${pathname.includes("Lab1") ? "active" : ""}`}>
-          Lab 1
-        </a>
-      </li>
-      <li className="nav-item">
-        <a id="wd-a2" href="#/Labs/Lab2"
-          className={`nav-link ${pathname.includes("Lab2") ? "active" : ""}`}>
-          Lab 2
-        </a>
-      </li>
-      <li className="nav-item">
-        <a id="wd-a3" href="#/Labs/Lab3"
-          className={`nav-link ${pathname.includes("Lab3") ? "active" : ""}`}>
-          Lab 3
-        </a>
-      </li>
-      <li className="nav-item">
-        <a id="wd-a4" href="#/Labs/Lab4"
-          className={`nav-link ${pathname.includes("Lab4") ? "active" : ""}`}>
-          Lab 4
-        </a>
-      </li>
+      {links.map( (link: any) => (
+        <li className="nav-item">
+          <a id={`wd-${link.id}`} href={link.path}
+            className={`nav-link ${pathname.includes(link.ref) ? "active" : ""}`}>
+            {link.name}
+          </a>
+        </li>
+      ))}
       <li className="nav-item">
         <a id="wd-k" href="#/Kanbas" className="nav-link">
           Kanbas
