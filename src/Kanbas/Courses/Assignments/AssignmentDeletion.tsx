@@ -1,7 +1,7 @@
-export default function AssignmentDeletion({ assignmentName, deleteAssignment }:
-    { assignmentName: string; deleteAssignment: () => void }) {
+export default function AssignmentDeletion({ assignmentName, assignmentID, deleteAssignment }:
+    { assignmentName: string; assignmentID: string, deleteAssignment: () => void }) {
       return (
-        <div id="wd-delete-assignment-dialog" className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div id={`wd-delete-assignment-dialog-${assignmentID}`} className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">

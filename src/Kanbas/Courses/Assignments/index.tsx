@@ -91,9 +91,10 @@ export default function Assignments(
                                                     <div className="col-2">
                                                         {currentUser.role === "FACULTY" ?
                                                         <div className="faculty-access float-end"> 
-                                                        <AssignmentControlButtons />
+                                                        <AssignmentControlButtons assignmentID = {assignment._id}/>
                                                         <AssignmentDeletion
                                                             assignmentName={assignment.title}
+                                                            assignmentID={assignment._id}
                                                             deleteAssignment={ () => dispatch(deleteAssignment(assignment._id)) }
                                                             />
                                                         </div> : <div></div>}
