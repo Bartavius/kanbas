@@ -12,10 +12,6 @@ export default function WorkingWithObjectsAsynchronously() {
     const updatedAssignment = await client.updateTitle(title);
     setAssignment(updatedAssignment);
   };
-  useEffect(() => {
-    fetchAssignment();
-    fetchTodos();
-  }, []);
 
   const [todos, setTodos] = useState<any[]>([]);
   const fetchTodos = async () => {
@@ -30,7 +26,15 @@ export default function WorkingWithObjectsAsynchronously() {
     const todos = await client.createTodo();
     setTodos(todos);
   };
+  const postTodo = async () => {
+    const newTodo = await client.postTodo({ title: "New Posted Todo", completed: false, });
+    setTodos([...todos, newTodo]);
+  };
 
+  useEffect(() => {
+    fetchAssignment();
+    fetchTodos();
+  }, []);
 
   return (
     <div id="wd-asynchronous-objects">
@@ -54,8 +58,9 @@ export default function WorkingWithObjectsAsynchronously() {
       <pre>{JSON.stringify(assignment, null, 2)}</pre>
       <hr />
 
-      <h4>Todos <FaPlusCircle onClick={createTodo} className="text-success float-end fs-3"
-                         id="wd-create-todo" />
+      <h4>Todos 
+        <FaPlusCircle onClick={createTodo} className="text-success float-end fs-3" id="wd-create-todo" />
+        <FaPlusCircle onClick={postTodo}   className="text-primary float-end fs-3 me-3" id="wd-post-todo" />
       </h4>
       <ul className="list-group">
         {todos.map((todo) => (
