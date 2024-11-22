@@ -1,39 +1,46 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { enroll, unenroll }
-  from "./reducer";
+import { enroll, unenroll } from "./reducer";
 import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
+import * as userClient from "./Account/client";
+
 export default function Dashboard() {
   
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const { courses }= useSelector((state: any) => state.coursesReducer);
-  const { enrollments } = useSelector((state: any) => state.enrollmentReducer);
-  const [ showEnrolled, setShowEnrolled ] = useState(true);
+  const [ showEnrolled, setShowEnrolled ] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ displayedCourses, setDisplayedCourses ] = useState(courses);
-  
-  const enrolledCourses = courses.filter(
-    (course: any) => enrollments.some(
-        (enrollment: any) =>
-        enrollment.user === currentUser._id &&
-        enrollment.course === course._id
-      ));
-      
-  useEffect( () => {
-    if (showEnrolled) {
-    setDisplayedCourses(courses.filter(
-      (course: any) => enrollments.some(
-          (enrollment: any) =>
-          enrollment.user === currentUser._id &&
-          enrollment.course === course._id
-        )));
-      } else {
-        setDisplayedCourses(courses);
-      }
-    }, [showEnrolled, enrollments, courses, currentUser._id]
-  )
+  const [ courses, setCourses ] = useState<any>([]);
+  const [ allCourses, setAllCourses ] = useState<any>([]);
+
+  const fetchCourses = async () => {
+    try {
+      const courses = await userClient.findMyCourses();
+      setCourses(courses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchAllCourses = async () => {
+    try {
+      const allCourses = await userClient.findAllCourses();
+      setAllCourses(allCourses);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCourses();
+  }, [currentUser]);
+
+  useEffect(() => {
+    fetchAllCourses();
+  }, [showEnrolled]);
+
 
   const defaultCourse = {
     _id: new Date().getTime().toString(), name: "New Course", number: "New Number",
@@ -43,7 +50,6 @@ export default function Dashboard() {
   // reserved for editing when adding courses.
   const [ editCourse, setCourse ] = useState({...defaultCourse});
 
-  
   return (
     <div id="wd-dashboard">
       { currentUser.role === "STUDENT" ? 
@@ -86,10 +92,11 @@ export default function Dashboard() {
       </div> : <div></div>
     }
       
-      <h2 id="wd-dashboard-published">Published Courses ({ displayedCourses.length })</h2> <hr />
+      <h2 id="wd-dashboard-published">Published Courses ({ showEnrolled ? allCourses.length : courses.length })</h2> <hr />
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {displayedCourses.map(
+
+          {courses.map(
             (course: any) => (
             <div className="wd-dashboard-course col" style={{ width: "300px" }}>
               
@@ -111,7 +118,7 @@ export default function Dashboard() {
                           <button onClick={(event) => {
                               event.preventDefault();
                               dispatch(deleteCourse(course._id));
-                              dispatch(unenroll(enrollments.find( (e: any) => e.user === currentUser._id && e.course === course._id)._id))
+                              dispatch(unenroll(courses.find( (e: any) => e.user === currentUser._id && e.course === course._id)._id))
                             }} className="btn btn-danger float-end"
                             id="wd-delete-course-click">
                             Delete
@@ -127,15 +134,10 @@ export default function Dashboard() {
                         </div> : 
                         <div id="course-buttons">
                           <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
-                          {enrolledCourses.find( (c: { _id: any; }) => c._id === course._id) ? 
-                            <button className="btn btn-danger float-end"
-                              onClick={() => {
-                                dispatch(unenroll(enrollments.find( (e: any) => e.user === currentUser._id && e.course === course._id)._id))}
-                                }>
-                              Unenroll</button>
-                            : <button className="btn btn-success float-end" onClick={() => dispatch(enroll( {userId: currentUser._id, courseId: course._id}))}>
-                              Enroll</button>
-                          }
+                          <button className="btn btn-danger float-end"
+                            onClick={() => {dispatch(unenroll(courses.find( (e: any) => e.user === currentUser._id && e.course === course._id)._id))}}>
+                            Unenroll
+                          </button>
                         </div>
                       }
                   </div>
@@ -143,6 +145,31 @@ export default function Dashboard() {
               </div>
             </div>
           ))}
-        </div>
+        
+        {showEnrolled && 
+            allCourses.filter((c: any) => !courses.some((enrolled: any) => enrolled._id === c._id))
+            .map(
+            (course: any) => (
+              <div className="wd-dashboard-course col" style={{ width: "300px" }}>
+                
+                <div className="card rounded-3 overflow-hidden">
+                  <Link to={`/Kanbas/Courses/${course._id}/Home`}
+                        className="wd-dashboard-course-link text-decoration-none text-dark" >
+                    <img src={course.image && course.image !== "" ? `/images/${course.image}` : "/images/reactjs.jpg"} width="100%" height={160} alt=""/>
+                    </Link>
+                    <div className="card-body">
+                      <h5 className="wd-dashboard-course-title card-title">
+                        {course.name} </h5>
+                      <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
+                        {course.description} </p>
+                      <button className="btn btn-success float-end" onClick={() => dispatch(enroll( {userId: currentUser._id, courseId: course._id}))}>
+                        Enroll
+                      </button>
+                    </div> 
+                </div>
+              </div>
+            ))}
+          </div>
+
       </div>
     </div>);}
