@@ -20,8 +20,8 @@ export default function Signup() {
   };
   return (
     <div className="wd-signup-screen">
+      <h3>Sign up</h3>
       {error && (<div id="wd-signup-error-message" className="alert alert-danger mb-2 mt-2">{error}</div>)}
-      <h1>Sign up</h1>
       <input value={user.username} onChange={(e) => setUser({ ...user, username: e.target.value })}
              className="wd-username form-control mb-2" placeholder="username" />
       <input value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} type="password"

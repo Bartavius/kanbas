@@ -17,7 +17,7 @@ export default function Profile() {
     try {
       const updatedProfile = await client.updateUser(profile);
       dispatch(setCurrentUser(updatedProfile));
-    } catch (error:any) {
+    } catch (error: any) {
       setError(error.response.data.message);
     }
   };
