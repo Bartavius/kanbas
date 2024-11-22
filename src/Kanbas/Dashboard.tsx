@@ -14,6 +14,13 @@ export default function Dashboard() {
   const navigate = useNavigate();
   const [ courses, setCourses ] = useState<any>([]);
   const [ allCourses, setAllCourses ] = useState<any>([]);
+  const defaultCourse = {
+    _id: new Date().getTime().toString(), name: "New Course", number: "New Number",
+    startDate: "2023-09-10", endDate: "2023-12-15", description: "New description",
+    }
+
+  // reserved for editing when adding courses.
+  const [ course, setCourse ] = useState({...defaultCourse});
 
   const fetchCourses = async () => {
     try {
@@ -32,6 +39,11 @@ export default function Dashboard() {
       console.error(error);
     }
   }
+  const addNewCourse = async () => {
+    const newCourse = await userClient.createCourse(course); 
+    setCourses([ ...courses, newCourse ]);
+  };
+
 
   useEffect(() => {
     fetchCourses();
@@ -40,15 +52,6 @@ export default function Dashboard() {
   useEffect(() => {
     fetchAllCourses();
   }, [showEnrolled]);
-
-
-  const defaultCourse = {
-    _id: new Date().getTime().toString(), name: "New Course", number: "New Number",
-    startDate: "2023-09-10", endDate: "2023-12-15", description: "New description",
-    }
-
-  // reserved for editing when adding courses.
-  const [ editCourse, setCourse ] = useState({...defaultCourse});
 
   return (
     <div id="wd-dashboard">
@@ -67,26 +70,26 @@ export default function Dashboard() {
             <button className="btn btn-primary float-end"
                     id="wd-add-new-course-click"
                     onClick= { () => {
-                      if (courses.find( (c:any) => editCourse._id === c._id )) {
-                        editCourse._id = new Date().getTime().toString();
+                      if (courses.find( (c:any) => course._id === c._id )) {
+                        course._id = new Date().getTime().toString();
                       }
-                      dispatch(addCourse(editCourse));
-                      dispatch(enroll( {userId: currentUser._id, courseId: editCourse._id} ));
+                      addNewCourse();
+                      dispatch(enroll( {userId: currentUser._id, courseId: course._id} ));
                       setCourse(defaultCourse);
     }} > Add </button>
             <button className="btn btn-warning float-end me-2"
                     onClick={() => {
-                      dispatch(updateCourse(editCourse));
+                      dispatch(updateCourse(course));
                       setCourse(defaultCourse);
                     }
                     } id="wd-update-course-click">
                     Update
             </button>
         </h5><br />
-        <input    value={editCourse.name} className="form-control mb-2" 
-        onChange={(e) => setCourse( {...editCourse, name: e.target.value} )}/>
-        <textarea value={editCourse.description} className="form-control"
-        onChange={(e) => setCourse( {...editCourse, description: e.target.value} )}/>
+        <input    value={course.name} className="form-control mb-2" 
+        onChange={(e) => setCourse( {...course, name: e.target.value} )}/>
+        <textarea value={course.description} className="form-control"
+        onChange={(e) => setCourse( {...course, description: e.target.value} )}/>
   
         <br /><hr />
       </div> : <div></div>
