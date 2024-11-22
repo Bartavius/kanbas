@@ -1,18 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCurrentUser } from "./reducer";
 import * as client from "./client";
+
+
+
 export default function Profile() {
   const [error, setError] = useState(null);
   const [profile, setProfile] = useState<any>({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const fetchProfile = () => {
+  const fetchProfile = useCallback(() => {
     if (!currentUser) return navigate("/Kanbas/Account/Signin");
     setProfile(currentUser);
-  };
+  }, [currentUser, navigate]);
   const updateProfile = async () => {
     try {
       const updatedProfile = await client.updateUser(profile);
@@ -21,14 +24,15 @@ export default function Profile() {
       setError(error.response.data.message);
     }
   };
-  const signout = () => {
+  const signout = async () => {
+    await client.signout();
     dispatch(setCurrentUser(null));
     navigate("/Kanbas/Account/Signin");
   };
-  useEffect(
-    () => {
-      fetchProfile();
-    }, [currentUser]);
+
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
 
   return (
     <div className="wd-profile-screen">
