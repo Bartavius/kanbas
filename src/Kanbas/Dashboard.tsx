@@ -49,6 +49,13 @@ export default function Dashboard() {
     const status = await courseClient.deleteCourse(courseId);
     setCourses(courses.filter((course: any) => course._id !== courseId));
   };
+  const updateCourse = async () => {
+    await courseClient.updateCourse(course);
+    setCourses(courses.map((c: any) => {
+        if (c._id === course._id) { return course; }
+        else { return c; }
+    })
+  );};
 
   useEffect(() => {
     fetchCourses();
@@ -84,8 +91,7 @@ export default function Dashboard() {
     }} > Add </button>
             <button className="btn btn-warning float-end me-2"
                     onClick={() => {
-                      dispatch(updateCourse(course));
-                      setCourse(defaultCourse);
+                      updateCourse();
                     }
                     } id="wd-update-course-click">
                     Update
