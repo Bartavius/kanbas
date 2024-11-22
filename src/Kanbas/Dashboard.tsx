@@ -1,19 +1,14 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { enroll, unenroll } from "./reducer";
-import {  updateCourse } from "./Courses/courseReducer";
 import * as courseClient from "./Courses/client";
-
 import * as userClient from "./Account/client";
+import * as enrollmentClient from "./enrollmentClient";
 
 export default function Dashboard() {
-  
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const [ showEnrolled, setShowEnrolled ] = useState(false);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [ courses, setCourses ] = useState<any>([]);
   const [ allCourses, setAllCourses ] = useState<any>([]);
   const defaultCourse = {
@@ -47,6 +42,7 @@ export default function Dashboard() {
   };
   const deleteCourse = async (courseId: string) => {
     const status = await courseClient.deleteCourse(courseId);
+    console.log(`Delete course status: ${status}`);
     setCourses(courses.filter((course: any) => course._id !== courseId));
   };
   const updateCourse = async () => {
@@ -56,6 +52,17 @@ export default function Dashboard() {
         else { return c; }
     })
   );};
+
+  const enrollUser = async (userId: string, courseId: string) => {
+    const status = await enrollmentClient.enrollUser(userId, courseId);
+    console.log(`Enroll user status: ${status}`);
+    fetchCourses();
+  }
+  const unenrollUser = async (userId: string, courseId: string) => {
+    const status = await enrollmentClient.unenrollUser(userId, courseId);
+    console.log(`Unenroll user status: ${status}`);
+    fetchCourses();
+  }
 
   useEffect(() => {
     fetchCourses();
@@ -86,7 +93,7 @@ export default function Dashboard() {
                         course._id = new Date().getTime().toString();
                       }
                       addNewCourse();
-                      dispatch(enroll( {userId: currentUser._id, courseId: course._id} ));
+                      enrollUser(currentUser._id, course._id);
                       setCourse(defaultCourse);
     }} > Add </button>
             <button className="btn btn-warning float-end me-2"
@@ -112,7 +119,7 @@ export default function Dashboard() {
 
           {courses.map(
             (course: any) => (
-            <div className="wd-dashboard-course col" style={{ width: "300px" }}>
+            <div className="wd-dashboard-course col" key={course._id} style={{ width: "300px" }}>
               
               <div className="card rounded-3 overflow-hidden">
                 <Link to={`/Kanbas/Courses/${course._id}/Home`}
@@ -148,7 +155,7 @@ export default function Dashboard() {
                         <div id="course-buttons">
                           <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
                           <button className="btn btn-danger float-end"
-                            onClick={() => {dispatch(unenroll(courses.find( (e: any) => e.user === currentUser._id && e.course === course._id)._id))}}>
+                            onClick={() => unenrollUser(currentUser._id, course._id)}>
                             Unenroll
                           </button>
                         </div>
@@ -175,7 +182,7 @@ export default function Dashboard() {
                         {course.name} </h5>
                       <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                         {course.description} </p>
-                      <button className="btn btn-success float-end" onClick={() => dispatch(enroll( {userId: currentUser._id, courseId: course._id}))}>
+                      <button className="btn btn-success float-end" onClick={() => enrollUser(currentUser._id, course._id)} >
                         Enroll
                       </button>
                     </div> 
