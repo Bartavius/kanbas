@@ -2,7 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { enroll, unenroll } from "./reducer";
-import { addCourse, deleteCourse, updateCourse } from "./Courses/courseReducer";
+import {  updateCourse } from "./Courses/courseReducer";
+import * as courseClient from "./Courses/client";
+
 import * as userClient from "./Account/client";
 
 export default function Dashboard() {
@@ -33,7 +35,7 @@ export default function Dashboard() {
 
   const fetchAllCourses = async () => {
     try {
-      const allCourses = await userClient.findAllCourses();
+      const allCourses = await courseClient.findAllCourses();
       setAllCourses(allCourses);
     } catch (error) {
       console.error(error);
@@ -43,7 +45,10 @@ export default function Dashboard() {
     const newCourse = await userClient.createCourse(course); 
     setCourses([ ...courses, newCourse ]);
   };
-
+  const deleteCourse = async (courseId: string) => {
+    const status = await courseClient.deleteCourse(courseId);
+    setCourses(courses.filter((course: any) => course._id !== courseId));
+  };
 
   useEffect(() => {
     fetchCourses();
@@ -120,8 +125,7 @@ export default function Dashboard() {
                           <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
                           <button onClick={(event) => {
                               event.preventDefault();
-                              dispatch(deleteCourse(course._id));
-                              dispatch(unenroll(courses.find( (e: any) => e.user === currentUser._id && e.course === course._id)._id))
+                              deleteCourse(course._id);
                             }} className="btn btn-danger float-end"
                             id="wd-delete-course-click">
                             Delete
