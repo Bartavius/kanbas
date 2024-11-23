@@ -15,6 +15,7 @@ export default function AssignmentEditor(
 
   const assignments = useSelector( (state: any) => state.assignmentReducer.assignments);
   const [assignment, setAssignment] = useState<any>([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchAssignment = useCallback(async () => {
     if (!cid || !aid) return;
@@ -24,6 +25,7 @@ export default function AssignmentEditor(
     } catch (error) {
         console.error(error);
     }
+    setLoading(false);
   }, [cid, aid])
 
   const updateAssignment = async () => {
@@ -49,6 +51,7 @@ export default function AssignmentEditor(
 
     return (
       <div id="wd-assignments-editor">
+        {loading ? <div>Loading...</div> : <div>
        <label htmlFor="wd-name" className="form-label d-block"><h5>Assignment Name</h5></label>
         
         <input id="wd-name" className="form-control" value={assignment ? assignment.title : ""} onChange={ (e) => setAssignment({ ...assignment, title: e.target.value }) } /> 
@@ -185,7 +188,7 @@ export default function AssignmentEditor(
           </div>
         </form>
 
-
+        </div>}
       </div>
   );}
   
