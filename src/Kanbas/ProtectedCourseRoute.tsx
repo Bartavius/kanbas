@@ -25,10 +25,10 @@ export default function ProtectedCourseRoute({ children }: { children: any }) {
 
     useEffect(() => {
         getEnrollments();
-    }, [dispatch]);
+    }, [dispatch, enrollments]);
 
     // Wait until enrollments are loaded
-    if (loading || enrollments.length === 0) {
+    if (loading) {
         return <div>Loading...</div>;
     }
     const userIsEnrolled = enrollments.find((e: any) => currentUser._id === e.user && cid === e.course);
