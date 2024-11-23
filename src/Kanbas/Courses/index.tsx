@@ -7,6 +7,7 @@ import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
 import PeopleTable from "./People/Table";
 import { useSelector } from "react-redux";
+import ProtectedPrivilegeRoute from "./Assignments/ProtectedPrivilegeRoute";
 
 export default function Courses() {
     const { cid } = useParams();
@@ -29,8 +30,10 @@ export default function Courses() {
                         <Route path="Home" element={<Home />} />
                         <Route path="Modules" element={<Modules />} />
                         <Route path="Assignments" element={<Assignments />} />
-                        <Route path="Assignments/:aid" element={<
-                            AssignmentEditor />} />
+                        {/* in the future, the student should be able to click the assignment with the aid, and redirect to a page
+                        that is not the editor. So, the current editor's route will have to change to .../edit at the end
+                        and there should be a new, separate link for assignment viewing */}
+                        <Route path="Assignments/:aid" element={<ProtectedPrivilegeRoute><AssignmentEditor /></ProtectedPrivilegeRoute>} />
                         <Route path="Zoom" element={<h2>Zoom</h2>} />
                         <Route path="Quizzes" element={<h2>Quizzes</h2>} />
                         <Route path="Grades" element={<h2>Grades</h2>} />

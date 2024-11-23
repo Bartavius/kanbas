@@ -6,19 +6,22 @@ import * as userClient from "./Account/client";
 import * as enrollmentClient from "./enrollmentClient";
 import { addEnrollment, deleteEnrollment } from "./reducer";
 import { setCourses, addCourse, updateCourse, deleteCourse } from "./Courses/courseReducer";
+import { getUserAccess } from "./Account/UserAccess";
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const [ showEnrolled, setShowEnrolled ] = useState(false);
-  const [ enrolledCourses, setEnrolledCourses ] = useState<any>([]);
-  const { courses } = useSelector((state: any) => state.coursesReducer)
+
   const defaultCourse = {
     _id: new Date().getTime().toString(), name: "New Course", number: "New Number",
     startDate: "2023-09-10", endDate: "2023-12-15", description: "New description",
     }
-
+  const facultyAccess = getUserAccess() === 1; // only faculty level
+  const adminAccess = getUserAccess() > 1; // only admins or higher
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const { courses } = useSelector((state: any) => state.coursesReducer)
+  const [ showEnrolled, setShowEnrolled ] = useState(false);
+  const [ enrolledCourses, setEnrolledCourses ] = useState<any>([]);
   // reserved for editing when adding courses.
   const [ course, setCourse ] = useState({...defaultCourse});
   const [loading, setLoading] = useState(true);
@@ -90,8 +93,9 @@ export default function Dashboard() {
   return (
     <div id="wd-dashboard">
       {loading ? <div>Loading...</div> : 
-      <div>{ currentUser.role === "STUDENT" ? 
+      <div>{ !facultyAccess ? 
         <div className="row">
+          {/* only faculties level-access cannot see the enrollment button */}
           <h1 id="wd-dashboard-title" className="col-sm-8 col-9 d-inline">Dashboard</h1>
           <button className="btn btn-primary d-inline float-end col-sm-4 col-3" onClick={() => setShowEnrolled(!showEnrolled)}>Enrollments</button>
         </div> :
@@ -99,7 +103,7 @@ export default function Dashboard() {
       }
        <hr />
 
-      { currentUser.role === "FACULTY" ? 
+      { facultyAccess || adminAccess ? 
       <div id="course-addition-menu" className="faculty-access">
         <h5>New Course
             <button className="btn btn-primary float-end"
@@ -149,7 +153,7 @@ export default function Dashboard() {
                       {course.description} </p>
 
             
-                      { currentUser.role === "FACULTY" ? 
+                      { facultyAccess || adminAccess ? 
                         <div id="course-edit-buttons" className="faculty-access">
                           <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
                           <button onClick={(event) => {
@@ -198,9 +202,33 @@ export default function Dashboard() {
                         {course.name} </h5>
                       <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                         {course.description} </p>
+                      
+                      { adminAccess ? 
+
+                      <div id="course-edit-buttons" className="faculty-access">
+                        <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
+                        <button onClick={(event) => {
+                            event.preventDefault();
+                            courseDelete(course._id);
+                          }} className="btn btn-danger float-end"
+                          id="wd-delete-course-click">
+                          Delete
+                        </button>
+                        <button id="wd-edit-course-click"
+                          onClick={ (event) => {
+                            event.preventDefault();
+                            setCourse(course);
+                          }}
+                          className="btn btn-warning me-2 float-end" >
+                          Edit
+                        </button>
+                      </div>
+
+                        : <span></span> }
                       <button className="btn btn-success float-end" onClick={() => enrollUser(currentUser._id, course._id)} >
                         Enroll
                       </button>
+                      
                     </div> 
                 </div>
               </div>

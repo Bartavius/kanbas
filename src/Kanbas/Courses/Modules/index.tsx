@@ -9,15 +9,17 @@ import { setModules, addModule, editModule, updateModule, deleteModule }
 import { useSelector, useDispatch } from "react-redux";
 import * as coursesClient from "../client";
 import * as modulesClient from "./client";
+import { useUserAccess } from "../../Account/UserAccess";
 
 export default function Modules() {
   
     const { cid } = useParams();
     const dispatch = useDispatch();
-    const [moduleName, setModuleName] = useState("");
-    const { modules } = useSelector((state: any) => state.modulesReducer);
-    const [loading, setLoading] = useState(true);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const { modules } = useSelector((state: any) => state.modulesReducer);
+    const [moduleName, setModuleName] = useState("");
+    const [loading, setLoading] = useState(true);
+    const facultyAccess = useUserAccess() > 0; // admin and faculty has the same privilege
 
     const createModuleForCourse = async () => {
       if (!cid) return;
@@ -46,7 +48,7 @@ export default function Modules() {
       <div className="container">
         { loading ? <div>Loading...</div> : <div>
 
-        { currentUser.role === "FACULTY" ? <div className="faculty-access">
+        { facultyAccess ? <div className="faculty-access">
         <ModulesControls setModuleName={setModuleName} moduleName={moduleName}
           addModule={createModuleForCourse} /><br /><br /><br /><br />
           </div> : <div></div>
@@ -57,7 +59,7 @@ export default function Modules() {
             .map((module: any) => (
               <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
                 <div className="wd-title wd-title p-3 ps-2 bg-secondary">
-                  { currentUser.role === "FACULTY" ? 
+                  { facultyAccess ? 
                   <div className="faculty-access">
                   <BsGripVertical className="me-2 fs-3" />
                   {!module.editing && module.name}

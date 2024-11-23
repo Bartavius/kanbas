@@ -49,6 +49,7 @@ export default function AssignmentEditor(
   console.log(`ASSIGNMENTS: ${JSON.stringify(assignments)}`)
   console.log(`assignment: ${JSON.stringify(assignment)}`);
 
+
     return (
       <div id="wd-assignments-editor">
         {loading ? <div>Loading...</div> : <div>

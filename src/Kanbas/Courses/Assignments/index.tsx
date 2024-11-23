@@ -10,6 +10,7 @@ import AssignmentDeletion from "./AssignmentDeletion";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import * as assignmentClient from "./client";
 import { useEffect, useState } from "react";
+import { useUserAccess } from "../../Account/UserAccess";
 
 export default function Assignments(
 ) {
@@ -19,6 +20,7 @@ export default function Assignments(
     const { assignments } = useSelector((state: any) => state.assignmentReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const [loading, setLoading] = useState(true);
+    const facultyAccess = useUserAccess() > 0; // admin has same privileges as faculty
 
     const fetchAssignments = async () => {
         if (!cid) return;
@@ -77,7 +79,7 @@ export default function Assignments(
                         />
                     </div>
                 </div>
-                {currentUser.role === "FACULTY" || currentUser.role === "ADMIN"? 
+                { facultyAccess ? 
                 <div className="col-8 d-flex justify-content-end align-text-end faculty-access">
                     <button className="btn btn-danger text-white rounded-1 me-1" onClick={ () => {
                         const id = new Date().getTime().toString();
@@ -114,14 +116,14 @@ export default function Assignments(
                                             <li className="wd-assignment-list-item list-group-item p-3 ps-1">
                                                 <div className="row align-items-center">
                                                     <div className="col-2">
-                                                        { currentUser.role === "FACULTY" ?
+                                                        { facultyAccess ?
                                                         <div className="faculty-access">
                                                             <AssignmentControlButtonLeft />
                                                         </div>
                                                         : <div></div>}
                                                     </div>
                                                     <div className="col-8 text-start">
-                                                        {currentUser.role === "FACULTY" ? 
+                                                        { facultyAccess ? 
                                                         <div className="faculty-access">
                                                             <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
                                                                 {assignment.title}
@@ -136,7 +138,7 @@ export default function Assignments(
                                                         </p>
                                                     </div>
                                                     <div className="col-2">
-                                                        {currentUser.role === "FACULTY" ?
+                                                        { facultyAccess ?
                                                         <div className="faculty-access float-end"> 
                                                         <AssignmentControlButtons assignmentID = {assignment._id}/>
                                                         <AssignmentDeletion
