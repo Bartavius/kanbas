@@ -29,13 +29,25 @@ export default function Assignments(
         }
     }
 
+    const deleteAssignmentAxios = async (aid: string) => {
+        if (!cid) return;
+        try {
+            await assignmentClient.deleteAssignment(cid, aid);
+            dispatch(deleteAssignment(assignments));
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     // the use effect does reveal a very quick previous response. Maybe add loading after
 
     useEffect(
         () => {
             fetchAssignments();
-        }, [dispatch]
+        }, [dispatch, assignments]
     )
+
+    console.log(`MAIN ASSIGNMENT PAGE: ${JSON.stringify(assignments)}`);
     
     return (
         <div>
@@ -81,6 +93,7 @@ export default function Assignments(
 
                               {/* assignment list */}
                                 <ul className="wd-assignments list-group rounded-0">
+                                    
                                     {assignments
                                         .map((assignment: any) => (
                                             <li className="wd-assignment-list-item list-group-item p-3 ps-1">
@@ -114,7 +127,7 @@ export default function Assignments(
                                                         <AssignmentDeletion
                                                             assignmentName={assignment.title}
                                                             assignmentID={assignment._id}
-                                                            deleteAssignment={ () => dispatch(deleteAssignment(assignment._id)) }
+                                                            deleteAssignment={ () => deleteAssignmentAxios(assignment._id) }
                                                             />
                                                         </div> : <div></div>}
                                                     </div>

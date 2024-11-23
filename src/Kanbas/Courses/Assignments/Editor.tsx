@@ -5,43 +5,68 @@ import { useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { addAssignment, updateAssignment } from "./reducer";
-import formatDate from "./formatDate";
+import { setAssignments } from "./reducer";
+import * as assignmentClient from "./client";
 export default function AssignmentEditor( 
 ) {
   let { cid } = useParams();
   let { aid } = useParams();
   const dispatch = useDispatch();
-  const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const twoDays = new Date(tomorrow);
-    twoDays.setDate(twoDays.getDate() + 1);
 
-    const formattedToday = formatDate({date: today});
-    const formattedTomorrow = formatDate({date : tomorrow });
-    const formattedTwoDays = formatDate({date: twoDays});
-    const [assignment, setAssignment] = useState<any>({
-      _id: aid,
-      title: "New Assignment",
-      description: "New Assignment",
-      points: "100",
-      assignment_group: "assignments",
-      submission_type: "online",
-      display_grade_as: "percentage",
-      assign_to: "everyone",
-      due_date: formattedTomorrow,
-      available_from: formattedToday,
-      available_until: formattedTwoDays,
-      course: cid,
-  });
   const assignments = useSelector( (state: any) => state.assignmentReducer.assignments);
-  const existAssignment = assignments.find((a: any) => a._id === aid && a.course === cid);
-  useEffect(() => {
-    if (existAssignment) {
-      setAssignment(existAssignment);
+  const [assignment, setAssignment] = useState<any>([]);
+  const [creating, setCreating] = useState(false);
+  
+  assignments.find((a: any) => a._id === aid && a.course === cid); // replace with update
+
+  const fetchAssignment = async () => {
+    if (!cid || !aid) return;
+    try {
+        const loadedAssignment = await assignmentClient.getAssignmentById(cid, aid);
+        setAssignment(loadedAssignment);
+    } catch (error) {
+        console.error(error);
     }
-  }, [existAssignment]);
+  }
+
+  const createAssignment = async () => {
+    if (!cid || !aid) return;
+    try {
+        const loadedAssignment = await assignmentClient.createAssignment(cid, aid);
+        dispatch(setAssignments([...assignments, loadedAssignment]));
+        setCreating(true);
+    } catch (error) {
+        console.error(error);
+    }
+  }
+
+  const updateAssignment = async () => {
+    if (!cid || !aid) return;
+    try {
+        console.log(`Updating: ${JSON.stringify(assignment)}`)
+        await assignmentClient.updateAssignment(cid, aid, assignment);
+        dispatch(setAssignments([...assignments, assignment]));
+        console.log(`After updating: ${JSON.stringify(assignment)}`)
+    } catch (error) {
+        console.error(error);
+    }
+  }///////////////
+
+  useEffect( () => {
+    fetchAssignment();
+  }, []);
+
+  const handleCreateOrUpdate = () => {
+    if (creating) {
+      createAssignment();
+    } else {
+      updateAssignment();
+    }
+  };
+
+  console.log("Page was accessed.");
+  console.log(`assignment: ${JSON.stringify(assignment)}`);
+  console.log(creating.toString())
 
     return (
       <div id="wd-assignments-editor">
@@ -59,8 +84,8 @@ export default function AssignmentEditor(
           <div className="mt-2 row g-3">
             <label htmlFor="wd-group" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Assignment Group</label>
             <select name="assignment-group" id="wd-group" className="col form-select" onChange={ (e) => setAssignment( {...assignment, assignment_group: e.target.value}) } >
-                <option value={assignment ? assignment.assignment_group.toUpperCase() : ""}>
-                  {assignment ? assignment.assignment_group.toUpperCase() : ""}
+                <option value={assignment ? assignment.assignment_group : ""}>
+                  {assignment ? assignment.assignment_group : ""}
                   <IoIosArrowDown className="float-end"/>
                 </option>
             </select>
@@ -69,8 +94,8 @@ export default function AssignmentEditor(
           <div className="mt-2 row g-3">
             <label htmlFor="wd-display-grade-as" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Display Grade as</label>
             <select name="display-grade-as" id="wd-display-grade-as" className="col form-select" onChange={ (e) => setAssignment({...assignment, display_grade_as: e.target.value}) }> 
-                  <option value={assignment ? assignment.display_grade_as.toUpperCase() : ""}> 
-                  {assignment ? assignment.display_grade_as.toUpperCase() : ""}
+                  <option value={assignment ? assignment.display_grade_as : ""}> 
+                  {assignment ? assignment.display_grade_as : ""}
                     <IoIosArrowDown className="float-end" />
                   </option>
             </select>
@@ -170,9 +195,7 @@ export default function AssignmentEditor(
                   className={`nav-link text-danger border-0`}>
                   <button className="btn btn-danger text-white rounded-1" 
                   onClick={(e) => {
-                    existAssignment ? 
-                    dispatch(updateAssignment(assignment)) :
-                    dispatch(addAssignment({...assignment, course: cid }))
+                    handleCreateOrUpdate();
                   }
                 }
                   >Save</button>
