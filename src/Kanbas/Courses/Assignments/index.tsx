@@ -84,7 +84,7 @@ export default function Assignments(
                     <button className="btn btn-danger text-white rounded-1 me-1" onClick={ () => {
                         const id = new Date().getTime().toString();
                         createAssignment(id);
-                        navigate(`/Kanbas/Courses/${cid}/Assignments/${id}`);
+                        navigate(`/Kanbas/Courses/${cid}/Assignments/${id}/Editor`);
                         }}>
                         {<BsPlus className="text-white" />}
                         Assignment
@@ -125,10 +125,10 @@ export default function Assignments(
                                                     <div className="col-8 text-start">
                                                         { facultyAccess ? 
                                                         <div className="faculty-access">
-                                                            <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
+                                                            <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}/Editor`}>
                                                                 {assignment.title}
                                                             </a>
-                                                        </div> : <u><b>{assignment.title}</b></u>
+                                                        </div> : <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>{assignment.title}</a>
                                                         }
                                                         <p>
                                                             Multiple Modules {/* not sure what this is to be honest*/}
