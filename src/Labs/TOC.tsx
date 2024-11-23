@@ -33,7 +33,16 @@ export default function TOC() {
         <a id="wd-k" href="https://github.com/Bartavius/cs4550" className="nav-link">
           My React GitHub
         </a>
-      
+      </li>
+      <li className="nav-item">
+        <a id="wd-k" href="https://github.com/Bartavius/cs4550-test-server" className="nav-link">
+          My Node GitHub 
+        </a>
+      </li>
+      <li className="nav-item">
+        <a id="wd-k" href="https://cs4550-test-server.onrender.com" className="nav-link">
+          Node server deployment 
+        </a>
       </li>
     </ul>
   );
