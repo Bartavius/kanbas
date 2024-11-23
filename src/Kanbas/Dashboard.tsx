@@ -21,6 +21,7 @@ export default function Dashboard() {
 
   // reserved for editing when adding courses.
   const [ course, setCourse ] = useState({...defaultCourse});
+  const [loading, setLoading] = useState(true);
 
   const fetchCourses = async () => {
     try {
@@ -29,6 +30,7 @@ export default function Dashboard() {
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   };
 
   const fetchAllCourses = async () => {
@@ -38,6 +40,7 @@ export default function Dashboard() {
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   }
   
   const courseDelete = async (courseId: string) => {
@@ -86,7 +89,8 @@ export default function Dashboard() {
 
   return (
     <div id="wd-dashboard">
-      { currentUser.role === "STUDENT" ? 
+      {loading ? <div>Loading...</div> : 
+      <div>{ currentUser.role === "STUDENT" ? 
         <div className="row">
           <h1 id="wd-dashboard-title" className="col-sm-8 col-9 d-inline">Dashboard</h1>
           <button className="btn btn-primary d-inline float-end col-sm-4 col-3" onClick={() => setShowEnrolled(!showEnrolled)}>Enrollments</button>
@@ -204,4 +208,4 @@ export default function Dashboard() {
           </div>
 
       </div>
-    </div>);}
+  </div>  }</div>);}

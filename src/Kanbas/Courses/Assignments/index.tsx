@@ -9,7 +9,7 @@ import AssignmentControlButtonLeft from "./AssignmentControlButtonLeft";
 import AssignmentDeletion from "./AssignmentDeletion";
 import AssignmentControlButtons from "./AssignmentControlButtons";
 import * as assignmentClient from "./client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Assignments(
 ) {
@@ -18,6 +18,7 @@ export default function Assignments(
     const navigate = useNavigate();
     const { assignments } = useSelector((state: any) => state.assignmentReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+    const [loading, setLoading] = useState(true);
 
     const fetchAssignments = async () => {
         if (!cid) return;
@@ -27,6 +28,7 @@ export default function Assignments(
         } catch (error) {
             console.error(error);
         }
+        setLoading(false);
     }
     const createAssignment = async (aid: string) => {
         if (!cid) return;
@@ -39,7 +41,6 @@ export default function Assignments(
             console.error(error);
         }
       }
-
     const deleteAssignmentAxios = async (aid: string) => {
         if (!cid) return;
         try {
@@ -60,6 +61,7 @@ export default function Assignments(
     
     return (
         <div>
+            { loading ? <div>Loading...</div> : <div>
             {/* assignment top */}
             <div className="wd-assignment-top text-nowrap row mt-3 mb-3">
                 <div className="col-4 d-flex">
@@ -151,7 +153,7 @@ export default function Assignments(
                             </li>
                         </ul>
                     
-            </div>
+            </div></div>}
         </div>
     );
 }

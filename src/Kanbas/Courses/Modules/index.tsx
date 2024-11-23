@@ -13,11 +13,12 @@ import * as modulesClient from "./client";
 export default function Modules() {
   
     const { cid } = useParams();
+    const dispatch = useDispatch();
     const [moduleName, setModuleName] = useState("");
     const { modules } = useSelector((state: any) => state.modulesReducer);
-    const dispatch = useDispatch();
-    
+    const [loading, setLoading] = useState(true);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+
     const createModuleForCourse = async () => {
       if (!cid) return;
       const newModule = { name: moduleName, course: cid };
@@ -32,12 +33,10 @@ export default function Modules() {
       await modulesClient.updateModule(module);
       dispatch(updateModule(module));
     };
-  
-  
-
     const fetchModules = async () => {
       const modules = await coursesClient.findModulesForCourse(cid as string);
       dispatch(setModules(modules));
+      setLoading(false);
     };
     useEffect(() => {
       fetchModules();
@@ -45,6 +44,7 @@ export default function Modules() {
 
     return (
       <div className="container">
+        { loading ? <div>Loading...</div> : <div>
 
         { currentUser.role === "FACULTY" ? <div className="faculty-access">
         <ModulesControls setModuleName={setModuleName} moduleName={moduleName}
@@ -99,6 +99,7 @@ export default function Modules() {
             ))
           }
         </ul>
+      </div>}
       </div>
     )
   }
