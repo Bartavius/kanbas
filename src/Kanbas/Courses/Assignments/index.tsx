@@ -57,8 +57,6 @@ export default function Assignments(
             fetchAssignments();
         }, [dispatch, assignments]
     )
-
-    console.log(`MAIN ASSIGNMENT PAGE: ${JSON.stringify(assignments)}`);
     
     return (
         <div>
@@ -77,7 +75,7 @@ export default function Assignments(
                         />
                     </div>
                 </div>
-                {currentUser.role === "FACULTY" ? 
+                {currentUser.role === "FACULTY" || currentUser.role === "ADMIN"? 
                 <div className="col-8 d-flex justify-content-end align-text-end faculty-access">
                     <button className="btn btn-danger text-white rounded-1 me-1" onClick={ () => {
                         const id = new Date().getTime().toString();
