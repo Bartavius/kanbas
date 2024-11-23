@@ -15,26 +15,12 @@ export default function AssignmentEditor(
 
   const assignments = useSelector( (state: any) => state.assignmentReducer.assignments);
   const [assignment, setAssignment] = useState<any>([]);
-  const [creating, setCreating] = useState(false);
-  
-  assignments.find((a: any) => a._id === aid && a.course === cid); // replace with update
 
   const fetchAssignment = async () => {
     if (!cid || !aid) return;
     try {
         const loadedAssignment = await assignmentClient.getAssignmentById(cid, aid);
         setAssignment(loadedAssignment);
-    } catch (error) {
-        console.error(error);
-    }
-  }
-
-  const createAssignment = async () => {
-    if (!cid || !aid) return;
-    try {
-        const loadedAssignment = await assignmentClient.createAssignment(cid, aid);
-        dispatch(setAssignments([...assignments, loadedAssignment]));
-        setCreating(true);
     } catch (error) {
         console.error(error);
     }
@@ -54,19 +40,12 @@ export default function AssignmentEditor(
 
   useEffect( () => {
     fetchAssignment();
-  }, []);
+  }, [cid, aid]);
 
-  const handleCreateOrUpdate = () => {
-    if (creating) {
-      createAssignment();
-    } else {
-      updateAssignment();
-    }
-  };
 
   console.log("Page was accessed.");
+  console.log(`ASSIGNMENTS: ${JSON.stringify(assignments)}`)
   console.log(`assignment: ${JSON.stringify(assignment)}`);
-  console.log(creating.toString())
 
     return (
       <div id="wd-assignments-editor">
@@ -195,7 +174,7 @@ export default function AssignmentEditor(
                   className={`nav-link text-danger border-0`}>
                   <button className="btn btn-danger text-white rounded-1" 
                   onClick={(e) => {
-                    handleCreateOrUpdate();
+                    updateAssignment();
                   }
                 }
                   >Save</button>

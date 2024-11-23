@@ -28,6 +28,17 @@ export default function Assignments(
             console.error(error);
         }
     }
+    const createAssignment = async (aid: string) => {
+        if (!cid) return;
+        try {
+            console.log(`Before creating: ${cid}, ${aid}`)
+            const loadedAssignment = await assignmentClient.createAssignment(cid, aid);
+            console.log(`Creating: ${JSON.stringify(loadedAssignment)}`)
+            dispatch(setAssignments([...assignments, loadedAssignment]));
+        } catch (error) {
+            console.error(error);
+        }
+      }
 
     const deleteAssignmentAxios = async (aid: string) => {
         if (!cid) return;
@@ -68,7 +79,11 @@ export default function Assignments(
                 </div>
                 {currentUser.role === "FACULTY" ? 
                 <div className="col-8 d-flex justify-content-end align-text-end faculty-access">
-                    <button className="btn btn-danger text-white rounded-1 me-1" onClick={ () => navigate(`/Kanbas/Courses/${cid}/Assignments/${new Date().getTime().toString()}`) }>
+                    <button className="btn btn-danger text-white rounded-1 me-1" onClick={ () => {
+                        const id = new Date().getTime().toString();
+                        createAssignment(id);
+                        navigate(`/Kanbas/Courses/${cid}/Assignments/${id}`);
+                        }}>
                         {<BsPlus className="text-white" />}
                         Assignment
                     </button>
