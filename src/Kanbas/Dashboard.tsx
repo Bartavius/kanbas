@@ -6,7 +6,7 @@ import * as userClient from "./Account/client";
 import * as enrollmentClient from "./enrollmentClient";
 import { addEnrollment, deleteEnrollment } from "./reducer";
 import { setCourses, addCourse, updateCourse, deleteCourse } from "./Courses/courseReducer";
-import { getUserAccess } from "./Account/UserAccess";
+import { useUserAccess } from "./Account/UserAccess";
 
 export default function Dashboard() {
 
@@ -14,8 +14,8 @@ export default function Dashboard() {
     _id: new Date().getTime().toString(), name: "New Course", number: "New Number",
     startDate: "2023-09-10", endDate: "2023-12-15", description: "New description",
     }
-  const facultyAccess = getUserAccess() === 1; // only faculty level
-  const adminAccess = getUserAccess() > 1; // only admins or higher
+  const facultyAccess = useUserAccess() === 2; // only faculty level
+  const adminAccess = useUserAccess() > 2; // only admins or higher
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -25,6 +25,7 @@ export default function Dashboard() {
   // reserved for editing when adding courses.
   const [ course, setCourse ] = useState({...defaultCourse});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const fetchCourses = async () => {
     try {
@@ -77,9 +78,13 @@ export default function Dashboard() {
   }
 
   const addNewCourse = async () => {
-    const newCourse = await userClient.createCourse(course);
-    dispatch(addCourse(newCourse));
-    setEnrolledCourses([ ...enrolledCourses, newCourse ]);
+    try {
+      const newCourse = await userClient.createCourse(course);
+      dispatch(addCourse(newCourse));
+      setEnrolledCourses([ ...enrolledCourses, newCourse ]);
+    } catch (error: any) {
+      setError(error.response.data.message);
+    }
   };
 
   useEffect(() => {
@@ -102,6 +107,7 @@ export default function Dashboard() {
         <h1 id="wd-dashboard-title">Dashboard</h1> 
       }
        <hr />
+       {error && (<div id="wd-signin-error-message" className="alert alert-danger mb-2 mt-2">{error}</div>) }
 
       { facultyAccess || adminAccess ? 
       <div id="course-addition-menu" className="faculty-access">
@@ -119,6 +125,7 @@ export default function Dashboard() {
             <button className="btn btn-warning float-end me-2"
                     onClick={() => {
                       courseUpdate();
+                      setCourse(defaultCourse);
                     }
                     } id="wd-update-course-click">
                     Update
@@ -225,10 +232,10 @@ export default function Dashboard() {
                       </div>
 
                         : <span></span> }
-                      <button className="btn btn-success float-end" onClick={() => enrollUser(currentUser._id, course._id)} >
-                        Enroll
-                      </button>
-                      
+                        { currentUser.role != "USER" ?
+                        <button className="btn btn-success float-end" onClick={() => enrollUser(currentUser._id, course._id)} >
+                          Enroll
+                        </button> : <span></span>} {/* preventing anonymous users to register for classes */}
                     </div> 
                 </div>
               </div>

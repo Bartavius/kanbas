@@ -19,7 +19,7 @@ export default function Modules() {
     const { modules } = useSelector((state: any) => state.modulesReducer);
     const [moduleName, setModuleName] = useState("");
     const [loading, setLoading] = useState(true);
-    const facultyAccess = useUserAccess() > 0; // admin and faculty has the same privilege
+    const facultyAccess = useUserAccess() > 1; // admin and faculty has the same privilege
 
     const createModuleForCourse = async () => {
       if (!cid) return;
