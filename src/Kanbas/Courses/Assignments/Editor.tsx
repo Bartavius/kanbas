@@ -3,7 +3,7 @@ import { RxCross2 } from "react-icons/rx";
 import { LuCalendarDays } from "react-icons/lu";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setAssignments } from "./reducer";
 import * as assignmentClient from "./client";
@@ -16,7 +16,7 @@ export default function AssignmentEditor(
   const assignments = useSelector( (state: any) => state.assignmentReducer.assignments);
   const [assignment, setAssignment] = useState<any>([]);
 
-  const fetchAssignment = async () => {
+  const fetchAssignment = useCallback(async () => {
     if (!cid || !aid) return;
     try {
         const loadedAssignment = await assignmentClient.getAssignmentById(cid, aid);
@@ -24,7 +24,7 @@ export default function AssignmentEditor(
     } catch (error) {
         console.error(error);
     }
-  }
+  }, [cid, aid])
 
   const updateAssignment = async () => {
     if (!cid || !aid) return;
@@ -40,7 +40,7 @@ export default function AssignmentEditor(
 
   useEffect( () => {
     fetchAssignment();
-  }, [cid, aid]);
+  }, [fetchAssignment]);
 
 
   console.log("Page was accessed.");
