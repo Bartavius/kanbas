@@ -9,7 +9,7 @@ export default function CoursesNavigation() {
     <div id="wd-courses-navigation">
       <ul className="nav nav-pills fs-5 rounded-0 list-group">
         {links.map((link) => 
-          <li className="nav-item">
+          <li className="nav-item" key={link}>
           <Link
             id="wd-course-home-link" to={`/Kanbas/Courses/${cid}/${link}`}
             className={`nav-link text-danger border-0 ${pathname === `/Kanbas/Courses/${cid}/${link}` ? "active-secondary-nav" : ""}`}>

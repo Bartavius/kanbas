@@ -14,6 +14,13 @@ export default function Dashboard() {
     _id: new Date().getTime().toString(), name: "New Course", number: "New Number",
     startDate: "2023-09-10", endDate: "2023-12-15", description: "New description",
     }
+
+    //----------------------------
+
+    // TODO: FOR ANONYMOUS USER ROLE. TAKE AWAY THEIR ABILITY TO CLICK ON IMAGE TO ACCESS COURSE.
+
+    //----------------------------
+
   const facultyAccess = useUserAccess() === 2; // only faculty level
   const adminAccess = useUserAccess() > 2; // only admins or higher
   const navigate = useNavigate();
@@ -181,7 +188,7 @@ export default function Dashboard() {
                         </div> : 
                         <div id="course-buttons">
                           <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
-                          <button className="btn btn-danger float-end"
+                          <button className="btn btn-danger mt-2 float-end"
                             onClick={() => unenrollUser(currentUser._id, course._id)}>
                             Unenroll
                           </button>
@@ -197,7 +204,7 @@ export default function Dashboard() {
             courses.filter((c: any) => !enrolledCourses.some((enrolled: any) => enrolled._id === c._id))
             .map(
             (course: any) => (
-              <div className="wd-dashboard-course col" style={{ width: "300px" }}>
+              <div className="wd-dashboard-course col" key={course._id} style={{ width: "300px" }}>
                 
                 <div className="card rounded-3 overflow-hidden">
                   <Link to={`/Kanbas/Courses/${course._id}/Home`}
@@ -233,7 +240,7 @@ export default function Dashboard() {
 
                         : <span></span> }
                         { currentUser.role != "USER" ?
-                        <button className="btn btn-success float-end" onClick={() => enrollUser(currentUser._id, course._id)} >
+                        <button className="btn btn-success mt-2 float-end" onClick={() => enrollUser(currentUser._id, course._id)} >
                           Enroll
                         </button> : <span></span>} {/* preventing anonymous users to register for classes */}
                     </div> 

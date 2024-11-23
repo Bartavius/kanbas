@@ -57,7 +57,7 @@ export default function Modules() {
         <ul id="wd-modules" className="list-group rounded-0">
           {modules
             .map((module: any) => (
-              <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
+              <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray" key={module._id}>
                 <div className="wd-title wd-title p-3 ps-2 bg-secondary">
                   { facultyAccess ? 
                   <div className="faculty-access">
@@ -85,7 +85,7 @@ export default function Modules() {
                 {module.lessons && (
                   <ul className="wd-lessons list-group rounded-0">
                     {module.lessons.map((lesson: any) => (
-                      <li className="wd-lesson list-group-item p-3 ps-1">
+                      <li className="wd-lesson list-group-item p-3 ps-1" key={lesson._id}>
                         { currentUser.role === "FACULTY" ? 
                         <div className="faculty-access">
                         <BsGripVertical className="me-2 fs-3" />
