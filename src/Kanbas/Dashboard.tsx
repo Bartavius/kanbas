@@ -155,7 +155,7 @@ export default function Dashboard() {
             (course: any) => (
             <div className="wd-dashboard-course col" key={course._id} style={{ width: "300px" }}>
               
-              <div className="card rounded-3 overflow-hidden">
+              <div className="course-card card rounded-3 overflow-hidden">
                 <Link to={`/Kanbas/Courses/${course._id}/Home`}
                       className="wd-dashboard-course-link text-decoration-none text-dark" >
                   <img src={course.image && course.image !== "" ? `/images/${course.image}` : "/images/reactjs.jpg"} width="100%" height={160} alt=""/>
@@ -206,7 +206,7 @@ export default function Dashboard() {
             (course: any) => (
               <div className="wd-dashboard-course col" key={course._id} style={{ width: "300px" }}>
                 
-                <div className="card rounded-3 overflow-hidden">
+                <div className="course-card card rounded-3 overflow-hidden">
                   <Link to={`/Kanbas/Courses/${course._id}/Home`}
                         className="wd-dashboard-course-link text-decoration-none text-dark" >
                     <img src={course.image && course.image !== "" ? `/images/${course.image}` : "/images/reactjs.jpg"} width="100%" height={160} alt=""/>
