@@ -4,10 +4,12 @@ import { GoTriangleDown } from "react-icons/go";
 import SectionControlButton from "./SectionControlButton";
 import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteAssignment } from "./reducer";
+import { setAssignments, deleteAssignment } from "./reducer";
 import AssignmentControlButtonLeft from "./AssignmentControlButtonLeft";
 import AssignmentDeletion from "./AssignmentDeletion";
 import AssignmentControlButtons from "./AssignmentControlButtons";
+import * as assignmentClient from "./client";
+import { useEffect } from "react";
 
 export default function Assignments(
 ) {
@@ -16,6 +18,24 @@ export default function Assignments(
     const navigate = useNavigate();
     const { assignments } = useSelector((state: any) => state.assignmentReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
+
+    const fetchAssignments = async () => {
+        if (!cid) return;
+        try {
+            const loadedAssignments = await assignmentClient.getAssignmentsFromCourse(cid);
+            dispatch(setAssignments(loadedAssignments))
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    // the use effect does reveal a very quick previous response. Maybe add loading after
+
+    useEffect(
+        () => {
+            fetchAssignments();
+        }, [dispatch]
+    )
     
     return (
         <div>
@@ -62,7 +82,6 @@ export default function Assignments(
                               {/* assignment list */}
                                 <ul className="wd-assignments list-group rounded-0">
                                     {assignments
-                                        .filter((a:any) => (a.course === cid))
                                         .map((assignment: any) => (
                                             <li className="wd-assignment-list-item list-group-item p-3 ps-1">
                                                 <div className="row align-items-center">

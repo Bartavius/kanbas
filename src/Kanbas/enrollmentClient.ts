@@ -18,6 +18,11 @@ export const getEnrollments = async () => {
     return data;
 }
 
+export const findPeopleInCourse = async (courseId: string) => {
+    const {data} = await axios.get(`${ENROLLMENT_API}/${courseId}`);
+    return data;
+}
+
 
 
   
