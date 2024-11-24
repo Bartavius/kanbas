@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import * as enrollmentClient from "../../enrollmentClient";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useUserAccess } from "../../Account/UserAccess";
 
 export default function PeopleTable() {
 
@@ -10,6 +11,7 @@ export default function PeopleTable() {
   const { currentUser } = useSelector( (state: any) => state.accountReducer );
 
   const [people, setPeople] = useState<any>([]);
+  const [editing, setEditing] = useState(false);
   const editPrivilege = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
 
   const fetchPeople = async() => {
@@ -25,8 +27,10 @@ export default function PeopleTable() {
   useEffect(
     () => {
       fetchPeople();
-    }, [cid, currentUser] // this needs to update the table when i update my OWN profile
+    }, [cid, currentUser] // this needs to update the table when i update my OWN profile // eventually, when I update anyone's profile
   )
+  console.log(`Current User: ${JSON.stringify(currentUser)}`);
+  console.log(`All People in ${cid}: ${JSON.stringify(people)}`);
 
   return (
     <div id="wd-people-table">
@@ -59,13 +63,46 @@ export default function PeopleTable() {
 
                   {editPrivilege ?
                   <td className="wd-people-edit-user">
-                    <button className="btn btn-warning me-1">Edit</button>
+                    <button className="btn btn-warning me-1" onClick={() => setEditing(true)}>Edit</button>
                     <button className="btn btn-danger me-1">Delete</button> {/* delete user and also add form below when selecting a user that appears at the bottom */}
                   </td> : <th></th>
                   }
                 </tr>
               ))}
             </tbody>
-
       </table>
+
+      {/*
+      - would need to load the person clicked in edit
+      - need a local person variable specifically for editing
+      */}
+
+      {/* {editing && 
+      <div>
+        <div className="row mb-3">
+          <input type="text" className="form-control w-25 d-inline col" placeholder="First Name" onChange={() => updatePerson}/>
+          <input type="text" className="form-control w-25 d-inline col" placeholder="First Name" onChange={() => updatePerson}/>
+        </div>
+         {useUserAccess() > 2 && <div>
+          <input type="text" className="form-control w-50 mb-3" placeholder={person.loginID} />
+          <input type="text" className="form-control w-50 mb-3" placeholder={person.section} />
+          </div>
+         }
+        <select name="wd-course-role-edit" id="course-role-edit" onChange={() => updatePerson} disabled={person.role === "ADMIN"}> 
+          <option selected={person.role === "STUDENT"} value="STUDENT">Student</option>
+          <option selected={person.role === "TA"} value="TA">TA</option>
+          <option selected={person.role === "FACULTY"} value="FACULTY">Faculty</option>
+          <option selected={person.role === "ADMIN"} value="ADMIN">ADMIN</option>
+        </select>
+        {useUserAccess() > 2 && <div>
+          <input type="text" className="form-control w-50 mb-3" placeholder={person.lastActivity} />
+          <input type="text" className="form-control w-50 mb-3" placeholder={person.totalActivity} />
+          </div>
+        }
+        
+      
+      </div>
+      } */}
+
+
     </div> );}

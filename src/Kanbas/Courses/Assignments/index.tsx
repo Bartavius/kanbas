@@ -124,7 +124,8 @@ export default function Assignments(
                                                     </div>
                                                     <div className="col-8 text-start">
                                                         { facultyAccess ? 
-                                                        <div className="faculty-access">
+                                                        <div className="faculty-access"> {/* personally I think that all of it should be to the assignment not the editor, and then
+                                                        have a separate button for editing */}
                                                             <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}/Editor`}>
                                                                 {assignment.title}
                                                             </a>
@@ -138,7 +139,7 @@ export default function Assignments(
                                                         </p>
                                                     </div>
                                                     <div className="col-2">
-                                                        { facultyAccess ?
+                                                        { facultyAccess &&
                                                         <div className="faculty-access float-end"> 
                                                         <AssignmentControlButtons assignmentID = {assignment._id}/>
                                                         <AssignmentDeletion
@@ -146,7 +147,7 @@ export default function Assignments(
                                                             assignmentID={assignment._id}
                                                             deleteAssignment={ () => deleteAssignmentAxios(assignment._id) }
                                                             />
-                                                        </div> : <div></div>}
+                                                        </div>}
                                                     </div>
                                                 </div>
                                             </li>
