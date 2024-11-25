@@ -239,7 +239,7 @@ export default function Dashboard() {
                       </div>
 
                         : <span></span> }
-                        { currentUser.role != "USER" ?
+                        { currentUser.role !== "USER" ?
                         <button className="btn btn-success mt-2 float-end" onClick={() => enrollUser(currentUser._id, course._id)} >
                           Enroll
                         </button> : <span></span>} {/* preventing anonymous users to register for classes */}

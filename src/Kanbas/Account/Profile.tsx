@@ -6,6 +6,8 @@ import * as client from "./client";
 
 export default function Profile() {
   const [error, setError] = useState<string | null>(null);
+  const [updateSuccess, setUpdateSuccess] = useState<string | null>(null);
+  const [changeMade, setChangeMade] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
@@ -16,6 +18,7 @@ export default function Profile() {
       await client.updateUser(user);
       dispatch(setCurrentUser(user));
       console.log("Update ran");
+      setUpdateSuccess("Profile successfully updated!")
     } catch (error: any) {
       setError(error.response.data.message || "Error updating profile");
     }
@@ -33,9 +36,22 @@ export default function Profile() {
     }
   }, [currentUser, navigate]);
 
+  useEffect(() => {
+    const hasChanges = 
+    user.username !== currentUser.username ||
+    user.password !== currentUser.password ||
+    user.firstName !== currentUser.firstName ||
+    user.lastName !== currentUser.lastName ||
+    user.dob !== currentUser.dob ||
+    user.email !== currentUser.email ||
+    user.role !== currentUser.role;
+    setChangeMade(hasChanges);
+  }, [user])
+
   return (
     <div className="wd-profile-screen">
-      {error && <div id="wd-signup-error-message" className="alert alert-danger mb-2 mt-2">{error}</div>}
+      {error && <div id="wd-update-error-message" className="alert alert-danger mb-2 mt-2">{error}</div>}
+      {updateSuccess && <div id="wd-update-success-message" className="alert alert-primary mb-2 mt-2">{updateSuccess}</div>}
       <h3>Profile</h3>
       {currentUser && (
         <div>
@@ -59,7 +75,7 @@ export default function Profile() {
             <option value="TA">Ta</option>
             <option value="STUDENT">Student</option>
           </select>
-          <button onClick={updateProfile} className="btn btn-primary w-100 mb-2">Update</button>
+          <button onClick={updateProfile} className="btn btn-primary w-100 mb-2" disabled={!changeMade}>Update</button>
           <button onClick={signout} className="btn btn-danger w-100 mb-2" id="wd-signout-btn">Sign out</button>
         </div>
       )}
