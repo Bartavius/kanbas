@@ -8,11 +8,11 @@ export default function Users() {
   const [allUsers, setAllUsers] = useState<any[]>([]);
   const [role, setRole] = useState("");
   const [name, setName] = useState("");
-  const { uid } = useParams();
 
   const fetchAllUsers = async () => {
-    const allUsers = await client.findAllUsers();
-    setAllUsers(allUsers);
+    const allNewUsers = await client.findAllUsers();
+    setAllUsers(allNewUsers);
+    setUsers(allNewUsers);
     setLoading(false);
   }
 
@@ -39,7 +39,7 @@ export default function Users() {
 
   useEffect(() => {
     fetchAllUsers();
-  }, [uid]);
+  }, []);
 
   useEffect(()=> {
     fetchUsers();

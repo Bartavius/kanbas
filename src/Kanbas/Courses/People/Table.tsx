@@ -1,9 +1,10 @@
 import { FaUserCircle } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import * as enrollmentClient from "../../enrollmentClient";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useUserAccess } from "../../Account/UserAccess";
+import PeopleDetails from "./Details";
 
 export default function PeopleTable({ users = [] }: { users?: any[] }) {
 
@@ -34,6 +35,7 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
 
   return (
     <div id="wd-people-table">
+      <PeopleDetails />
       { editPrivilege ? <button className="btn btn-primary float-end me-4 mb-3">Add User</button>: <span></span> }
       <table className="table table-striped">
         <thead>
@@ -51,9 +53,11 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
             {users.map((user: any) => (
                 <tr key={user._id}>
                   <td className="wd-full-name text-nowrap">
-                    <FaUserCircle className="me-2 fs-1 text-secondary" />
-                    <span className="wd-first-name">{user.firstName} </span>
-                    <span className="wd-last-name">{user.lastName}</span>
+                    <Link to={`/Kanbas/Account/Users/${user._id}`} className="text-decoration-none">
+                      <FaUserCircle className="me-2 fs-1 text-secondary" />
+                      <span className="wd-first-name">{user.firstName} </span>
+                      <span className="wd-last-name">{user.lastName}</span>
+                    </Link>
                   </td>
                   <td className="wd-login-id">{user.loginId}</td>
                   <td className="wd-section">{user.section}</td>
