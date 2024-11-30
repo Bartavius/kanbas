@@ -1,12 +1,33 @@
 import { useEffect, useState } from "react";
-import { FaUserCircle } from "react-icons/fa";
+import { FaCheck, FaUserCircle } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import { useParams, useNavigate } from "react-router";
 import * as client from "../../Account/client";
+import { useSelector } from "react-redux";
+import { FaPencil } from "react-icons/fa6";
 export default function PeopleDetails() {
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { uid } = useParams();
   const [user, setUser] = useState<any>({});
   const navigate = useNavigate();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("");
+  const [editing, setEditing] = useState(false);
+  const saveUser = async () => {
+    const [firstName, lastName] = name.split(" ");
+    const updatedUser = { ...user, "firstName": firstName, "lastName": lastName, "email": email, "role": role };
+    await client.updateUser(updatedUser);
+    setUser(updatedUser);
+    setEditing(false);
+    navigate(-1);
+  };
+
+  const deleteUser = async (uid: string) => {
+    await client.deleteUser(uid);
+    navigate(-1);
+  };
   const fetchUser = async () => {
     if (!uid) return;
     const user = await client.findUserById(uid);
@@ -30,16 +51,90 @@ export default function PeopleDetails() {
       </div>
       <hr />
       <div className="text-danger fs-4 wd-name">
-        {" "}
-        {user.firstName} {user.lastName}{" "}
+        {!editing && (
+          <FaPencil
+            onClick={() => setEditing(true)}
+            className="float-end fs-5 mt-2 wd-edit"
+          />
+        )}
+        {editing && (
+          <FaCheck
+            onClick={() => saveUser()}
+            className="float-end fs-5 mt-2 me-2 wd-save"
+          />
+        )}
+        {!editing && (
+          <div className="wd-name" onClick={() => setEditing(true)}>
+            {user.firstName} {user.lastName}{" "}
+          </div>
+        )}
+        {user && editing && (
+          <div>
+            <input
+              className="form-control w-50 wd-edit-name"
+              defaultValue={`${user.firstName} ${user.lastName}`}
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  saveUser();
+                }
+              }}
+            />
+            <input
+              type="email"
+              className="form-control mt-1 w-75 wd-edit-email"
+              defaultValue={`${user.email}`}
+              onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  saveUser();
+                }
+              }}
+            />
+            <select
+              className="form-select w-75 mt-1 mb-1 wd-edit-role"
+              disabled={currentUser._id === uid} // cannot edit your own role (wouldn't make sense to be able to demote / promote yourself)
+              defaultValue={`${user.role}`}
+              onChange={(e) => setRole(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  saveUser();
+                }
+              }}
+            >
+              <option value="USER">Unregistered User</option>
+              <option value="STUDENT">Student</option>
+              <option value="FACULTY">Faculty</option>
+              <option value="TA">Assistant</option>
+              <option value="ADMIN">Administrator</option>
+            </select>
+          </div>
+        )}
       </div>
+      <b>Email:</b> <span className="wd-email"> {user.email} </span> <br />
       <b>Roles:</b> <span className="wd-roles"> {user.role} </span> <br />
       <b>Login ID:</b> <span className="wd-login-id"> {user.loginId} </span>{" "}
       <br />
       <b>Section:</b> <span className="wd-section"> {user.section} </span>{" "}
       <br />
       <b>Total Activity:</b>{" "}
-      <span className="wd-total-activity">{user.totalActivity}</span>{" "}
+      <span className="wd-total-activity">{user.totalActivity}</span> <hr />
+      <button
+        onClick={() => deleteUser(uid)}
+        className="btn btn-danger float-end wd-delete"
+        disabled={currentUser._id === uid}
+      >
+        {" "}
+        Delete{" "}
+      </button>
+      <button
+        onClick={() => navigate(-1)}
+        className="btn btn-secondary float-start float-end me-2 wd-cancel"
+        disabled={currentUser._id === uid}
+      >
+        {" "}
+        Cancel{" "}
+      </button>
     </div>
   );
 }

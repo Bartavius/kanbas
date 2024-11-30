@@ -20,7 +20,7 @@ export default function Assignments(
     const { assignments } = useSelector((state: any) => state.assignmentReducer);
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const [loading, setLoading] = useState(true);
-    const facultyAccess = useUserAccess() > 1; // admin has same privileges as faculty
+    const facultyAccess = useUserAccess() > 2; // admin has same privileges as faculty
 
     const fetchAssignments = async () => {
         if (!cid) return;

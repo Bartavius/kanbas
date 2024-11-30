@@ -3,17 +3,14 @@ import { Link, useParams } from "react-router-dom";
 import * as enrollmentClient from "../../enrollmentClient";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useUserAccess } from "../../Account/UserAccess";
 import PeopleDetails from "./Details";
+import { useUserAccess } from "../../Account/UserAccess";
 
 export default function PeopleTable({ users = [] }: { users?: any[] }) {
 
-  const { cid } = useParams();
-  const { currentUser } = useSelector( (state: any) => state.accountReducer );
-
   // const [people, setPeople] = useState<any>(users);
-  const [editing, setEditing] = useState(false);
-  const editPrivilege = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
+  // const [editing, setEditing] = useState(false);
+  const editPrivilege = useUserAccess() >= 4;
 
   // const fetchPeople = async() => {
   //   if (!cid) return;
@@ -36,7 +33,7 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
   return (
     <div id="wd-people-table">
       <PeopleDetails />
-      { editPrivilege ? <button className="btn btn-primary float-end me-4 mb-3">Add User</button>: <span></span> }
+      {/* { editPrivilege ? <button className="btn btn-primary float-end me-4 mb-3">Add User</button>: <span></span> } */}
       <table className="table table-striped">
         <thead>
           <tr>
@@ -46,7 +43,7 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
             <th>Role</th>
             <th>Last Activity</th>
             <th>Total Activity</th>
-            {editPrivilege ? <th>Edit User</th> : <th></th>}
+            {/* {editPrivilege ? <th>Edit User</th> : <th></th>} */}
           </tr>
         </thead>
             <tbody>
@@ -65,12 +62,12 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
                   <td className="wd-last-activity">{user.lastActivity}</td>
                   <td className="wd-total-activity">{user.totalActivity}</td>
 
-                  {editPrivilege ?
+                  {/* {editPrivilege ?
                   <td className="wd-people-edit-user">
                     <button className="btn btn-warning me-1" onClick={() => setEditing(true)}>Edit</button>
-                    <button className="btn btn-danger me-1">Delete</button> {/* delete user and also add form below when selecting a user that appears at the bottom */}
+                    <button className="btn btn-danger me-1">Delete</button>  // delete user and also add form below when selecting a user that appears at the bottom
                   </td> : <th></th>
-                  }
+                   */}
                 </tr>
               ))}
             </tbody>

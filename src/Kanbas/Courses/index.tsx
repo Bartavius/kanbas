@@ -35,7 +35,7 @@ export default function Courses() {
                         that is not the editor. So, the current editor's route will have to change to .../edit at the end
                         and there should be a new, separate link for assignment viewing */}
                         <Route path="Assignments/:aid" element={<Assignment /> } />
-                        <Route path="Assignments/:aid/Editor" element={<ProtectedPrivilegeRoute><AssignmentEditor /></ProtectedPrivilegeRoute>} />
+                        <Route path="Assignments/:aid/Editor" element={<ProtectedPrivilegeRoute level={3}><AssignmentEditor /></ProtectedPrivilegeRoute>} />
                         <Route path="Zoom" element={<h2>Zoom</h2>} />
                         <Route path="Quizzes" element={<h2>Quizzes</h2>} />
                         <Route path="Grades" element={<h2>Grades</h2>} />

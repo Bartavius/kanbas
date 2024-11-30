@@ -21,8 +21,8 @@ export default function Dashboard() {
 
     //----------------------------
 
-  const facultyAccess = useUserAccess() === 2; // only faculty level
-  const adminAccess = useUserAccess() > 2; // only admins or higher
+  const facultyAccess = useUserAccess() === 3; // only faculty level
+  const adminAccess = useUserAccess() > 3; // only admins or higher
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
