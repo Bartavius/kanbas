@@ -10,7 +10,6 @@ export default function PeopleTable({ users = [] }: { users?: any[] }) {
 
   // const [people, setPeople] = useState<any>(users);
   // const [editing, setEditing] = useState(false);
-  const editPrivilege = useUserAccess() >= 4;
 
   // const fetchPeople = async() => {
   //   if (!cid) return;

@@ -2,7 +2,17 @@ import { useState, useEffect } from "react";
 import PeopleTable from "../Courses/People/Table";
 import * as client from "./client";
 import { FaPlus } from "react-icons/fa";
+import { useNavigate } from "react-router";
+import { useSelector } from "react-redux";
 export default function Users() {
+    // const navigate = useNavigate();
+    // const {currentUser} = useSelector((state:any) => state.account.reducer);
+    // const access = currentUser.role === "ADMIN";
+    // if (!access) {
+    //     alert("User does not have access to this page.") // change to modal in future impl
+    //     navigate(-1);
+    // }
+
   const [loading, setLoading] = useState(true);
   const [users, setUsers] = useState<any[]>([]);
   const [allUsers, setAllUsers] = useState<any[]>([]);
@@ -56,7 +66,7 @@ export default function Users() {
 
   useEffect(()=> {
     fetchUsers();
-  }, [role, name])
+  }, [role, name, users])
 
 
   return (
