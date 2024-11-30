@@ -7,3 +7,5 @@ export default function ProtectedRoute({ children }: { children: any }) {
   } else {
     return <Navigate to="/Kanbas/Account/Signin" />;
 }}
+
+// need to add protected route to users page

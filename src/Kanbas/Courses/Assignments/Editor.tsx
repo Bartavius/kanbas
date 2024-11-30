@@ -61,7 +61,7 @@ export default function AssignmentEditor(
         <form>
           <div className="mt-5 row g-3">
             <label htmlFor="wd-points" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Points</label>
-            <input id="wd-points" value={assignment ? assignment.points : ""} className="form-control col " onChange={ (e) => setAssignment({...assignment, points: e.target.value}) }/>
+            <input type="number" id="wd-points" value={assignment ? assignment.points : ""} className="form-control col " onChange={ (e) => setAssignment({...assignment, points: e.target.value.toString()}) }/>
           </div>
 
           <div className="mt-2 row g-3">
