@@ -49,6 +49,7 @@ export default function Users() {
 
   return (
     <div>
+      <h2>Users</h2>
       <input
         onChange={(e) => setName(e.target.value)}
         placeholder="Search people"

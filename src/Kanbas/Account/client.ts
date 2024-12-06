@@ -43,6 +43,16 @@ export const findAllUsers = async () => {
   const response = await axiosWithCredentials.get(USERS_API);
   return response.data;
 };
+
+export const deleteUser = async (uid: String) => {
+  const response = await axiosWithCredentials.delete(`${USERS_API}/${uid}`)
+  return response.data;
+}
+
+export const findUserById = async (uid: String) => {
+  const response = await axiosWithCredentials.get(`${USERS_API}/${uid}`)
+  return response.data;
+}
   
   
   
