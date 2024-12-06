@@ -27,22 +27,52 @@ export default function Dashboard() {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { courses } = useSelector((state: any) => state.coursesReducer)
-  const [ showEnrolled, setShowEnrolled ] = useState(false);
   const [ enrolledCourses, setEnrolledCourses ] = useState<any>([]);
   // reserved for editing when adding courses.
   const [ course, setCourse ] = useState({...defaultCourse});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(null);
+  const [showEnrolled, setShowEnrolled] = useState<boolean>(false);
 
-  const fetchCourses = async () => {
+  const findCoursesForUser = async () => {
     try {
-      const courses = await userClient.findMyCourses();
+      const courses = await userClient.findCoursesForUser(currentUser._id);
       setEnrolledCourses(courses);
     } catch (error) {
       console.error(error);
     }
-    setLoading(false);
   };
+
+
+  const fetchCourses = async () => {
+    try {
+      const allCourses = await courseClient.findAllCourses();
+      const enrolledCourses = await userClient.findCoursesForUser(
+        currentUser._id
+      );
+      const courses = allCourses.map((course: any) => {
+        if (enrolledCourses.find((c: any) => c._id === course._id)) {
+          return { ...course, enrolled: true };
+        } else {
+          return course;
+        }
+      });
+      setCourses(courses);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+ 
+
+  // const fetchCourses = async () => {
+  //   try {
+  //     const courses = await userClient.findMyCourses();
+  //     setEnrolledCourses(courses);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  //   setLoading(false);
+  // };
 
   const fetchAllCourses = async () => {
     try {
@@ -51,7 +81,6 @@ export default function Dashboard() {
     } catch (error) {
       console.error(error);
     }
-    setLoading(false);
   }
   
   const courseDelete = async (courseId: string) => {
@@ -64,6 +93,8 @@ export default function Dashboard() {
       console.error(error);
     }
   };
+
+
   const courseUpdate = async () => {
     await courseClient.updateCourse(course);
     setEnrolledCourses(enrolledCourses.map((c: any) => {
@@ -84,9 +115,27 @@ export default function Dashboard() {
     dispatch(deleteEnrollment(deletedUser));
   }
 
+  // const updateEnrollment = async (courseId: string, enrolled: boolean) => {
+  //   if (enrolled) {
+  //     await userClient.enrollIntoCourse(currentUser._id, courseId);
+  //   } else {
+  //     await userClient.unenrollFromCourse(currentUser._id, courseId);
+  //   }
+  //   setCourses(
+  //     courses.map((course) => {
+  //       if (course._id === courseId) {
+  //         return { ...course, enrolled: enrolled };
+  //       } else {
+  //         return course;
+  //       }
+  //     })
+  //   );
+  // };
+ 
+
   const addNewCourse = async () => {
     try {
-      const newCourse = await userClient.createCourse(course);
+      const newCourse = await courseClient.createCourse(course);
       dispatch(addCourse(newCourse));
       setEnrolledCourses([ ...enrolledCourses, newCourse ]);
     } catch (error: any) {
@@ -95,12 +144,21 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    fetchCourses();
-  }, [currentUser, enrolledCourses, courses]);
+    if (showEnrolled) {
+      fetchCourses();
+    } else {
+      findCoursesForUser();
+    }
+    setLoading(false);
+  }, [currentUser, showEnrolled, courses]);
 
-  useEffect(() => {
-    fetchAllCourses();
-  }, [showEnrolled]);
+  // useEffect(() => {
+  //   fetchCourses();
+  // }, [currentUser, enrolledCourses, courses]);
+
+  // useEffect(() => {
+  //   fetchAllCourses();
+  // }, [showEnrolled]);
 
   return (
     <div id="wd-dashboard">
@@ -109,7 +167,7 @@ export default function Dashboard() {
         <div className="row">
           {/* only faculties level-access cannot see the enrollment button */}
           <h1 id="wd-dashboard-title" className="col-sm-8 col-9 d-inline">Dashboard</h1>
-          <button className="btn btn-primary d-inline float-end col-sm-4 col-3" onClick={() => setShowEnrolled(!showEnrolled)}>Enrollments</button>
+          <button className={`btn ${showEnrolled ? "btn-danger" : "btn-primary"} d-inline float-end col-sm-3 col-2`} onClick={() => setShowEnrolled(!showEnrolled)}>{showEnrolled ? "All courses" : "My courses"}</button>
         </div> :
         <h1 id="wd-dashboard-title">Dashboard</h1> 
       }

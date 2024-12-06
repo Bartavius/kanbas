@@ -69,6 +69,11 @@ export default function Users() {
   }, [role, name, users])
 
 
+  // comments on design choice:
+  // filtering is done locally instead because I don't see the efficientcy in calling the API every time the input changes.
+  // it makes sense to fetch all users from the API and then filter locally instead.
+
+
   return (
     <div>
       <button onClick={createUser} className="float-end btn btn-danger wd-add-people">

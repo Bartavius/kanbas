@@ -6,6 +6,11 @@ import * as client from "../../Account/client";
 import { useSelector } from "react-redux";
 import { FaPencil } from "react-icons/fa6";
 export default function PeopleDetails() {
+  // some comments on design choices:
+  // instead of navigate -1, navigate back to user to avoid "stacking" user details when going from one user to another
+  // admin CANNOT delete their own account, that just wouldn't make sense so the button is disabled for admin. They also
+  // cannot demote themselves because that also wouldn't make sense.
+  
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { uid } = useParams();
   const [user, setUser] = useState<any>({});
@@ -21,12 +26,12 @@ export default function PeopleDetails() {
     await client.updateUser(updatedUser);
     setUser(updatedUser);
     setEditing(false);
-    navigate(-1);
+    navigate("/Kanbas/Account/Users");
   };
 
   const deleteUser = async (uid: string) => {
     await client.deleteUser(uid);
-    navigate(-1);
+    navigate("/Kanbas/Account/Users");
   };
   const fetchUser = async () => {
     if (!uid) return;
@@ -125,15 +130,14 @@ export default function PeopleDetails() {
       <button
         onClick={() => deleteUser(uid)}
         className="btn btn-danger float-end wd-delete"
-        disabled={currentUser._id === uid}
+        disabled={currentUser._id === uid} 
       >
         {" "}
         Delete{" "}
       </button>
       <button
-        onClick={() => navigate(-1)}
+        onClick={() => navigate("/Kanbas/Account/Users")}
         className="btn btn-secondary float-start float-end me-2 wd-cancel"
-        disabled={currentUser._id === uid}
       >
         {" "}
         Cancel{" "}

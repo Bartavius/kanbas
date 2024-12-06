@@ -32,7 +32,8 @@ export default function ProtectedCourseRoute({ children }: { children: any }) {
         return <div>Loading...</div>;
     }
     const userIsEnrolled = enrollments.find((e: any) => currentUser._id === e.user && cid === e.course);
-    if (userIsEnrolled) {
+    // might have ot change currentUser, we'll see
+    if (userIsEnrolled || currentUser.role === "ADMIN") {
         return children;
     } else {
         alert("You are not enrolled in that course.");
