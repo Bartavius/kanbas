@@ -1,40 +1,37 @@
 import { FaUserCircle } from "react-icons/fa";
-import { useParams } from "react-router-dom";
 import * as enrollmentClient from "../../enrollmentClient";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useUserAccess } from "../../Account/UserAccess";
 
-export default function PeopleTable() {
 
-  const { cid } = useParams();
+export default function PeopleTable({ users = [] }: { users?: any[] }) {
+
+  // const { cid } = useParams();
   const { currentUser } = useSelector( (state: any) => state.accountReducer );
-
-  const [people, setPeople] = useState<any>([]);
-  const [editing, setEditing] = useState(false);
+  // const [editing, setEditing] = useState(false);
   const editPrivilege = currentUser.role === "FACULTY" || currentUser.role === "ADMIN";
 
-  const fetchPeople = async() => {
-    if (!cid) return;
-    try {
-      const allPeople = await enrollmentClient.findPeopleInCourse(cid);
-      setPeople(allPeople);
-    } catch (error) {
-      console.error(error);
-    }
-  }
+  // const fetchPeople = async() => {
+  //   if (!cid) return;
+  //   try {
+  //     const allPeople = await enrollmentClient.findPeopleInCourse(cid);
+  //     setPeople(allPeople);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
-  useEffect(
-    () => {
-      fetchPeople();
-    }, [cid, currentUser] // this needs to update the table when i update my OWN profile // eventually, when I update anyone's profile
-  )
-  console.log(`Current User: ${JSON.stringify(currentUser)}`);
-  console.log(`All People in ${cid}: ${JSON.stringify(people)}`);
+  // useEffect(
+  //   () => {
+  //     fetchPeople();
+  //   }, [cid, currentUser] // this needs to update the table when i update my OWN profile // eventually, when I update anyone's profile
+  // )
+  // console.log(`Current User: ${JSON.stringify(currentUser)}`);
+  // console.log(`All People in ${cid}: ${JSON.stringify(people)}`);
 
   return (
     <div id="wd-people-table">
-      { editPrivilege ? <button className="btn btn-primary float-end me-4 mb-3">Add User</button>: <span></span> }
       <table className="table table-striped">
         <thead>
           <tr>
@@ -44,11 +41,10 @@ export default function PeopleTable() {
             <th>Role</th>
             <th>Last Activity</th>
             <th>Total Activity</th>
-            {editPrivilege ? <th>Edit User</th> : <th></th>}
           </tr>
         </thead>
             <tbody>
-            {people.map((user: any) => (
+            {users.map((user: any) => (
                 <tr key={user._id}>
                   <td className="wd-full-name text-nowrap">
                     <FaUserCircle className="me-2 fs-1 text-secondary" />
@@ -61,12 +57,13 @@ export default function PeopleTable() {
                   <td className="wd-last-activity">{user.lastActivity}</td>
                   <td className="wd-total-activity">{user.totalActivity}</td>
 
-                  {editPrivilege ?
+                  {/* {editPrivilege ?
                   <td className="wd-people-edit-user">
                     <button className="btn btn-warning me-1" onClick={() => setEditing(true)}>Edit</button>
-                    <button className="btn btn-danger me-1">Delete</button> {/* delete user and also add form below when selecting a user that appears at the bottom */}
+                    <button className="btn btn-danger me-1">Delete</button>
                   </td> : <th></th>
-                  }
+                   */}
+
                 </tr>
               ))}
             </tbody>
