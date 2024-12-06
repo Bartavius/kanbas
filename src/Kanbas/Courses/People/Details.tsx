@@ -40,11 +40,13 @@ export default function PeopleDetails() {
     setName(`${user.firstName} ${user.lastName}`);
     setRole(`${user.role}`);
     setEmail(`${user.email}`);
+    setEditing(false);
   };
   useEffect(() => {
     if (uid) fetchUser();
   }, [uid]);
   if (!uid) return null;
+
   return (
     <div className="wd-people-details position-fixed top-0 end-0 bottom-0 bg-white p-4 shadow w-25">
       <button
