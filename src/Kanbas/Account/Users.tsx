@@ -1,8 +1,17 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import PeopleTable from "../Courses/People/Table";
 import * as client from "./client";
+import { useSelector } from "react-redux";
 export default function Users() {
+  const {currentUser} = useSelector((state:any) => state.accountReducer);
+  const navigate = useNavigate();
+  if (currentUser.role != "ADMIN") {
+    alert("User cannot access this page.");
+    navigate(-1);
+  }
+
+
   const [allUsers, setAllUsers] = useState<any[]>([]);
   const [users, setUsers] = useState<any[]>([]);
   const { uid } = useParams();
