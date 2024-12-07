@@ -18,6 +18,8 @@ export default function Dashboard() {
     //----------------------------
 
     // TODO: FOR ANONYMOUS USER ROLE. TAKE AWAY THEIR ABILITY TO CLICK ON IMAGE TO ACCESS COURSE.
+    // design choice: I decided to not implement an unenroll button on courses that the user has permission to delete.
+    // I feel like it wouldn't make sense for people who has perms to be able to unenroll and then there's no one else to delete them
 
     //----------------------------
 
@@ -36,7 +38,7 @@ export default function Dashboard() {
 
   const fetchCourses = async () => {
     try {
-      const courses = await userClient.findMyCourses();
+      const courses = await courseClient.findCoursesForUser(currentUser._id);
       setEnrolledCourses(courses);
     } catch (error) {
       console.error(error);

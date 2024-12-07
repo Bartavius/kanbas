@@ -9,6 +9,11 @@ export const findAllCourses = async () => {
     return data;
 };
 
+export const findCoursesForUser = async (uid: String) => {
+    const { data } = await axiosWithCredentials.get(`${COURSES_API}/${uid}`);
+    return data;
+};
+
 export const deleteCourse = async (id: string) => {
     const { data } = await axiosWithCredentials.delete(`${COURSES_API}/${id}`);
     return data;
