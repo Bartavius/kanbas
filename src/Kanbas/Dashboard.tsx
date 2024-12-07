@@ -11,8 +11,8 @@ import { useUserAccess } from "./Account/UserAccess";
 export default function Dashboard() {
 
   const defaultCourse = {
-    _id: new Date().getTime().toString(), name: "New Course", number: "New Number",
-    startDate: "2023-09-10", endDate: "2023-12-15", description: "New description",
+    name: "New Course", number: "New Number",
+    startDate: "2023-09-10", endDate: "2023-12-15", description: "New description", author:""
     }
 
     //----------------------------
@@ -66,14 +66,14 @@ export default function Dashboard() {
   };
   const courseUpdate = async () => {
     await courseClient.updateCourse(course);
-    setEnrolledCourses(enrolledCourses.map((c: any) => {
-        if (c._id === course._id) { return course; }
-        else { return c; }
-    }));
+    // setEnrolledCourses(enrolledCourses.map((c: any) => { 
+    //     if (c._id === course._id) { return course; }
+    //     else { return c; }
+    // }));
     dispatch(updateCourse(course) as any);
   };
 
-  const enrollUser = async (userId: string, courseId: string) => {
+  const enrollUser = async (userId: any, courseId: any) => {
     const newEnrollment = await enrollmentClient.enrollUser(userId, courseId);
     console.log(`Enroll user status: ${JSON.stringify(newEnrollment)}`);
     dispatch(addEnrollment( newEnrollment ));
@@ -122,11 +122,11 @@ export default function Dashboard() {
             <button className="btn btn-primary float-end"
                     id="wd-add-new-course-click"
                     onClick= { () => {
-                      if (enrolledCourses.find( (c:any) => course._id === c._id )) {
-                        course._id = new Date().getTime().toString();
-                      }
+                      // if (enrolledCourses.find( (c:any) => course._id === c._id )) {
+                      //   course._id = new Date().getTime().toString();
+                      // } this checks if it exists already, if not then add
                       addNewCourse();
-                      enrollUser(currentUser._id, course._id);
+                      // enrollUser(currentUser._id, course._id);
                       setCourse(defaultCourse);
     }} > Add </button>
             <button className="btn btn-warning float-end me-2"
@@ -158,7 +158,7 @@ export default function Dashboard() {
               <div className="course-card card rounded-3 overflow-hidden">
                 <Link to={`/Kanbas/Courses/${course._id}/Home`}
                       className="wd-dashboard-course-link text-decoration-none text-dark" >
-                  <img src={course.image} width="100%" height={160} alt=""/>
+                  <img src={`/images/${course.image}`} width="100%" height={160} alt=""/>
                   </Link>
                   <div className="card-body">
                     <h5 className="wd-dashboard-course-title card-title">
@@ -209,7 +209,7 @@ export default function Dashboard() {
                 <div className="course-card card rounded-3 overflow-hidden">
                   <Link to={`/Kanbas/Courses/${course._id}/Home`}
                         className="wd-dashboard-course-link text-decoration-none text-dark" >
-                    <img src={course.image && course.image !== "" ? `/images/${course.image}` : "/images/reactjs.jpg"} width="100%" height={160} alt=""/>
+                    <img src={`/images/${course.image}`} width="100%" height={160} alt=""/>
                     </Link>
                     <div className="card-body">
                       <h5 className="wd-dashboard-course-title card-title">

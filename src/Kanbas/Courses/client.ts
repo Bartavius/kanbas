@@ -10,7 +10,7 @@ export const findAllCourses = async () => {
 };
 
 export const deleteCourse = async (id: string) => {
-    const { data } = await axios.delete(`${COURSES_API}/${id}`);
+    const { data } = await axiosWithCredentials.delete(`${COURSES_API}/${id}`);
     return data;
 };
 
