@@ -69,7 +69,7 @@ export default function PeopleDetails() {
         )}
         {editing && (
           <FaCheck
-            onClick={() => saveUser()}
+            onClick={async() => saveUser()}
             className="float-end fs-5 mt-2 me-2 wd-save"
           />
         )}

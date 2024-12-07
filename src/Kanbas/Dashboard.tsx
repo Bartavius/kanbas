@@ -158,7 +158,7 @@ export default function Dashboard() {
               <div className="course-card card rounded-3 overflow-hidden">
                 <Link to={`/Kanbas/Courses/${course._id}/Home`}
                       className="wd-dashboard-course-link text-decoration-none text-dark" >
-                  <img src={course.image && course.image !== "" ? `/images/${course.image}` : "/images/reactjs.jpg"} width="100%" height={160} alt=""/>
+                  <img src={course.image} width="100%" height={160} alt=""/>
                   </Link>
                   <div className="card-body">
                     <h5 className="wd-dashboard-course-title card-title">

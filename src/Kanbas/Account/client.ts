@@ -53,6 +53,11 @@ export const findUserById = async (uid: String) => {
   const response = await axiosWithCredentials.get(`${USERS_API}/${uid}`)
   return response.data;
 }
+
+export const createUser = async (user: any) => {
+  const response = await axiosWithCredentials.post(`${USERS_API}`, user)
+  return response.data;
+}
   
   
   

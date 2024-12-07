@@ -5,9 +5,9 @@ import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
-import PeopleTable from "./People/Table";
 import { useSelector } from "react-redux";
 import Assignment from "./Assignments/Assignment";
+import Roster from "./Roster";
 
 export default function Courses() {
     const { cid } = useParams();
@@ -39,7 +39,7 @@ export default function Courses() {
                         <Route path="Quizzes" element={<h2>Quizzes</h2>} />
                         <Route path="Grades" element={<h2>Grades</h2>} />
                         <Route path="Piazza" element={<h2>Piazza</h2>} />
-                        <Route path="People" element={<PeopleTable />} />
+                        <Route path="People" element={<Roster />} />
                     </Routes>
                 </div>
             </div>
