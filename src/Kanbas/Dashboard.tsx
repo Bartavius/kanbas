@@ -88,7 +88,7 @@ export default function Dashboard() {
 
   const addNewCourse = async () => {
     try {
-      const newCourse = await userClient.createCourse(course);
+      const newCourse = await userClient.createCourse(course); //it fails here
       dispatch(addCourse(newCourse));
       setEnrolledCourses([ ...enrolledCourses, newCourse ]);
     } catch (error: any) {
