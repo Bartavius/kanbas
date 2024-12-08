@@ -7,7 +7,7 @@ import { FaPlus } from "react-icons/fa";
 export default function Users() {
   const {currentUser} = useSelector((state:any) => state.accountReducer);
   const navigate = useNavigate();
-  if (currentUser.role != "ADMIN") {
+  if (currentUser.role !== "ADMIN") {
     alert("User cannot access this page.");
     navigate(-1);
   }

@@ -1,11 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import * as courseClient from "./Courses/client";
 import * as userClient from "./Account/client";
 import * as enrollmentClient from "./enrollmentClient";
-import { addEnrollment, deleteEnrollment } from "./reducer";
-import { setCourses, addCourse, updateCourse, deleteCourse } from "./Courses/courseReducer";
 import { useUserAccess } from "./Account/UserAccess";
 
 export default function Dashboard() {
@@ -26,15 +24,15 @@ export default function Dashboard() {
   const facultyAccess = useUserAccess() === 2; // only faculty level
   const adminAccess = useUserAccess() > 2; // only admins or higher
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const { courses } = useSelector((state: any) => state.coursesReducer)
   const [ showEnrolled, setShowEnrolled ] = useState(false);
+  const [ allCourses, setAllCourses ] = useState<any>([]);
   const [ enrolledCourses, setEnrolledCourses ] = useState<any>([]);
   // reserved for editing when adding courses.
   const [ course, setCourse ] = useState({...defaultCourse});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [reload, setReload] = useState<boolean>(false);
 
   const fetchCourses = async () => {
     try {
@@ -49,7 +47,7 @@ export default function Dashboard() {
   const fetchAllCourses = async () => {
     try {
       const allCourses = await courseClient.findAllCourses();
-      dispatch(setCourses(allCourses));
+      setAllCourses(allCourses);
     } catch (error) {
       console.error(error);
     }
@@ -57,40 +55,42 @@ export default function Dashboard() {
   }
   
   const courseDelete = async (courseId: string) => {
+    console.log(JSON.stringify(allCourses));
+    console.log(JSON.stringify(enrolledCourses));
     try {
     const status = await courseClient.deleteCourse(courseId);
+    setAllCourses(allCourses.filter((c: any) => c._id !== courseId));
+    setEnrolledCourses(enrolledCourses.filter((c: any) => c._id !== courseId));
     console.log(`Delete course status: ${status}`);
-    setEnrolledCourses(enrolledCourses.filter((course: any) => course._id !== courseId));
-    dispatch(deleteCourse(courseId) as any);
+    setReload(!reload);
     } catch (error) {
       console.error(error);
     }
   };
+
   const courseUpdate = async () => {
     await courseClient.updateCourse(course);
-    // setEnrolledCourses(enrolledCourses.map((c: any) => { 
-    //     if (c._id === course._id) { return course; }
-    //     else { return c; }
-    // }));
-    dispatch(updateCourse(course) as any);
+    setReload(!reload);
   };
 
   const enrollUser = async (userId: any, courseId: any) => {
     const newEnrollment = await enrollmentClient.enrollUser(userId, courseId);
     console.log(`Enroll user status: ${JSON.stringify(newEnrollment)}`);
-    dispatch(addEnrollment( newEnrollment ));
-  }
+    setReload(!reload);
+  };
+
   const unenrollUser = async (userId: string, courseId: string) => {
     const deletedUser = await enrollmentClient.unenrollUser(userId, courseId);
     console.log(`Unenroll user status: ${JSON.stringify(deletedUser)}`);
-    dispatch(deleteEnrollment(deletedUser));
-  }
+    setReload(!reload);
+  };
+
 
   const addNewCourse = async () => {
     try {
-      const newCourse = await userClient.createCourse(course); //it fails here
-      dispatch(addCourse(newCourse));
+      const newCourse = await userClient.createCourse(course);
       setEnrolledCourses([ ...enrolledCourses, newCourse ]);
+      setReload(!reload);
     } catch (error: any) {
       setError(error.response.data.message);
     }
@@ -98,11 +98,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchCourses();
-  }, [currentUser, enrolledCourses, courses]);
+  }, [currentUser, reload]);
 
   useEffect(() => {
     fetchAllCourses();
-  }, [showEnrolled]);
+  }, [showEnrolled, reload]);
 
   return (
     <div id="wd-dashboard">
@@ -118,7 +118,7 @@ export default function Dashboard() {
        <hr />
        {error && (<div id="wd-signin-error-message" className="alert alert-danger mb-2 mt-2">{error}</div>) }
 
-      { facultyAccess || adminAccess ? 
+      { (facultyAccess || adminAccess) && 
       <div id="course-addition-menu" className="faculty-access">
         <h5>New Course
             <button className="btn btn-primary float-end"
@@ -146,35 +146,35 @@ export default function Dashboard() {
         onChange={(e) => setCourse( {...course, description: e.target.value} )}/>
   
         <br /><hr />
-      </div> : <div></div>
+      </div>
     }
       
-      <h2 id="wd-dashboard-published">Published Courses ({ showEnrolled ? courses.length : enrolledCourses.length })</h2> <hr />
+      <h2 id="wd-dashboard-published">Published Courses ({ showEnrolled ? allCourses.length : enrolledCourses.length })</h2> <hr />
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
 
           {enrolledCourses.map(
-            (course: any) => (
-            <div className="wd-dashboard-course col" key={course._id} style={{ width: "300px" }}>
+            (c: any) => (
+            <div className="wd-dashboard-course col" key={c._id} style={{ width: "300px" }}>
               
               <div className="course-card card rounded-3 overflow-hidden">
-                <Link to={`/Kanbas/Courses/${course._id}/Home`}
+                <Link to={`/Kanbas/Courses/${c._id}/Home`}
                       className="wd-dashboard-course-link text-decoration-none text-dark" >
-                  <img src={`/images/${course.image}`} width="100%" height={160} alt=""/>
+                  <img src={`/images/${c.image}`} width="100%" height={160} alt=""/>
                   </Link>
                   <div className="card-body">
                     <h5 className="wd-dashboard-course-title card-title">
-                      {course.name} </h5>
+                      {c.name} </h5>
                     <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
-                      {course.description} </p>
+                      {c.description} </p>
 
             
                       { facultyAccess || adminAccess ? 
                         <div id="course-edit-buttons" className="faculty-access">
-                          <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
+                          <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${c._id}/Home`)}> Go </button>
                           <button onClick={(event) => {
                               event.preventDefault();
-                              courseDelete(course._id);
+                              courseDelete(c._id);
                             }} className="btn btn-danger float-end"
                             id="wd-delete-course-click">
                             Delete
@@ -182,16 +182,16 @@ export default function Dashboard() {
                           <button id="wd-edit-course-click"
                             onClick={ (event) => {
                               event.preventDefault();
-                              setCourse(course);
+                              setCourse(c);
                             }}
                             className="btn btn-warning me-2 float-end" >
                             Edit
                           </button>
                         </div> : 
                         <div id="course-buttons">
-                          <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
+                          <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${c._id}/Home`)}> Go </button>
                           <button className="btn btn-danger mt-2 float-end"
-                            onClick={() => unenrollUser(currentUser._id, course._id)}>
+                            onClick={() => unenrollUser(currentUser._id, c._id)}>
                             Unenroll
                           </button>
                         </div>
@@ -203,7 +203,7 @@ export default function Dashboard() {
           ))}
         
         {showEnrolled && 
-            courses.filter((c: any) => !enrolledCourses.some((enrolled: any) => enrolled._id === c._id))
+            allCourses.filter((c: any) => !enrolledCourses.some((enrolled: any) => enrolled._id === c._id))
             .map(
             (course: any) => (
               <div className="wd-dashboard-course col" key={course._id} style={{ width: "300px" }}>
@@ -219,7 +219,7 @@ export default function Dashboard() {
                       <p className="wd-dashboard-course-title card-text overflow-y-hidden" style={{ maxHeight: 100 }}>
                         {course.description} </p>
                       
-                      { adminAccess ? 
+                      { adminAccess &&
 
                       <div id="course-edit-buttons" className="faculty-access">
                         <button className="btn btn-primary" onClick={() => navigate(`/Kanbas/Courses/${course._id}/Home`)}> Go </button>
@@ -240,11 +240,11 @@ export default function Dashboard() {
                         </button>
                       </div>
 
-                        : <span></span> }
-                        { currentUser.role !== "USER" ?
+                        }
+                        { currentUser.role !== "USER" &&
                         <button className="btn btn-success mt-2 float-end" onClick={() => enrollUser(currentUser._id, course._id)} >
                           Enroll
-                        </button> : <span></span>} {/* preventing anonymous users to register for classes */}
+                        </button> } {/* preventing anonymous users to register for classes */}
                     </div> 
                 </div>
               </div>
