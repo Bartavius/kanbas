@@ -12,7 +12,7 @@ export default function CoursesNavigation() {
           <li className="nav-item" key={link}>
           <Link
             id="wd-course-home-link" to={`/Kanbas/Courses/${cid}/${link}`}
-            className={`nav-link text-danger border-0 ${pathname === `/Kanbas/Courses/${cid}/${link}` ? "active-secondary-nav" : ""}`}>
+            className={`nav-link text-danger border-0 ${pathname.includes(`/Kanbas/Courses/${cid}/${link}`) ? "active-secondary-nav" : ""}`}>
             {link}
           </Link>
         </li>

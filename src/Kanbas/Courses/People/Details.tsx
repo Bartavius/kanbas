@@ -5,12 +5,12 @@ import { useParams, useNavigate } from "react-router";
 import * as client from "../../Account/client";
 import { useSelector } from "react-redux";
 import { FaPencil } from "react-icons/fa6";
-export default function PeopleDetails() {
+export default function PeopleDetails({baseLink} : {baseLink:string}) {
   // some comments on design choices:
   // instead of navigate -1, navigate back to user to avoid "stacking" user details when going from one user to another
   // admin CANNOT delete their own account, that just wouldn't make sense so the button is disabled for admin. They also
   // cannot demote themselves because that also wouldn't make sense.
-  
+
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { uid } = useParams();
   const [user, setUser] = useState<any>({});
@@ -22,16 +22,22 @@ export default function PeopleDetails() {
   const [editing, setEditing] = useState(false);
   const saveUser = async () => {
     const [firstName, lastName] = name.split(" ");
-    const updatedUser = { ...user, "firstName": firstName, "lastName": lastName, "email": email, "role": role };
+    const updatedUser = {
+      ...user,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      role: role,
+    };
     await client.updateUser(updatedUser);
     setUser(updatedUser);
     setEditing(false);
-    navigate("/Kanbas/Account/Users");
+    navigate(baseLink);
   };
 
   const deleteUser = async (uid: string) => {
     await client.deleteUser(uid);
-    navigate("/Kanbas/Account/Users");
+    navigate(baseLink);
   };
   const fetchUser = async () => {
     if (!uid) return;
@@ -50,7 +56,7 @@ export default function PeopleDetails() {
   return (
     <div className="wd-people-details position-fixed top-0 end-0 bottom-0 bg-white p-4 shadow w-25">
       <button
-        onClick={() => navigate("/Kanbas/Account/Users")}
+        onClick={() => navigate(baseLink)}
         className="btn position-fixed end-0 top-0 wd-close-details"
       >
         <IoCloseSharp className="fs-1" />{" "}
@@ -61,7 +67,7 @@ export default function PeopleDetails() {
       </div>
       <hr />
       <div className="text-danger fs-4 wd-name">
-        {!editing && (
+        {(!editing && currentUser.role==="ADMIN") && (
           <FaPencil
             onClick={() => setEditing(true)}
             className="float-end fs-5 mt-2 wd-edit"
@@ -69,11 +75,11 @@ export default function PeopleDetails() {
         )}
         {editing && (
           <FaCheck
-            onClick={async() => saveUser()}
+            onClick={async () => saveUser()}
             className="float-end fs-5 mt-2 me-2 wd-save"
           />
         )}
-        {!editing && (
+        {(!editing && currentUser.role==="ADMIN") && (
           <div className="wd-name" onClick={() => setEditing(true)}>
             {user.firstName} {user.lastName}{" "}
           </div>
@@ -123,22 +129,21 @@ export default function PeopleDetails() {
       </div>
       <b>Email:</b> <span className="wd-email"> {user.email} </span> <br />
       <b>Roles:</b> <span className="wd-roles"> {user.role} </span> <br />
-      <b>Login ID:</b> <span className="wd-login-id"> {user.loginId} </span>{" "}
+      <b>Login ID:</b> <span className="wd-login-id"> {user.loginId} </span>
       <br />
-      <b>Section:</b> <span className="wd-section"> {user.section} </span>{" "}
+      <b>Section:</b> <span className="wd-section"> {user.section} </span>
       <br />
-      <b>Total Activity:</b>{" "}
+      <b>Total Activity:</b>
       <span className="wd-total-activity">{user.totalActivity}</span> <hr />
       <button
         onClick={() => deleteUser(uid)}
         className="btn btn-danger float-end wd-delete"
-        disabled={currentUser._id === uid} 
+        disabled={currentUser._id === uid}
       >
-        {" "}
-        Delete{" "}
+        Delete
       </button>
       <button
-        onClick={() => navigate("/Kanbas/Account/Users")}
+        onClick={() => navigate(baseLink)}
         className="btn btn-secondary float-start float-end me-2 wd-cancel"
       >
         {" "}

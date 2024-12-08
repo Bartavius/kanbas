@@ -11,7 +11,7 @@ export default function Assignment() {
     const fetchAssignment = useCallback(async () => {
         if (!cid || !aid) return;
         try {
-            const loadedAssignment = await assignmentClient.getAssignmentById(cid, aid);
+            const loadedAssignment = await assignmentClient.getAssignmentById(aid);
             setAssignment(loadedAssignment);
         } catch (error) {
             console.error(error);
@@ -46,5 +46,5 @@ export default function Assignment() {
             }
 
         </div>
-    ); //todo
+    );
 }

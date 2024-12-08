@@ -47,7 +47,7 @@ export default function Users() {
         <button onClick={createUser} className="float-end btn btn-danger wd-add-people">
           <FaPlus className="me-2" /> Users
         </button>
-        <PeopleTable users={allUsers} />
+        <PeopleTable users={allUsers} baseLink={"/Kanbas/Account/Users"}/>
       </div>
       }
     </div>

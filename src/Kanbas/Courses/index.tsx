@@ -8,6 +8,9 @@ import { FaAlignJustify } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Assignment from "./Assignments/Assignment";
 import Roster from "./Roster";
+import Quizzes from "./Quizzes";
+import Quiz from "./Quizzes/Quiz";
+import QuizEditor from "./Quizzes/Editor";
 
 export default function Courses() {
     const { cid } = useParams();
@@ -36,10 +39,13 @@ export default function Courses() {
                         <Route path="Assignments/:aid" element={<Assignment /> } />
                         <Route path="Assignments/:aid/Editor" element={<AssignmentEditor />} />
                         <Route path="Zoom" element={<h2>Zoom</h2>} />
-                        <Route path="Quizzes" element={<h2>Quizzes</h2>} />
+                        <Route path="Quizzes" element={<Quizzes />} />
+                        <Route path="Quizzes/:qid" element={<Quiz />} />
+                        <Route path="Quizzes/:qid/Editor" element={<QuizEditor />} />
                         <Route path="Grades" element={<h2>Grades</h2>} />
                         <Route path="Piazza" element={<h2>Piazza</h2>} />
                         <Route path="People" element={<Roster />} />
+                        <Route path="People/:uid" element={<Roster />} />
                     </Routes>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { LuCalendarDays } from "react-icons/lu";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { setAssignments } from "./reducer";
 import * as assignmentClient from "./client";
 export default function AssignmentEditor( 
@@ -19,7 +19,6 @@ export default function AssignmentEditor(
 
   let { cid } = useParams();
   let { aid } = useParams();
-  const dispatch = useDispatch();
 
   const assignments = useSelector( (state: any) => state.assignmentReducer.assignments);
   const [assignment, setAssignment] = useState<any>([]);
@@ -28,7 +27,7 @@ export default function AssignmentEditor(
   const fetchAssignment = useCallback(async () => {
     if (!cid || !aid) return;
     try {
-        const loadedAssignment = await assignmentClient.getAssignmentById(cid, aid);
+        const loadedAssignment = await assignmentClient.getAssignmentById(aid);
         setAssignment(loadedAssignment);
     } catch (error) {
         console.error(error);
@@ -40,8 +39,7 @@ export default function AssignmentEditor(
     if (!cid || !aid) return;
     try {
         console.log(`Updating: ${JSON.stringify(assignment)}`)
-        await assignmentClient.updateAssignment(cid, aid, assignment);
-        dispatch(setAssignments([...assignments, assignment]));
+        await assignmentClient.updateAssignment(aid, assignment);
         console.log(`After updating: ${JSON.stringify(assignment)}`)
     } catch (error) {
         console.error(error);
@@ -69,38 +67,35 @@ export default function AssignmentEditor(
         <form>
           <div className="mt-5 row g-3">
             <label htmlFor="wd-points" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Points</label>
-            <input id="wd-points" value={assignment ? assignment.points : ""} className="form-control col " onChange={ (e) => setAssignment({...assignment, points: e.target.value}) }/>
+            <input type="number" id="wd-points" value={assignment ? assignment.points: ""} className="form-control col " onChange={ (e) => setAssignment({...assignment, points: parseInt(e.target.value)}) }/>
           </div>
 
           <div className="mt-2 row g-3">
             <label htmlFor="wd-group" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Assignment Group</label>
-            <select name="assignment-group" id="wd-group" className="col form-select" onChange={ (e) => setAssignment( {...assignment, assignment_group: e.target.value}) } >
-                <option value={assignment ? assignment.assignment_group : ""}>
-                  {assignment ? assignment.assignment_group : ""}
-                  <IoIosArrowDown className="float-end"/>
-                </option>
+            <select value={assignment.assignment_group} name="assignment-group" id="wd-group" className="col form-select" onChange={ (e) => setAssignment( {...assignment, assignment_group: e.target.value}) } >
+                <option value="ASSIGNMENT">Assignment</option>
+                <option value="QUIZ">Quiz</option>
+                <option value="EXAM">Exam</option>
+                <option value="PROJECT">Project</option>
             </select>
           </div>
 
           <div className="mt-2 row g-3">
             <label htmlFor="wd-display-grade-as" className="form-label col-4 d-flex justify-content-end align-items-end pe-5">Display Grade as</label>
-            <select name="display-grade-as" id="wd-display-grade-as" className="col form-select" onChange={ (e) => setAssignment({...assignment, display_grade_as: e.target.value}) }> 
-                  <option value={assignment ? assignment.display_grade_as : ""}> 
-                  {assignment ? assignment.display_grade_as : ""}
-                    <IoIosArrowDown className="float-end" />
-                  </option>
+            <select value={assignment.display_grade_as} name="display-grade-as" id="wd-display-grade-as" className="col form-select" onChange={ (e) => setAssignment({...assignment, display_grade_as: e.target.value}) }> 
+                  <option value="PERCENTAGE"> PERCENTAGE</option>
             </select>
           </div>
 
           <div className="mt-2 row g-3">
             <label htmlFor="wd-submission-type" className="form-label col-4 d-flex justify-content-end align-text-end pe-5">Submission Type</label>
             <div className="container border border-dark col rounded-1">
-              <select name="submission-type" id="wd-submission-type" className="form-select ml-3 mt-3 mr-3 mb-3 justify-content-center align-items-center"
+              <select value={assignment.submission_type} name="submission-type" id="wd-submission-type" className="form-select ml-3 mt-3 mr-3 mb-3 justify-content-center align-items-center"
               onChange={ (e) => setAssignment({...assignment, submission_type: e.target.value}) }>
-                <option value={assignment ? assignment.submission_type : ""}> 
-                  {assignment ? assignment.submission_type : ""}
-                  <IoIosArrowDown className="float-end" />
+                <option value="ONLINE"> 
+                  ONLINE
                 </option>
+                
               </select>
 
               <div> {/*not sure what this stuff is yet*/}

@@ -15,9 +15,11 @@ export default function Profile() {
 
   const updateProfile = async () => {
     try {
-      await client.updateUser(user);
+      console.log(`User before update: ${JSON.stringify(user)}`)
+      const updated = await client.updateUser(user);
+      console.log(`User sent to update: ${JSON.stringify(updated)}`)
       dispatch(setCurrentUser(user));
-      console.log("Update ran");
+      console.log(`Update ran on ${JSON.stringify(user)}`);
       setUpdateSuccess("Profile successfully updated!")
     } catch (error: any) {
       setError(error.response.data.message || "Error updating profile");

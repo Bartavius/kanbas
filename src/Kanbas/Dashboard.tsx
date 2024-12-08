@@ -55,13 +55,10 @@ export default function Dashboard() {
   }
   
   const courseDelete = async (courseId: string) => {
-    console.log(JSON.stringify(allCourses));
-    console.log(JSON.stringify(enrolledCourses));
     try {
     const status = await courseClient.deleteCourse(courseId);
     setAllCourses(allCourses.filter((c: any) => c._id !== courseId));
     setEnrolledCourses(enrolledCourses.filter((c: any) => c._id !== courseId));
-    console.log(`Delete course status: ${status}`);
     setReload(!reload);
     } catch (error) {
       console.error(error);
@@ -75,13 +72,11 @@ export default function Dashboard() {
 
   const enrollUser = async (userId: any, courseId: any) => {
     const newEnrollment = await enrollmentClient.enrollUser(userId, courseId);
-    console.log(`Enroll user status: ${JSON.stringify(newEnrollment)}`);
     setReload(!reload);
   };
 
   const unenrollUser = async (userId: string, courseId: string) => {
     const deletedUser = await enrollmentClient.unenrollUser(userId, courseId);
-    console.log(`Unenroll user status: ${JSON.stringify(deletedUser)}`);
     setReload(!reload);
   };
 
