@@ -32,11 +32,23 @@ export default function Profile() {
     navigate("/Kanbas/Account/Signin");
   };
 
+  const fetchUserProfile = async() => {
+    try {
+      const loadedUser = await client.findUserById(currentUser._id);
+      dispatch(setCurrentUser(loadedUser));
+      setUser(loadedUser);
+    } catch(error:any) {
+      setError(error.response.data.message || "Error fetching profile");
+    }
+  }
+
   useEffect(() => {
     if (!currentUser) {
       navigate("/Kanbas/Account/Signin");
+    } else {
+      fetchUserProfile();
     }
-  }, [currentUser, navigate]);
+  }, [navigate, updateSuccess]);
 
   useEffect(() => {
     const hasChanges = 

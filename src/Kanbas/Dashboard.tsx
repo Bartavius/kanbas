@@ -246,7 +246,6 @@ export default function Dashboard() {
                           <button
                             onClick={(event) => {
                               event.preventDefault();
-                              // courseDelete(c._id);
                             }}
                             data-bs-toggle="modal" data-bs-target={`#wd-delete-course-dialog-${c._id}`}
                             className="btn btn-danger float-end"
@@ -326,13 +325,13 @@ export default function Dashboard() {
                         </Link>
                         <div className="card-body">
                           <h5 className="wd-dashboard-course-title card-title">
-                            {course.name}{" "}
+                            {c.name}{" "}
                           </h5>
                           <p
                             className="wd-dashboard-course-title card-text overflow-y-hidden"
                             style={{ maxHeight: 100 }}
                           >
-                            {course.description}{" "}
+                            {c.description}{" "}
                           </p>
                           {adminAccess && (
                             <div
@@ -351,7 +350,6 @@ export default function Dashboard() {
                               <button
                                 onClick={(event) => {
                                   event.preventDefault();
-                                  // courseDelete(course._id);
                                 }}
                                 className="btn btn-danger float-end"
                                 id="wd-delete-course-click"
@@ -364,7 +362,7 @@ export default function Dashboard() {
                                 onClick={(event) => {
                                   event.preventDefault();
                                   setSelectedCourse(true);
-                                  setCourse(course);
+                                  setCourse(c);
                                 }}
                                 className="btn btn-warning me-2 float-end"
                               >
