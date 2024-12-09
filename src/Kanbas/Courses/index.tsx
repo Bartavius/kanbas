@@ -7,7 +7,7 @@ import AssignmentEditor from "./Assignments/Editor";
 import { FaAlignJustify } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import Assignment from "./Assignments/Assignment";
-import Roster from "./Roster";
+import Roster from "./People/Roster";
 import Quizzes from "./Quizzes";
 import Quiz from "./Quizzes/Quiz";
 import QuizEditor from "./Quizzes/Editor";

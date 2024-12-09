@@ -1,16 +1,12 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
-import PeopleTable from "../Courses/People/Table";
-import * as client from "./client";
+import PeopleTable from "./Table";
+import * as client from "../client";
 import { useSelector } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 export default function Roster() {
   const {currentUser} = useSelector((state:any) => state.accountReducer);
   const navigate = useNavigate();
-  if (currentUser.role !== "ADMIN") {
-    alert("User cannot access this page.");
-    navigate(-1);
-  }
 
   const [roster, setRoster] = useState<any[]>([]);
   const { cid, uid } = useParams();

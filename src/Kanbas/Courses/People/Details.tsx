@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router";
 import * as client from "../../Account/client";
 import { useSelector } from "react-redux";
 import { FaPencil } from "react-icons/fa6";
-export default function PeopleDetails({baseLink} : {baseLink:string}) {
+export default function PeopleDetails({ baseLink }: { baseLink: string }) {
   // some comments on design choices:
   // instead of navigate -1, navigate back to user to avoid "stacking" user details when going from one user to another
   // admin CANNOT delete their own account, that just wouldn't make sense so the button is disabled for admin. They also
@@ -67,7 +67,7 @@ export default function PeopleDetails({baseLink} : {baseLink:string}) {
       </div>
       <hr />
       <div className="text-danger fs-4 wd-name">
-        {(!editing && currentUser.role==="ADMIN") && (
+        {!editing && currentUser.role === "ADMIN" && (
           <FaPencil
             onClick={() => setEditing(true)}
             className="float-end fs-5 mt-2 wd-edit"
@@ -79,12 +79,17 @@ export default function PeopleDetails({baseLink} : {baseLink:string}) {
             className="float-end fs-5 mt-2 me-2 wd-save"
           />
         )}
-        {(!editing && currentUser.role==="ADMIN") && (
-          <div className="wd-name" onClick={() => setEditing(true)}>
-            {user.firstName} {user.lastName}{" "}
-          </div>
-        )}
-        {user && editing && (
+
+        <div
+          className="wd-name"
+          onClick={() => {
+            !editing && currentUser.role === "ADMIN" && setEditing(true);
+          }}
+        >
+          {user.firstName} {user.lastName}
+        </div>
+
+        {user && editing && currentUser.role === "ADMIN" && (
           <div>
             <input
               className="form-control w-50 wd-edit-name"
@@ -135,20 +140,23 @@ export default function PeopleDetails({baseLink} : {baseLink:string}) {
       <br />
       <b>Total Activity:</b>
       <span className="wd-total-activity">{user.totalActivity}</span> <hr />
-      <button
-        onClick={() => deleteUser(uid)}
-        className="btn btn-danger float-end wd-delete"
-        disabled={currentUser._id === uid}
-      >
-        Delete
-      </button>
-      <button
-        onClick={() => navigate(baseLink)}
-        className="btn btn-secondary float-start float-end me-2 wd-cancel"
-      >
-        {" "}
-        Cancel{" "}
-      </button>
+      {currentUser.role === "ADMIN" && (
+        <div id="wd-people-control-buttons">
+          <button
+            onClick={() => deleteUser(uid)}
+            className="btn btn-danger float-end wd-delete"
+            disabled={currentUser._id === uid}
+          >
+            Delete
+          </button>
+          <button
+            onClick={() => navigate(baseLink)}
+            className="btn btn-secondary float-start float-end me-2 wd-cancel"
+          >
+            Cancel
+          </button>
+        </div>
+      )}
     </div>
   );
 }
