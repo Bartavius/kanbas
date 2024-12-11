@@ -93,6 +93,7 @@ export default function Profile() {
           <button onClick={signout} className="btn btn-danger w-100 mb-2" id="wd-signout-btn">Sign out</button>
         </div>
       )}
+      ** For testing purposes, the user is able to change to any role. **
     </div>
   );
 }

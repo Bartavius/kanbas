@@ -62,7 +62,7 @@ export default function Dashboard() {
 
   const courseDelete = async (courseId: string) => {
     try {
-      const status = await courseClient.deleteCourse(courseId);
+      await courseClient.deleteCourse(courseId);
       setAllCourses(allCourses.filter((c: any) => c._id !== courseId));
       setEnrolledCourses(
         enrolledCourses.filter((c: any) => c._id !== courseId)
@@ -87,12 +87,12 @@ export default function Dashboard() {
   };
 
   const enrollUser = async (userId: any, courseId: any) => {
-    const newEnrollment = await enrollmentClient.enrollUser(userId, courseId);
+    await enrollmentClient.enrollUser(userId, courseId);
     setReload(!reload);
   };
 
   const unenrollUser = async (userId: string, courseId: string) => {
-    const deletedUser = await enrollmentClient.unenrollUser(userId, courseId);
+    await enrollmentClient.unenrollUser(userId, courseId);
     setReload(!reload);
   };
 
@@ -121,17 +121,17 @@ export default function Dashboard() {
         <div>Loading...</div>
       ) : (
         <div>
-          {!facultyAccess ? (
+          {currentUser.role !== "USER" ? (
             <div className="row">
               {/* only faculties level-access cannot see the enrollment button */}
               <h1 id="wd-dashboard-title" className="col-sm-8 col-9 d-inline">
                 Dashboard
               </h1>
               <button
-                className="btn btn-primary d-inline float-end col-sm-4 col-3"
+                className="btn btn-danger d-inline float-end col-sm-4 col-3"
                 onClick={() => setShowEnrolled(!showEnrolled)}
               >
-                Enrollments
+                {showEnrolled ? "My Courses" : "All Courses"}
               </button>
             </div>
           ) : (

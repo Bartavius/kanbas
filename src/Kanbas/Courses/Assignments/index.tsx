@@ -38,6 +38,7 @@ export default function Assignments() {
       console.log(`Before creating: ${cid}`);
       const loadedAssignment = await assignmentClient.createAssignment(cid);
       console.log(`Creating: ${JSON.stringify(loadedAssignment)}`);
+      navigate(`/Kanbas/Courses/${cid}/Assignments/${loadedAssignment._id}/Editor`);
       return loadedAssignment;
     } catch (error) {
       console.error(error);
