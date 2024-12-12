@@ -68,7 +68,7 @@ export default function Quiz() {
 
           {currentUser.role === "STUDENT" ? (
             <div className="container justify-content-center d-flex m-5">
-              <button className="btn btn-danger w-25"> Start </button>
+              <button className="btn btn-danger w-25" onClick={(e) => navigate("Take")}> Start </button>
             </div>
           ) : (
             <div className="wd-faculty-quiz-details">

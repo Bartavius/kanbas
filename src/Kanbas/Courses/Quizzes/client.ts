@@ -40,6 +40,11 @@ export const getQuestionsFromQuiz = async (qid: string) => {
   return data;
 }
 
+export const getQuestion = async (quid: string) => {
+  const { data } = await axiosWithCredentials.get(`${QUIZZES_API}/question/get/get/${quid}`, );
+  return data;
+}
+
 export const addQuestionToQuiz = async (qid: string) => {
   const { data } = await axiosWithCredentials.post(`${QUIZZES_API}/question/${qid}`);
   return data;
@@ -70,5 +75,20 @@ export const updateAnswer = async (aid: string, newA: any) => {
 }
 export const getAnswers = async (qid: string) => {
   const { data } = await axiosWithCredentials.get(`${QUIZZES_API}/${qid}/answers`);
+  return data;
+}
+
+export const addResponse = async (user:string, quiz:string) => {
+  const { data } = await axiosWithCredentials.post(`${QUIZZES_API}/${user}/${quiz}/attempt`);
+  return data;
+}
+
+export const findAttempt = async (user:string, quiz:string) => {
+  const { data } = await axiosWithCredentials.get(`${QUIZZES_API}/${user}/${quiz}/attempt`);
+  return data;
+}
+
+export const updateAttempt = async (attemptId:string, newRep:any) => {
+  const { data } = await axiosWithCredentials.put(`${QUIZZES_API}/attempt/${attemptId}/upgrade`, newRep);
   return data;
 }

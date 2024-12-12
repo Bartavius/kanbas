@@ -183,7 +183,7 @@ export default function Quizzes() {
                                   <ImCross className="text-danger fs-3 float-end me-4" />
                                 
                               }
-                        {menuVisible === quiz._id && (
+                        {menuVisible === quiz._id && currentUser.role !== "STUDENT" && (
                           <div
                             className="dropdown-menu show"
                             style={{ position: "absolute" }}

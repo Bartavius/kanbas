@@ -2,9 +2,11 @@ import { useParams } from "react-router"
 import * as client from "./client";
 import { useCallback, useEffect, useState } from "react";
 import TakeNav from "./TakeNav";
+import { useSelector } from "react-redux";
 
 export default function Take() {
-    const {qid} = useParams();
+    const {qid, qNum} = useParams();
+    const {currentUser} = useSelector((state:any) => state.accountReducer);
     const [quiz, setQuiz] = useState<any>({});
     const fetchQuiz = useCallback(async () => {
         if (!qid) return;
@@ -20,6 +22,11 @@ export default function Take() {
     )
 
 
+    const upload = async () => {
+        await client.addResponse(currentUser._id, quiz._id)
+    }
+
+
     const [access, setAccess] = useState<string>("");
 
     return (
@@ -27,17 +34,21 @@ export default function Take() {
             {quiz.access_code && quiz.access_code !== access ? 
             <div className="d-flex justify-content-center">
                 <label htmlFor=""><h5>Access Code:</h5></label>
-                <input type="text" className="form-control w-50" onChange={(e) => setAccess(e.target.value)} />
+                <input type="text" className="form-control w-50" onChange={(e) => {setAccess(e.target.value); upload()}} />
             </div> 
             
             : 
+            
             <div>
-                {
-                    (quiz.one_question_at_a_time) === true ? 
+                
                     <div>
                         <div className="row">
                             <div className="col-9">
-                            {/**questions right here */}
+
+
+                                
+
+
                             </div>
                             <div className="col-3">
                                 <TakeNav quiz={quiz}/>
@@ -45,9 +56,8 @@ export default function Take() {
                             
                         </div>
                     </div>
-                    :
-                    <div> one Pager{/* put everything all in one page */}</div>
-                }
+                    
+                
 
                 
             </div>

@@ -58,16 +58,10 @@ fetchAnswers()
                     <div className="col-9">
                         <input type="text" className="form-control w-50" defaultValue={ans.answerText} 
                         onChange={ (e) => {
-                            setAnswers(answers.map((a:any) => (a._id === ans._id) ? {...a, answerText: e.target.value} : a))
+                            setAnswers(answers.map((a:any) => (a._id === ans._id) ? {...a, answerText: e.target.value, isCorrect: true} : a))
                         }}
                         />
-                        
-                    <button  className={`btn ${ans.isCorrect ? "btn-success" : "btn-danger"} float-end`}
-                    onClick={ () => {
-                        setAnswers(answers.map((a:any) => (a._id === ans._id ? {...a, isCorrect: !a.isCorrect} : a )))
-                    }
-
-                    }> {`${ans.isCorrect ? "Correct" : "Incorrect"}`} </button>
+                
 
                     </div>
                     
@@ -75,6 +69,14 @@ fetchAnswers()
                 )
             )}
             <hr />
+            <div>
+                <span>Alternatives:</span>
+                {answers.alternativeAnswers.map((a: string) => (
+                    <div className="row">
+                        {/* alternatives */}
+                    </div>
+                ))}
+            </div>
         </div>
 
         
