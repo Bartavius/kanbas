@@ -8,8 +8,16 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
   const { cid, qid } = useParams();
   const navigate = useNavigate();
 
-  const updateQuiz = async (newQuiz: any) => {
-    await client.updateQuiz(quiz._id, newQuiz);
+  const saveQuiz = async () => {
+    await client.updateQuiz(quiz._id, editQuiz);
+    navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}`)
+    
+  };
+
+  const saveAndPublishQuiz = async () => {
+    await client.updateQuiz(quiz._id, {...editQuiz, published: true});
+    navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+    
   };
 
   return (
@@ -38,7 +46,7 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
         />
       </div>
       <div className="wd-quiz-access-code row mt-3">
-        <h6 className="col-3">
+        <h6 className="col-3 d-flex justify-content-end">
           <label htmlFor="wd-quiz-access-code">
             <b className="float-right"> Access Code </b>
           </label>
@@ -57,7 +65,7 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
       </div>
       <div className="wd-quiz-detail-edit-selectors mt-3">
         <div className="row mb-3">
-          <h6 className="col-3">
+          <h6 className="col-3 d-flex justify-content-end">
             <label htmlFor="wd-select-edit-quiz-type">
               <b className="float-right"> Quiz Type </b>
             </label>
@@ -79,7 +87,7 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
           </div>
         </div>
         <div className="row mb-3">
-          <h6 className="col-3">
+          <h6 className="col-3 d-flex justify-content-end">
             <label htmlFor="wd-select-edit-quiz-group">
               <b className="float-right"> Assignment Group </b>
             </label>
@@ -275,13 +283,13 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
 
       <div className="quiz-edit-boxes">
         <div className="row">
-          <h6 className="col-3">
+          <h6 className="col-3 d-flex justify-content-end">
             <b> Assign </b>
           </h6>
 
-          <div className="col-3 border border-secondary">
+          <div className="col-3 border">
             <b className="mt-5 ml-5 mb-5">Assign To</b>
-            <div className="container border border-secondary rounded-2 p-2 mb-4">
+            <div className="container border rounded-2 p-2 mb-4">
               <button className="btn btn-secondary" disabled>
                 Everyone <RxCross1 />{" "}
               </button>
@@ -295,7 +303,7 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
               id="wd-quiz-due-date"
               type="date"
               className="form-control mb-4"
-              value={editQuiz.due_date}
+              defaultValue={editQuiz.due_date.toString().split('T')[0]}
               onChange={(e) =>
                 setEditQuiz({ ...editQuiz, due_date: e.target.value })
               }
@@ -309,7 +317,7 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
               id="wd-quiz-available-from"
               type="date"
               className="form-control mb-4"
-              value={editQuiz.available_from}
+              defaultValue={editQuiz.available_from.toString().split('T')[0]}
               onChange={(e) =>
                 setEditQuiz({ ...editQuiz, available_from: e.target.value })
               }
@@ -323,7 +331,7 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
               id="wd-quiz-available-until"
               type="date"
               className="form-control mb-4"
-              value={editQuiz.available_until}
+              defaultValue={editQuiz.available_until.toString().split('T')[0]}
               onChange={(e) =>
                 setEditQuiz({ ...editQuiz, available_until: e.target.value })
               }
@@ -335,8 +343,7 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
       <button
         className="float-end btn btn-danger me-1"
         onClick={() => {
-          updateQuiz({ ...editQuiz, published: true });
-          navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+          saveAndPublishQuiz();
         }}
       >
         {" "}
@@ -345,8 +352,7 @@ export default function DetailEdit({ quiz }: { quiz: any }) {
       <button
         className="float-end btn btn-primary me-1"
         onClick={() => {
-          updateQuiz(editQuiz);
-          navigate(`/Kanbas/Courses/${cid}/Quizzes/${qid}`);
+          saveQuiz();
         }}
       >
         {" "}

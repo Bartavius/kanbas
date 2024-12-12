@@ -1,4 +1,4 @@
-import { BsGripVertical, BsPlus } from "react-icons/bs";
+import { BsGripVertical } from "react-icons/bs";
 import ModuleControlButtons from "./ModuleControlButtons";
 import ModulesControls from "./ModulesControl";
 import LessonControlButtons from "./LessonControlButtons";
@@ -8,9 +8,6 @@ import { useSelector } from "react-redux";
 import * as coursesClient from "../client";
 import * as modulesClient from "./client";
 import { useUserAccess } from "../../Account/UserAccess";
-import { FaPencil, FaTrash } from "react-icons/fa6";
-import GreenCheckmark from "./GreenCheckmark";
-import { IoEllipsisVertical } from "react-icons/io5";
 
 export default function Modules() {
   const { cid } = useParams();

@@ -131,12 +131,12 @@ export default function Quizzes() {
             placeholder="Search quiz"
             className="form-control float-start w-25 me-2 wd-filter-by-name"
           />
-          <button
+          { currentUser.role!=="STUDENT" && <button
             onClick={createQuiz}
             className="float-end btn btn-danger wd-add-quiz mb-1 me-1"
           >
             <FaPlus className="me-2" /> Quiz
-          </button>
+          </button>}
           <br />
           <br />
 
