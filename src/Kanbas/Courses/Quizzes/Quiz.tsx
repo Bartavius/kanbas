@@ -38,18 +38,37 @@ export default function Quiz() {
         <h4>...Loading</h4>
       ) : (
         <div>
-            <div className="wd-quiz-header">
-          <h1 className="d-inline"> {quiz.title} </h1>
-          <button className="btn btn-secondary float-end me-2" onClick={() => {navigate("Take")}}> Preview </button>
-          <button className="btn btn-danger float-end me-2" onClick={() => {navigate("Editor")}}> Edit</button>
-          <h5> {quiz.description} </h5>
-          
+          <div className="wd-quiz-header">
+            <h1 className="d-inline"> {quiz.title} </h1>
+            {currentUser.role !== "STUDENT" && (
+                <div>
+                  <button
+                    className="btn btn-secondary float-end me-2"
+                    onClick={() => {
+                      navigate("Take");
+                    }}
+                  >
+                    {" "}
+                    Preview{" "}
+                  </button>
+                  <button
+                    className="btn btn-danger float-end me-2"
+                    onClick={() => {
+                      navigate("Editor");
+                    }}
+                  >
+                    {" "}
+                    Edit
+                  </button>
+                </div>
+              )}
+            <h5> {quiz.description} </h5>
           </div>
           <hr />
 
           {currentUser.role === "STUDENT" ? (
-            <div className="container align-items-center m-5">
-              <button className="btn btn-danger"> Start </button>
+            <div className="container justify-content-center d-flex m-5">
+              <button className="btn btn-danger w-25"> Start </button>
             </div>
           ) : (
             <div className="wd-faculty-quiz-details">

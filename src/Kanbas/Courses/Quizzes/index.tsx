@@ -32,8 +32,15 @@ export default function Quizzes() {
     if (!cid) return;
     try {
       const loadedQuizzes = await quizClient.getQuizzesFromCourse(cid);
-      setAllQuizzes(loadedQuizzes);
-      setQuizzes(loadedQuizzes);
+      if (currentUser.role !== "STUDENT") {
+        setAllQuizzes(loadedQuizzes);
+        setQuizzes(loadedQuizzes);
+      } else {
+        const publishedQuizzes = loadedQuizzes.filter((quiz: any) => quiz.published);
+        setAllQuizzes(publishedQuizzes);
+        setQuizzes(publishedQuizzes);
+      }
+    
     } catch (error) {
       console.error(error);
     }
@@ -82,19 +89,26 @@ export default function Quizzes() {
 
   const displayAvailability = (quiz: any) => {
     const today = new Date();
-    if (quiz.available_from <= today && quiz.available_until >= today) {
+  const availableFrom = new Date(quiz.available_from);
+  const availableUntil = new Date(quiz.available_until);
+    if (availableFrom <= today && availableUntil >= today) {
       return "Available";
-    } else if (quiz.available_from > today) {
-      return `Not Available until ${quiz.available_from.toString()}`;
+    } else if (availableFrom > today) {
+      return `Not Available until ${availableFrom.toString()}`;
     } else {
         return "Closed";
       }
   }
 
   const getScore = async (qid: string) => {
+    try {
     const last =  await quizClient.getLastAttempt(currentUser._id, qid);
     const score = last.responses.filter((question: any) => question.isCorrect === true).length;
     return score;
+    } catch (error) {
+      return "-";
+    }
+  
   }
 
 
@@ -153,8 +167,8 @@ export default function Quizzes() {
                       <div className="col-8 text-start">
                         <Link to={`${quiz._id}`}>{quiz.title}</Link>
                         <p>
-                          <b> {displayAvailability(quiz)} </b> | <b> Due </b> {quiz.due_date} | {quiz.points} pts | {quiz.questions.length} Questions
-                          {currentUser.role==="STUDENT" ? `Score ${getScore(quiz._id)}` : ""}
+                          <b> {displayAvailability(quiz)} </b> | <b> Due </b> {quiz.due_date} | {quiz.points} pts | {quiz.questions.length} Questions | 
+                          {currentUser.role==="STUDENT" ? ` Score ${getScore(quiz._id)}/${quiz.questions.length}` : ""}
                         </p>
                       </div>
                       <div className="col-2">
