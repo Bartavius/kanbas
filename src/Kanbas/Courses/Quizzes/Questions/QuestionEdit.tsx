@@ -120,9 +120,10 @@ export default function QuestionEdit({ quiz }: { quiz: any }) {
       case "MC":
         return (<MCQEditor question={question} updateQuestion={updateQuestion}/>)
       case "TRUE-FALSE":
-        return (<TFEditor question={question}/>)
+        
+        return (<TFEditor question={question} updateQuestion={updateQuestion}/>)
       case "FILLBLANK":
-        return (<BlankEditor question={question}/>)
+        return (<BlankEditor question={question} updateQuestion={updateQuestion}/>)
     }
   }
 
