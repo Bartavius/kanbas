@@ -2,6 +2,7 @@ export default function QuestionEditHeader({ editQuestion, setEditQuestion}: { e
     
   return (
     <div className="container">
+      <b>Question:</b>
       <div className="row">
         <div className="col-9">
           <textarea

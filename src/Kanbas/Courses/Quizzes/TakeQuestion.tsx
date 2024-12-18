@@ -11,7 +11,6 @@ export default function TakeQuestion() {
     const {qid, qNum} = useParams();
     const [question, setQuestion] = useState<any>({});
     const [quiz, setQuiz] = useState<any>({});
-    const [answers, setAnswers] = useState<any>([]);
 
     const {currentUser} = useSelector((state:any) => state.accountReducer);
     const [attempt, setAttempt] = useState<any>({})
@@ -31,25 +30,25 @@ export default function TakeQuestion() {
         setAttempt(att);
     }, [qid, qNum])
 
-    const fetchAnswers = useCallback(async () => {
-        if (!qNum) return;
-        const loadedResponse = await client.getAnswersFromQuestion(qNum);
-        setAnswers(loadedResponse);
-    }, [qid, qNum])
+    // const fetchAnswers = useCallback(async () => {
+    //     if (!qNum) return;
+    //     const loadedResponse = await client.getAnswersFromQuestion(qNum);
+    //     setAnswers(loadedResponse);
+    // }, [qid, qNum])
 
 
     useEffect(() => {
         fetchQuestion();
-        fetchQuiz(); fetchAnswers();
-    }, [fetchQuestion, fetchQuiz, fetchAnswers])
+        fetchQuiz(); //fetchAnswers();
+    }, [fetchQuestion, fetchQuiz]) //fetchAnswers
 
     const renderQuestion = () => {
         if (question.questionType === "MC") {
-            return (<MCQ question={question} answers={answers} attempt={attempt}/>)
+            return (<MCQ question={question} attempt={attempt}/>)
         } else if (question.questionType === "FILLBLANK") {
-            return (<Blank question={question} answers={answers}/>)
+            return (<Blank question={question} />)
         } else if (question.questionType === "TRUE-FALSE") {
-            return (<TF question={question} answers={answers}/>)
+            return (<TF question={question} />)
         }
     }
 

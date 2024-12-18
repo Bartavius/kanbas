@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { FaPlus } from "react-icons/fa";
 import * as client from "../client";
 import QuestionEditHeader from "./QuestionEditHeader";
 
@@ -11,35 +10,35 @@ export default function TFE({ question , updateQuestion }: { question: any , upd
   const [reload, setReload] = useState<boolean>(false);
   // most likely will need to import edit methods and the likes also
 
-  const fetchAnswers = useCallback(async () => {
-    const answers = await client.getAnswersFromQuestion(question._id);
-    for (const a of answers) {
-        if (a.answerText !== "TRUE" && a.answerText !== "FALSE") {
-            return;
-        }
-    }
-    if (answers.length !== 0) {
-        setAnswers(answers);
-    }
-  }, [reload, question])
+  // const fetchAnswers = useCallback(async () => {
+  //   const answers = await client.getAnswersFromQuestion(question._id);
+  //   for (const a of answers) {
+  //       if (a.answerText !== "TRUE" && a.answerText !== "FALSE") {
+  //           return;
+  //       }
+  //   }
+  //   if (answers.length !== 0) {
+  //       setAnswers(answers);
+  //   }
+  // }, [reload, question])
 
-  const updateAnswers = async () => {
-    if (answers[0].left || answers[1].left) {
-        const n1 = await client.addAnswer(question._id, question.quiz)
-        const n2 = await client.addAnswer(question._id, question.quiz)
-        await client.updateAnswer(n1._id, answers[0]);
-        await client.updateAnswer(n2._id, answers[1]);
-    }
-    else {
-    for (const a of answers) {
-        await client.updateAnswer(a._id, a);
-    }}
-}
+//   const updateAnswers = async () => {
+//     if (answers[0].left || answers[1].left) {
+//         const n1 = await client.addAnswer(question._id, question.quiz)
+//         const n2 = await client.addAnswer(question._id, question.quiz)
+//         await client.updateAnswer(n1._id, answers[0]);
+//         await client.updateAnswer(n2._id, answers[1]);
+//     }
+//     else {
+//     for (const a of answers) {
+//         await client.updateAnswer(a._id, a);
+//     }}
+// }
   
 
-  useEffect( () => {
-fetchAnswers()
-  }, [fetchAnswers])
+//   useEffect( () => {
+// fetchAnswers()
+//   }, [fetchAnswers])
 
 
   return (
@@ -82,7 +81,7 @@ fetchAnswers()
       <div>
         <button className="btn btn-danger me-3" onClick={() => {
             updateQuestion(question._id, editQuestion);
-            updateAnswers();
+            //updateAnswers();
             }}>
 
             Save

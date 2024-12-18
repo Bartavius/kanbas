@@ -60,23 +60,23 @@ export const deleteQuestion = async (quesId: string) => {
   return data;
 }
 
-export const getAnswersFromQuestion = async (qid: string) => {
-  const { data } = await axiosWithCredentials.get(`${QUIZZES_API}/question/${qid}/answers`);
-  return data;
-}
+// export const getAnswersFromQuestion = async (qid: string) => {
+//   const { data } = await axiosWithCredentials.get(`${QUIZZES_API}/question/${qid}/answers`);
+//   return data;
+// }
 
-export const addAnswer = async (qid: string, quiz:string) => {
-  const { data } = await axiosWithCredentials.post(`${QUIZZES_API}/${quiz}/question/${qid}/answers`);
-  return data;
-}
-export const updateAnswer = async (aid: string, newA: any) => {
-  const { data } = await axiosWithCredentials.put(`${QUIZZES_API}/answers/update/${aid}`, newA);
-  return data;
-}
-export const getAnswers = async (qid: string) => {
-  const { data } = await axiosWithCredentials.get(`${QUIZZES_API}/${qid}/answers`);
-  return data;
-}
+// export const addAnswer = async (qid: string, quiz:string) => {
+//   const { data } = await axiosWithCredentials.post(`${QUIZZES_API}/${quiz}/question/${qid}/answers`);
+//   return data;
+// }
+// export const updateAnswer = async (aid: string, newA: any) => {
+//   const { data } = await axiosWithCredentials.put(`${QUIZZES_API}/answers/update/${aid}`, newA);
+//   return data;
+// }
+// export const getAnswers = async (qid: string) => {
+//   const { data } = await axiosWithCredentials.get(`${QUIZZES_API}/${qid}/answers`);
+//   return data;
+// }
 
 export const addResponse = async (user:string, quiz:string) => {
   const { data } = await axiosWithCredentials.post(`${QUIZZES_API}/${user}/${quiz}/attempt`);

@@ -9,26 +9,26 @@ export default function BlankEditor({ question , updateQuestion }: { question: a
   const [reload, setReload] = useState<boolean>(false);
   // most likely will need to import edit methods and the likes also
 
-  const fetchAnswers = useCallback(async () => {
-    const answers = await client.getAnswersFromQuestion(question._id);
-    setAnswers(answers);
-  }, [reload, question])
+//   const fetchAnswers = useCallback(async () => {
+//     const answers = await client.getAnswersFromQuestion(question._id);
+//     setAnswers(answers);
+//   }, [reload, question])
 
-  const addAnswer = async () => {
-    const newAnswer = await client.addAnswer(question._id, question.quiz);
-    setAnswers([...answers, newAnswer]);
-  }
+//   const addAnswer = async () => {
+//     const newAnswer = await client.addAnswer(question._id, question.quiz);
+//     setAnswers([...answers, newAnswer]);
+//   }
 
-  const updateAnswers = async () => {
-    for (const a of answers) {
-        await client.updateAnswer(a._id, a);
-    }
-}
+//   const updateAnswers = async () => {
+//     for (const a of answers) {
+//         await client.updateAnswer(a._id, a);
+//     }
+// }
   
 
-  useEffect( () => {
-fetchAnswers()
-  }, [fetchAnswers])
+//   useEffect( () => {
+// fetchAnswers()
+//   }, [fetchAnswers])
 
 
   return (
@@ -43,7 +43,7 @@ fetchAnswers()
             <h6>
             <b> Answers: </b>
             </h6>
-            <button className="btn btn-danger" onClick={() => addAnswer()}><FaPlus/> Answer </button>
+            <button className="btn btn-danger" onClick={() => {}}><FaPlus/> Answer </button>
         </div>
         <div>
             {answers.map(
@@ -91,7 +91,7 @@ fetchAnswers()
       <div>
         <button className="btn btn-danger me-3" onClick={() => {
             updateQuestion(question._id, editQuestion);
-            updateAnswers();
+            //updateAnswers();
             }}>
 
             Save

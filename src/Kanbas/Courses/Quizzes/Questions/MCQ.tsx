@@ -1,7 +1,7 @@
 import { useState } from "react";
 import * as client from "../client";
 import { useParams } from "react-router";
-export default function MCQ({question, answers, attempt}: {question:any, answers:[any], attempt:any}) {
+export default function MCQ({question, attempt}: {question:any, attempt:any}) {
 
 
 const [response, setResponse] = useState({});;
@@ -17,7 +17,7 @@ return (
             <span><h4>{question.questionText}</h4></span>
         </div>
         <hr />
-        {answers.map( (a:any, i:number) =>(
+        {/* {answers.map( (a:any, i:number) =>(
             <div>
                 <input key={a._id} id={a._id} type="radio" className="form-check d-inline me-3" name={question._id}
                 onChange={(e) => {
@@ -29,7 +29,7 @@ return (
                 <label htmlFor="a._id">{i + 1}. {a.answerText}</label>
             </div>
         )
-        )}
+        )} */}
 
         {/* save user inputs also ; upload user response after every change lowkey */}
         
