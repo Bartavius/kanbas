@@ -56,7 +56,7 @@ export default function QuestionEdit({ quiz }: { quiz: any }) {
     switch (question.questionType) {
       case "MC":
         return (
-          <MCQEditor question={question} updateQuestion={updateQuestion} />
+          <MCQEditor question={question} updateQuestion={updateQuestion} setEditing={() => editQuestion(question._id)}/>
         );
       case "TRUE-FALSE":
         return <TFEditor question={question} updateQuestion={updateQuestion} />;
@@ -70,7 +70,7 @@ export default function QuestionEdit({ quiz }: { quiz: any }) {
   const editQuestion = (quesId: string) => {
     setQuestions(
       questions.map((q: any) =>
-        q._id === quesId ? { ...q, editing: true } : q
+        q._id === quesId ? { ...q, editing: q.editing ? !q.editing : true} : q
       ) as any
     );
   };
@@ -96,9 +96,9 @@ export default function QuestionEdit({ quiz }: { quiz: any }) {
             className="list-group-item mt-5 border rounded-1"
             key={`${question._id}`}
           >
-            <div className="wd-question-preview">
-              {!question.editing && <span>{question.questionText}</span>}
+            <div className="wd-question-preview pb-3 pt-3">
               <div>
+              {!question.editing && <span>{question.questionText}</span>}
                 <FaPencil
                   className="float-end text-primary me-3 fs-4"
                   onClick={() => editQuestion(question._id)}
