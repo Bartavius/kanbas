@@ -8,11 +8,7 @@ import {
 import * as client from "../client";
 import { useEffect, useState } from "react";
 import { FaPencil } from "react-icons/fa6";
-import MCQEditor from "./MCQEditor";
-import TFEditor from "./TFEditor";
-import BlankEditor from "./BlankEditor";
 import { ImCross } from "react-icons/im";
-import QuestionEditHeader from "./QuestionEditHeader";
 import QuestionEditorBox from "./QuestionEditorBox";
 
 export default function QuestionEdit({ quiz }: { quiz: any }) {
@@ -59,36 +55,16 @@ export default function QuestionEdit({ quiz }: { quiz: any }) {
     );
   };
 
-  // const useRenderQuestionEdit = (question: any) => {
-  //   const [localQuestion, setLocalQuestion] = useState<any>(question);
-  //   <QuestionEditHeader
-  //   editQuestion={localQuestion}
-  //   setEditQuestion={setLocalQuestion}
-  //   />
-  //   switch (localQuestion.questionType) {
-  //     case "MC":
-  //       return (
-  //         <MCQEditor
-  //           question={localQuestion}
-  //           setQuestion={setLocalQuestion}
-  //           updateQuestion={updateQuestion}
-  //           setEditing={() => editQuestionMode(question._id)}
-  //         />
-  //       );
-  //     case "TRUE-FALSE":
-  //       return (
-  //         <TFEditor
-  //           question={localQuestion}
-  //           updateQuestion={updateQuestion}
-  //           setEditing={() => editQuestionMode(question._id)}
-  //         />
-  //       );
-  //     case "FILLBLANK":
-  //       return (
-  //         <BlankEditor question={localQuestion} updateQuestion={updateQuestion} />
-  //       );
-  //   }
-  // };
+  const formatQuestionType = (qType: string) => {
+    switch (qType) {
+      case "MC":
+        return "Multiple Choice";
+      case "FILLBLANK":
+        return "Fill in the Blank";
+      case "TRUE-FALSE":
+        return "True or False";
+    }
+  };
 
   const questionEditorComponent = (
     <div>
@@ -109,9 +85,16 @@ export default function QuestionEdit({ quiz }: { quiz: any }) {
             className="list-group-item mt-5 border rounded-1"
             key={`${question._id}`}
           >
-            <div className="wd-question-preview pb-3 pt-3">
-              <div>
-                {!question.editing && <span>{question.questionText}</span>}
+            <div className={`wd-question-preview pb-3 pt-2 rounded-1 ${ !question.editing || question.editing === false ? "bg-light" : ""}`}>
+              <div className="ms-3">
+                {!question.editing && (
+                  <>
+                    <span className="d-block">
+                      <b>{formatQuestionType(question.questionType)}</b>
+                    </span>
+                    <span>{question.questionText}</span>
+                  </>
+                )}
                 <FaPencil
                   className="float-end text-primary me-3 fs-4"
                   onClick={() => editQuestionMode(question._id)}
@@ -123,7 +106,7 @@ export default function QuestionEdit({ quiz }: { quiz: any }) {
               </div>
             </div>
 
-            <div>
+            <div className="mt-2">
               {question.editing ? (
                 <div className="wd-question-edit-mode">
                   <QuestionEditorBox
@@ -162,13 +145,13 @@ export default function QuestionEdit({ quiz }: { quiz: any }) {
     </div>
   );
 
-  useEffect(() => {fetchQuestions()}, [reload, loading]);
+  useEffect(() => {
+    fetchQuestions();
+  }, [reload, loading]);
 
   return (
     <div className="wd-question-editor">
-      <div>
-        {loading ? <span> ...Loading </span> : questionEditorComponent}
-      </div>
+      <div>{loading ? <span> ...Loading </span> : questionEditorComponent}</div>
     </div>
   );
 }

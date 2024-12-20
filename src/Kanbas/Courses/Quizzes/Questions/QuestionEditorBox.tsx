@@ -16,14 +16,33 @@ export default function QuestionEditorBox({
   const [editQuestion, setEditQuestion] = useState<any>(question);
 
   const addAnswer = () => {
-    setEditQuestion({
-      ...editQuestion,
-      answer: editQuestion.answers.push({
+    const newAnswer = {
         _id: `${editQuestion.answers.length}`,
         answerText: `New Answer ${editQuestion.answers.length}`,
         isCorrect: true,
         display: true,
-      }),
+      }
+    setEditQuestion({
+      ...editQuestion,
+      answers: [...editQuestion.answers, newAnswer]
+    });
+  };
+
+  const deleteAnswer = (index: Number) => {
+    setEditQuestion({
+      ...editQuestion,
+      answers: editQuestion.answers.filter(
+        (answer: any) => answer._id !== `${index}`
+      ),
+    });
+  };
+
+  const toggleAnswer = (index: Number) => {
+    setEditQuestion({
+      ...editQuestion,
+      answers: editQuestion.answers.map((a: any) =>
+        a._id === `${index}` ? { ...a, isCorrect: !a.isCorrect } : a
+      ),
     });
   };
 
@@ -37,15 +56,16 @@ export default function QuestionEditorBox({
             updateQuestion={updateQuestion}
             setEditing={() => editQuestionMode(question._id)} // duplicate name for obj and function
             addAnswer={addAnswer}
+            deleteAnswer={deleteAnswer}
+            toggleAnswer={toggleAnswer}
           />
         );
 
-    // all other cases are still in progress
+      // all other cases are still in progress
       case "TRUE-FALSE":
         return (
           <TFEditor
             question={editQuestion}
-            setQuestion={setEditQuestion}
             updateQuestion={updateQuestion}
             setEditing={() => editQuestionMode(question._id)}
           />
@@ -54,7 +74,12 @@ export default function QuestionEditorBox({
         return (
           <BlankEditor
             question={editQuestion}
+            setQuestion={setEditQuestion}
             updateQuestion={updateQuestion}
+            setEditing={() => editQuestionMode(question._id)}
+            addAnswer={addAnswer}
+            deleteAnswer={deleteAnswer}
+            toggleAnswer={toggleAnswer}
           />
         );
     }
@@ -68,9 +93,7 @@ export default function QuestionEditorBox({
           setEditQuestion={setEditQuestion}
         />
       </div>
-      <div className="wd-question-editor-box-body">
-        {determineBody()}
-      </div>
+      <div className="wd-question-editor-box-body">{determineBody()}</div>
     </div>
   );
 }

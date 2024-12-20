@@ -1,26 +1,26 @@
-import { FaPlus, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaPlus, FaRegEye, FaRegEyeSlash, FaTrash } from "react-icons/fa";
 
 export default function MCQEditor({
   question,
   setQuestion,
   updateQuestion,
   setEditing,
-  addAnswer, // delete answer ?
+  addAnswer,
+  deleteAnswer,
+  toggleAnswer,
 }: {
   question: any;
-  setQuestion: (newQues: any) => void;
+  setQuestion: (newQuestion: any) => void;
   updateQuestion: (quesId: string, quesNew: any) => void;
   setEditing: (editing: boolean) => void;
   addAnswer: () => void;
+  deleteAnswer: (index: Number) => void;
+  toggleAnswer: (index: number) => void;
 }) {
-  const toggleDisplay = (index: Number) => {
-    setQuestion({
-      ...question,
-      answers: question.answers.map((a: any) =>
-        a._id === `${index}` ? { ...a, display: !a.display } : a
-      ),
-    });
-  };
+
+  console.log(question);
+  console.log(question.answers)
+
   return (
     <div className="container">
       <div className="wd-quiz-question-edit-answer-section mt-5">
@@ -28,9 +28,6 @@ export default function MCQEditor({
           <h6>
             <b> Answers: </b>
           </h6>
-          <button className="btn btn-danger" onClick={addAnswer}>
-            <FaPlus /> Answer{" "}
-          </button>
         </div>
         <div className="wd-answer-editor-answers-list mt-3">
           {question.answers.map((ans: any, index: number) => (
@@ -45,16 +42,12 @@ export default function MCQEditor({
                   type="text"
                   className="form-control w-50"
                   defaultValue={ans.answerText}
-                  onChange={(e) => {
-                    setQuestion({
-                      ...question,
-                      answers: question.answers.map((a: any) =>
-                        a._id === `${index}`
-                          ? { ...a, answerText: e.target.value }
-                          : a
-                      ),
-                    });
-                  }}
+                  onChange={(e) => {setQuestion({
+                    ...question,
+                    answers: question.answers.map((a: any) =>
+                      a._id === `${index}` ? { ...a, answerText: e.target.value } : a
+                    ),
+                  })}}
                 />
               </div>
               <div className="wd-answer-editor-button-controls col-2 d-flex justify-content-center">
@@ -62,38 +55,23 @@ export default function MCQEditor({
                   className={`btn ${
                     ans.isCorrect ? "btn-success" : "btn-danger"
                   } float-end mt-2 me-3 wd-answer-editor-answer-correct-button`}
-                  onClick={() => {
-                    setQuestion({
-                      ...question,
-                      answers: question.answers.map((a: any) =>
-                        a._id === `${index}`
-                          ? { ...a, isCorrect: !a.isCorrect }
-                          : a
-                      ),
-                    });
-                  }}
+                  onClick={() => toggleAnswer(index)}
                 >
                   {" "}
                   {`${ans.isCorrect ? "Correct" : "Incorrect"}`}
                 </button>
-                <div className="wd-answer-editor-answer-display-button mt-2 float-end fs-4">
-                  {ans.display ? (
-                    <FaRegEye
-                      className="me-2"
-                      onClick={() => toggleDisplay(index)}
-                    />
-                  ) : (
-                    <FaRegEyeSlash
-                      className="me-2"
-                      onClick={() => toggleDisplay(index)}
-                    />
-                  )}
-                </div>
+                <FaTrash
+                  className="float-end fs-4 text-danger mt-3"
+                  onClick={() => deleteAnswer(index)}
+                />
               </div>
             </div>
           ))}
         </div>
       </div>
+      <button className="btn btn-danger mt-2" onClick={addAnswer}>
+        <FaPlus /> Answer{" "}
+      </button>
       <hr />
       <div>
         <button
@@ -116,7 +94,3 @@ export default function MCQEditor({
     </div>
   );
 }
-
-// this is set to the wrong default. When  it goes from TF -> TF (editMode) the isCorrect is always the same in TRUE = true, FALSE = false
-
-// Remove "display" from MCQ. display options should only be available in fill in the blanks.
