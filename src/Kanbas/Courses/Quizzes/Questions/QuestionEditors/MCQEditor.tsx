@@ -1,4 +1,4 @@
-import { FaPlus, FaRegEye, FaRegEyeSlash, FaTrash } from "react-icons/fa";
+import { FaPlus, FaTrash } from "react-icons/fa";
 
 export default function MCQEditor({
   question,
@@ -14,13 +14,9 @@ export default function MCQEditor({
   updateQuestion: (quesId: string, quesNew: any) => void;
   setEditing: (editing: boolean) => void;
   addAnswer: () => void;
-  deleteAnswer: (index: Number) => void;
-  toggleAnswer: (index: number) => void;
+  deleteAnswer: (aid: string) => void;
+  toggleAnswer: (aid: string) => void;
 }) {
-
-  console.log(question);
-  console.log(question.answers)
-
   return (
     <div className="container">
       <div className="wd-quiz-question-edit-answer-section mt-5">
@@ -55,14 +51,14 @@ export default function MCQEditor({
                   className={`btn ${
                     ans.isCorrect ? "btn-success" : "btn-danger"
                   } float-end mt-2 me-3 wd-answer-editor-answer-correct-button`}
-                  onClick={() => toggleAnswer(index)}
+                  onClick={() => toggleAnswer(ans._id)}
                 >
                   {" "}
                   {`${ans.isCorrect ? "Correct" : "Incorrect"}`}
                 </button>
                 <FaTrash
                   className="float-end fs-4 text-danger mt-3"
-                  onClick={() => deleteAnswer(index)}
+                  onClick={() => deleteAnswer(ans._id)}
                 />
               </div>
             </div>
@@ -76,16 +72,18 @@ export default function MCQEditor({
       <div>
         <button
           className="btn btn-danger me-3"
-          onClick={() => {
+          onClick={(e) => {
             updateQuestion(question._id, question);
+            e.preventDefault()
           }}
         >
           Save
         </button>
         <button
           className="btn btn-secondary me-3"
-          onClick={() => {
+          onClick={(e) => {
             setEditing(false);
+            e.preventDefault()
           }}
         >
           Cancel

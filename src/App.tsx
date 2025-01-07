@@ -8,8 +8,8 @@ export default function App() {
     <HashRouter>
       <Provider store={store}>
         <Routes>
-          <Route path="/" element={<Navigate to="Labs" />} />
-          <Route path="/Labs/*" element={<Labs />} />
+          <Route path="/" element={<Navigate to="Kanbas" />} />
+          {/* <Route path="/Labs/*" element={<Labs />} /> */}
           <Route path="/Kanbas/*" element={<Kanbas />} />
         </Routes>
       </Provider>

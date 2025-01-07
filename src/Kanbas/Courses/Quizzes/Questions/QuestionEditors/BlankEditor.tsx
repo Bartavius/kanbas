@@ -14,14 +14,14 @@ export default function BlankEditor({
   updateQuestion: (quesId: string, quesNew: any) => void;
   setEditing: (editing: boolean) => void;
   addAnswer: () => void;
-  deleteAnswer: (index: Number) => void;
-  toggleAnswer: (index: number) => void;
+  deleteAnswer: (aid: string) => void;
+  toggleAnswer: (aid: string) => void;
 }) {
-  const toggleDisplay = (index: Number) => {
+  const toggleDisplay = (aid: string) => {
     setQuestion({
       ...question,
       answers: question.answers.map((a: any) =>
-        a._id === `${index}` ? { ...a, display: !a.display } : a
+        a._id === aid ? { ...a, display: !a.display } : a
       ),
     });
   };
@@ -59,7 +59,7 @@ export default function BlankEditor({
                   className={`btn ${
                     ans.isCorrect ? "btn-success" : "btn-danger"
                   } float-end mt-2 me-3 wd-answer-editor-answer-correct-button`}
-                  onClick={() => toggleAnswer(index)}
+                  onClick={() => toggleAnswer(ans._id)}
                 >
                   {" "}
                   {`${ans.isCorrect ? "Correct" : "Incorrect"}`}
@@ -68,18 +68,18 @@ export default function BlankEditor({
                   {ans.display ? (
                     <FaRegEye
                       className="me-2"
-                      onClick={() => toggleDisplay(index)}
+                      onClick={() => toggleDisplay(ans._id)}
                     />
                   ) : (
                     <FaRegEyeSlash
                       className="me-2"
-                      onClick={() => toggleDisplay(index)}
+                      onClick={() => toggleDisplay(ans._id)}
                     />
                   )}
                 </div>
                 <FaTrash
                   className="float-end fs-4 text-danger mt-3"
-                  onClick={() => deleteAnswer(index)}
+                  onClick={() => deleteAnswer(ans._id)}
                 />
               </div>
             </div>

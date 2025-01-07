@@ -21,8 +21,6 @@ export default function ModulesControls(
           <GreenCheckmark />
           Publish All</button>
     
-        {/* Using <a> prevents me from publishing the site on netlify as it considers href="#" an invalid link, so I'm replacing
-        it with buttons instead */}
         <ul className="dropdown-menu">
           <li>
             <button id="wd-publish-all-modules-and-items-btn" className="dropdown-item">

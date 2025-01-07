@@ -1,8 +1,8 @@
 import { useState } from "react";
 import QuestionEditHeader from "./QuestionEditHeader";
-import MCQEditor from "./MCQEditor";
-import TFEditor from "./TFEditor";
-import BlankEditor from "./BlankEditor";
+import MCQEditor from "./QuestionEditors/MCQEditor";
+import TFEditor from "./QuestionEditors/TFEditor";
+import BlankEditor from "./QuestionEditors/BlankEditor";
 
 export default function QuestionEditorBox({
   question,
@@ -17,7 +17,7 @@ export default function QuestionEditorBox({
 
   const addAnswer = () => {
     const newAnswer = {
-        _id: `${editQuestion.answers.length}`,
+        _id: `${new Date().getTime()}`,
         answerText: `New Answer ${editQuestion.answers.length}`,
         isCorrect: true,
         display: true,
@@ -28,20 +28,32 @@ export default function QuestionEditorBox({
     });
   };
 
-  const deleteAnswer = (index: Number) => {
+  const deleteAnswer = (aid: string) => {
+
     setEditQuestion({
       ...editQuestion,
-      answers: editQuestion.answers.filter(
-        (answer: any) => answer._id !== `${index}`
-      ),
+      answers: 
+
+      
+      
+      editQuestion.answers
+      .filter((answer: any) => answer._id !== aid)
     });
+   
+     {/* when deleting an answer, shift all of the IDs down by one */}
+
+    
+
+
+
+
   };
 
-  const toggleAnswer = (index: Number) => {
+  const toggleAnswer = (aid: string) => {
     setEditQuestion({
       ...editQuestion,
       answers: editQuestion.answers.map((a: any) =>
-        a._id === `${index}` ? { ...a, isCorrect: !a.isCorrect } : a
+        a._id === aid ? { ...a, isCorrect: !a.isCorrect } : a
       ),
     });
   };
