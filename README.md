@@ -1,47 +1,54 @@
-# Getting Started with Create React App
+This project is a web app replication of the functionalities of the educational app, 'Canvas.' Currently implemented functions include,
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**User Information:**
+- User authentication / registration
+- User profile information
+- User profile modification (admin permission)
+- User information lookup filtration
+- User role-specific permissions (FACULTY and ADMIN are allowed to modify data and have access to more functionalities over a STUDENT/TA role)
 
-## Available Scripts
+**Course Information:**
+- Course display
+- User-specific course enrollments / unenrollment
+- Course modification (add, edit, delete)
 
-In the project directory, you can run:
+**Course Modules:**
+- Course-specific Modules modification (add, edit, delete)
 
-### `npm start`
+**Course Assignments:**
+- Course-specific Assignment display
+- Course-specific Assignments modification (Add, edit, delete)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+**Course quizzes:**
+- Course-specific quizzes display (can adjust 'publication status' to display on STUDENT webpage)
+- Course-specific quizzes modification (add, edit, delete)
+- quiz question and answers modification (add, edit types/details, delete; add answers, edit answer display/correct, delete answer)
+- quiz taking (faculty and admins can display a preview, while students can take graded quizzes with saved attempts depending on the question details)
+  - latest attempt is saved when a quiz is permitted to be taken multiple times
+  - answers will be displayed after a specified time period
+  - practice quizzes will not be saved
+  - single question per page / display all questions at once are implemented functionalities
+  - time limits are placed based on the quiz detail
+  - students will not be able to take the quiz until it is published and is within an allotted time period that is specified in the quiz detail
+  - fill in the blanks, true/false, and multiple-choice questions are the only available question types at the moment
+ 
+========================================================================================================================================================
+ 
+Future implementation that are planned includes more question types (short answers), grading systems for assignments including the ability to submit works, ChatGPT API integration, course image upload, private messaging system.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**The technologies used in this project includes:**
+  React – Building dynamic, component-based UIs.
+  Node.js – Server-side JavaScript runtime.
+  Next.js – React framework for SSR/SSG and routing.
+  Express.js – Web server framework for Node.js APIs.
+  Axios – HTTP client for making API requests.
+  MongoDB – NoSQL database for flexible data storage.
+  Bootstrap – Front-end framework for responsive design.
+  Redux – State management with a centralized store for predictable state changes.
 
-### `npm test`
+ **Languages used:** HTML/CSS, Typescript, Javascript
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Disclaimer**: This project was built while (and in order to) learning the aforementioned technologies and languages, as such there may be areas of code that looks "unoptimized" or "unclean." It may be rough around the edges, but it retains the functionalities of what it is intended to be.
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-# cs4550
+The server-side of the project is hosted on:
+The web app is hosted on:
