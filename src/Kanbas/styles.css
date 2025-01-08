@@ -1,0 +1,71 @@
+body   {  margin: 0;  padding: 0;  }
+body * {  font-family: Arial, Helvetica, sans-serif;  }
+
+@media (min-width: 768px) {
+  #wd-kanbas .wd-main-content-offset {
+    padding-left: 140px !important;
+  }
+}
+
+.wd-dashboard-course {
+    width: 250px;
+}
+
+.list-group.wd > .list-group-item.active {
+    color: black;
+    background-color: white;
+    border-left: 3px solid black !important;
+}
+
+.nav-link.active-primary {
+  color: black !important;
+  background-color: white !important;
+}
+
+.nav-link.active-secondary-nav {
+  color: black !important;
+  background-color: white !important;
+  border-left: 3px solid black !important;
+  border-radius: 0px !important;
+}
+
+.btn-secondary {
+    --bs-btn-color: #000 !important;
+    --bs-btn-bg: #c7cdd1 !important;
+    --bs-btn-border-color: #c7cdd1 !important;
+    --bs-btn-hover-color: #fff !important;
+  }
+  .bg-secondary {
+    --bs-secondary-rgb: 199, 205, 209;
+  }
+  .list-group-item {
+    --bs-list-group-border-color: gray;
+  }
+  .wd-lesson {
+    border-left: 3px solid green !important;
+  }
+
+  .wd-assignments {
+    border-left: 3px solid green !important;
+  }
+
+  .wd-quiz-list-items {
+    border-left: 3px solid green !important;
+  }
+
+.course-card {
+  box-shadow: 0 14px 26px rgba(0,0,0,0.04);
+  transition: all 0.3s ease-out;
+
+}
+
+.course-card:hover {
+  transform: translateY(-12px) scale(1.05) translateZ(0);
+  box-shadow: 0 24px 36px rgba(0,0,0,0.11),
+    0 24px 46px var(--box-shadow-color);
+}
+
+.border-bottom-empty {
+  border-bottom:3px solid white !important;
+}
+  
