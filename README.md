@@ -37,14 +37,14 @@ This project is a web app replication of the functionalities of the educational 
 Future implementation that are planned includes more question types (short answers), grading systems for assignments including the ability to submit works, ChatGPT API integration, course image upload, private messaging system.
 
 **The technologies used in this project includes:**
-  React – Building dynamic, component-based UIs.
-  Node.js – Server-side JavaScript runtime.
-  Next.js – React framework for SSR/SSG and routing.
-  Express.js – Web server framework for Node.js APIs.
-  Axios – HTTP client for making API requests.
-  MongoDB – NoSQL database for flexible data storage.
-  Bootstrap – Front-end framework for responsive design.
-  Redux – State management with a centralized store for predictable state changes.
+  - React – Building dynamic, component-based UIs.
+  - Node.js – Server-side JavaScript runtime.
+  - Next.js – React framework for SSR/SSG and routing.
+  - Express.js – Web server framework for Node.js APIs.
+  - Axios – HTTP client for making API requests.
+  - MongoDB – NoSQL database for flexible data storage.
+  - Bootstrap – Front-end framework for responsive design.
+  - Redux – State management with a centralized store for predictable state changes.
 
  **Languages used:** HTML/CSS, Typescript, Javascript
 
