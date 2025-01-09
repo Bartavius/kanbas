@@ -44,7 +44,7 @@ export default function Courses() {
                         <Route path="Quizzes" element={<Quizzes />} />
                         <Route path="Quizzes/:qid" element={<Quiz />} />
                         <Route path="Quizzes/:qid/Take/*" element={<Take />} />
-                        <Route path="Quizzes/:qid/Take/:qNum" element={<TakeQuestion />} />
+                        <Route path="Quizzes/:qid/Take/:qNum" element={<Take />} />
                         <Route path="Quizzes/:qid/Editor" element={<QuizEditor />} />
                         <Route path="Grades" element={<h2>Grades</h2>} />
                         <Route path="Piazza" element={<h2>Piazza</h2>} />

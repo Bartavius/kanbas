@@ -91,7 +91,6 @@ export default function QuestionEditorBox({
             setEditing={() => editQuestionMode(question._id)}
             addAnswer={addAnswer}
             deleteAnswer={deleteAnswer}
-            toggleAnswer={toggleAnswer}
           />
         );
     }

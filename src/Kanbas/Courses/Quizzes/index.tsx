@@ -12,6 +12,7 @@ import { FaPencil } from "react-icons/fa6";
 import { SlRocket } from "react-icons/sl";
 import { ImCross } from "react-icons/im";
 
+// display quizzes for a course
 export default function Quizzes() {
   const { cid } = useParams();
   const navigate = useNavigate();
@@ -25,8 +26,6 @@ export default function Quizzes() {
   const handleContextMenu = (quizId: string) => {
     setMenuVisible(menuVisible === quizId ? null : quizId);
   };
-
-  // TODO: if faculty / admin, can edit quizzes
 
   const fetchAllQuizzes = async () => {
     if (!cid) return;
@@ -131,7 +130,7 @@ export default function Quizzes() {
             placeholder="Search quiz"
             className="form-control float-start w-25 me-2 wd-filter-by-name"
           />
-          { currentUser.role!=="STUDENT" && <button
+          { currentUser.role!=="STUDENT" && currentUser.role !== "TA" && <button
             onClick={createQuiz}
             className="float-end btn btn-danger wd-add-quiz mb-1 me-1"
           >

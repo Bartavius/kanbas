@@ -7,60 +7,44 @@
 // import TakeNav from "./TakeNav";
 // import { useSelector } from "react-redux";
 
+import InputText from "./Questions/AnswerTypes/InputText";
+import Radio from "./Questions/AnswerTypes/Radio";
+
 // displays the question, and the answer options
-export default function TakeQuestion() {
+export default function TakeQuestion({question, questionIndex} : {question:any, questionIndex:number}) {
   // need to decide, if the take question should take in a question that is loaded in "TAKE.tsx"
   // or should we only fetch it here. I'm leaning towards the former.
 
-  const testAnswers = [
-    {
-      _id: "1",
-      answerText: "answer 1",
-    },
-    {
-      _id: "2",
-      answerText: "answer 2",
-    },
-    {
-      _id: "3",
-      answerText: "answer 3",
-    },
-  ];
+  const answerType = () => {
+    switch (question.questionType) {
+      case "MC":
+        return <Radio answers={question.answers} shuffled={false} questionId={question._id}/>
+      case "TRUE-FALSE":
+        return <Radio answers={question.answers} shuffled={false} questionId={question._id}/>
+      case "FILLBLANK":
+        return <InputText answers={question.answers} />
+  }
+}
 
   return (
     <div className="container">
       <div className="question-header-display bg-light border border-gray ">
         <div className="ms-3 d-flex justify-content-between p-3">
         <h5>
-          <b>Question X</b>
+          <b>Question {questionIndex}</b>
         </h5>
         <h5>
-          <b>Y Pts</b>
+          <b>{question.point} Pts</b>
         </h5>
       </div></div>
       <div className="container question-body-display border border-gray p-3">
         <br />
         <div className="question-body-question-display ms-3">
-          question text right here like omg ?
+          {question.questionText}
         </div>
         <br />
         <div className="question-body-answer-display mt-6">
-          {testAnswers.map((answer: any) => (
-            <div key={answer._id}>
-              <hr />
-              <div className="form-check mb-3">
-                <input
-                  id={answer._id}
-                  type="radio"
-                  className="form-check-input"
-                  name={`question-`}
-                />
-                <label htmlFor={answer._id} className="form-check-label ms-2">
-                  {answer.answerText}
-                </label>
-              </div>
-            </div>
-          ))}
+          {answerType()}
         </div>
       </div>
     </div>

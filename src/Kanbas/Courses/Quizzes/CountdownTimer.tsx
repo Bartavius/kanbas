@@ -36,7 +36,6 @@ export default function CountdownTimer({ minutes }: { minutes: number }) {
     // Set up the countdown interval
     const interval = setInterval(() => {
       setSeconds((prev) => {
-        console.log(`Previous seconds value: ${prev}`);
         if (prev <= 0) {
           clearInterval(interval); // Stop interval when seconds reach 0
           return 0;
@@ -47,7 +46,6 @@ export default function CountdownTimer({ minutes }: { minutes: number }) {
 
     return () => {
       clearInterval(interval);  // Cleanup on unmount or state change
-      console.log("Interval cleared");
     };
   }, [seconds]); // Only re-run when seconds changes
 

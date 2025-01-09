@@ -12,18 +12,19 @@ export default function Radio({
   return (
     <div className="answer-display-radio">
       {answers.map((answer: any) => (
+        <div>
+           <hr />
         <div className="form-check mb-3">
-          <hr />
           <input
             id={answer._id}
             type="radio"
-            className="form-check-input w-25"
+            className="form-check-input"
             name={`question-${questionId}`}
           />
           <label htmlFor={answer._id} className="form-check-label ms-2">
             {answer.answerText}
           </label>
-        </div>
+        </div></div>
       ))}
     </div>
   );

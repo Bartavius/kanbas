@@ -3,11 +3,13 @@ import * as client from "./client";
 import { useEffect, useState } from "react";
 import TakeNav from "./TakeNav";
 import { useSelector } from "react-redux";
+import TakeQuestion from "./TakeQuestion";
 
 export default function Take() {
   const { qid } = useParams();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const [quiz, setQuiz] = useState<any>({});
+  const [questions, setQuestions] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true); // Add loading state
   const [access, setAccess] = useState<string>("");
   const startTime = new Date();
@@ -15,10 +17,11 @@ export default function Take() {
   useEffect(() => {
     const fetchQuiz = async () => {
       if (!qid) return;
-      setLoading(true); // Set loading to true before starting the fetch
       try {
         const loadedQuiz = await client.getQuiz(qid);
         setQuiz(loadedQuiz); // Set the quiz data once fetched
+        const loadedQuestions = await client.getQuestionsFromQuiz(qid);
+        setQuestions(loadedQuestions);
       } catch (error) {
         console.error("Failed to fetch quiz:", error);
       } finally {
@@ -37,7 +40,7 @@ export default function Take() {
     <div>
       {loading ? (
         <div className="d-flex justify-content-center align-items-center mt-3">
-          <p>Loading quiz...</p> {/* Show a loading indicator or message */}
+          <p>Loading quiz...</p>
         </div>
       ) : (
         <div>
@@ -66,9 +69,25 @@ export default function Take() {
                   <p className="mt-3">Started {startTime.toString()}</p>
                   <h3>
                     <b>Quiz Instructions</b>
+
                   </h3>
                   <p className="mt-3">{quiz.description}</p>
                   <hr />
+
+                  <div className="quiz-body-display">
+
+
+
+                    {questions.map((question: any, index: number) => (
+                      <div className="mt-5 mb-5 container">
+                        
+                      <TakeQuestion key={question._id} question={question} questionIndex={index + 1} /></div>
+                    ))
+                    }
+
+                  </div>
+
+
                 </div>
                 <div className="col-3">
                   <h4>Questions</h4>

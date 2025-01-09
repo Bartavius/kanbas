@@ -7,7 +7,6 @@ export default function BlankEditor({
   setEditing,
   addAnswer,
   deleteAnswer,
-  toggleAnswer
 }: {
   question: any;
   setQuestion: (newQues: any) => void;
@@ -15,7 +14,6 @@ export default function BlankEditor({
   setEditing: (editing: boolean) => void;
   addAnswer: () => void;
   deleteAnswer: (aid: string) => void;
-  toggleAnswer: (aid: string) => void;
 }) {
   const toggleDisplay = (aid: string) => {
     setQuestion({
@@ -55,15 +53,6 @@ export default function BlankEditor({
                 />
               </div>
               <div className="wd-answer-editor-button-controls col-2 d-flex justify-content-center">
-                <button
-                  className={`btn ${
-                    ans.isCorrect ? "btn-success" : "btn-danger"
-                  } float-end mt-2 me-3 wd-answer-editor-answer-correct-button`}
-                  onClick={() => toggleAnswer(ans._id)}
-                >
-                  {" "}
-                  {`${ans.isCorrect ? "Correct" : "Incorrect"}`}
-                </button>
                 <div className="wd-answer-editor-answer-display-button mt-2 float-end fs-4">
                   {ans.display ? (
                     <FaRegEye

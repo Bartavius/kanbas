@@ -27,7 +27,6 @@ export default function Quiz() {
 
   useEffect(() => {
     fetchQuiz();
-    console.log(quiz);
   }, [fetchQuiz]);
 
   //disable start if max attempts reached
