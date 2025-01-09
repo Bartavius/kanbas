@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams } from "react-router";
 import PeopleTable from "./Table";
 import * as client from "../client";
 import { useSelector } from "react-redux";
 import { FaPlus } from "react-icons/fa";
 export default function Roster() {
   const {currentUser} = useSelector((state:any) => state.accountReducer);
-  const navigate = useNavigate();
 
   const [roster, setRoster] = useState<any[]>([]);
   const { cid, uid } = useParams();
