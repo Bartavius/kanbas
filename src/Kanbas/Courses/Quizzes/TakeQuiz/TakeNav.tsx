@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import * as client from "./client";
+import * as client from "../client";
 import { useParams } from "react-router";
 import CountdownTimer from "./CountdownTimer";
 import { Link } from "react-router-dom";

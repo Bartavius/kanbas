@@ -1,9 +1,9 @@
 import { useParams } from "react-router";
-import * as client from "./client";
+import * as client from "../client";
 import { useEffect, useState } from "react";
 import TakeNav from "./TakeNav";
 import { useSelector } from "react-redux";
-import TakeQuestion from "./TakeQuestion";
+import TakeQuestion from "./TakeQuestionBox";
 
 export default function Take() {
   const { qid } = useParams();
@@ -12,7 +12,27 @@ export default function Take() {
   const [questions, setQuestions] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true); // Add loading state
   const [access, setAccess] = useState<string>("");
+  const [allowedAccess, setAllowedAccess] = useState<boolean>(false);
+  const [attemptId, setAttemptId] = useState<string>("");
   const startTime = new Date();
+
+   // uploads the user response to the database
+   const upload = async () => {
+    return await client.addResponse(currentUser._id, quiz._id);
+  };
+  
+
+  const [wrongCode, setWrongCode] = useState<string>("");
+  const submitAccessCode = async () => {
+    if (quiz.access_code === access) {
+      setAllowedAccess(true);
+      const attempt = await upload();
+      setAttemptId(attempt._id);
+    } else {
+      setAllowedAccess(false);
+      setWrongCode("Incorrect access code");
+  }
+}
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -22,6 +42,10 @@ export default function Take() {
         setQuiz(loadedQuiz); // Set the quiz data once fetched
         const loadedQuestions = await client.getQuestionsFromQuiz(qid);
         setQuestions(loadedQuestions);
+        setAllowedAccess(loadedQuiz.access_code === "" ? true : false);
+        if (loadedQuiz.access_code === "") {
+          upload();
+        }
       } catch (error) {
         console.error("Failed to fetch quiz:", error);
       } finally {
@@ -31,10 +55,6 @@ export default function Take() {
     fetchQuiz();
   }, [qid]);
 
-  // uploads the user response to the database
-  const upload = async () => {
-    await client.addResponse(currentUser._id, quiz._id);
-  };
 
   return (
     <div>
@@ -44,19 +64,22 @@ export default function Take() {
         </div>
       ) : (
         <div>
-          {quiz.access_code && quiz.access_code !== access ? (
+          {!allowedAccess ? (
+            <div>
+              {wrongCode !== "" && <div className="alert alert-danger mb-2 mt-2 container">{wrongCode}</div>}
             <div className="d-flex justify-content-center align-items-center mt-3">
               <label htmlFor="" className="me-3">
                 <h5>Access Code: </h5>
               </label>
               <input
                 type="text"
-                className="form-control w-25"
+                className="form-control w-25 me-3"
                 onChange={(e) => {
                   setAccess(e.target.value);
-                  upload();
                 }}
               />
+              <button className="btn btn-primary" onClick={submitAccessCode}> Submit </button>
+            </div>
             </div>
           ) : (
             <div className="ms-3">
@@ -81,7 +104,7 @@ export default function Take() {
                     {questions.map((question: any, index: number) => (
                       <div className="mt-5 mb-5 container">
                         
-                      <TakeQuestion key={question._id} question={question} questionIndex={index + 1} /></div>
+                      <TakeQuestion key={question._id} question={question} questionIndex={index + 1} attemptId={attemptId}/></div>
                     ))
                     }
 
@@ -94,6 +117,10 @@ export default function Take() {
                   <TakeNav quiz={quiz} />
                 </div>
               </div>
+              <hr />
+              <button type="button" className="btn btn-danger float-end" >
+                Submit
+              </button>
             </div>
           )}
         </div>

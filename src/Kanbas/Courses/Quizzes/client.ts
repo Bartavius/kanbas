@@ -92,3 +92,8 @@ export const updateAttempt = async (attemptId:string, newRep:any) => {
   const { data } = await axiosWithCredentials.put(`${QUIZZES_API}/attempt/${attemptId}/upgrade`, newRep);
   return data;
 }
+
+export const updateAttemptQuestion = async (attemptId:string, questionId:string, newRep:any) => {
+  const {data} = await axiosWithCredentials.put(`${QUIZZES_API}/attempt/${attemptId}/${questionId}/upgrade`, newRep);
+  return data
+}

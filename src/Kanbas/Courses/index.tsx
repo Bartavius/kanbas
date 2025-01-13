@@ -9,10 +9,10 @@ import { useSelector } from "react-redux";
 import Assignment from "./Assignments/Assignment";
 import Roster from "./People/Roster";
 import Quizzes from "./Quizzes";
-import Quiz from "./Quizzes/Quiz";
+import Quiz from "./Quizzes/QuizDashboard";
 import QuizEditor from "./Quizzes/Editor";
-import Take from "./Quizzes/Take";
-import TakeQuestion from "./Quizzes/TakeQuestion";
+import Take from "./Quizzes/TakeQuiz/Take";
+import TakeQuestion from "./Quizzes/TakeQuiz/TakeQuestionBox";
 
 export default function Courses() {
     const { cid } = useParams();
