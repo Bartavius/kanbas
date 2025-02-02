@@ -24,8 +24,6 @@ This project is a web app replication of the functionalities of the educational 
 - Course-specific quizzes modification (add, edit, delete)
 - quiz question and answers modification (add, edit types/details, delete; add answers, edit answer display/correct, delete answer)
 - quiz taking (faculty and admins can display a preview, while students can take graded quizzes with saved attempts depending on the question details)
-  - latest attempt is saved when a quiz is permitted to be taken multiple times
-  - answers will be displayed after a specified time period
   - practice quizzes will not be saved
   - single question per page / display all questions at once are implemented functionalities
   - time limits are placed based on the quiz detail
@@ -39,7 +37,6 @@ Future implementation that are planned includes more question types (short answe
 **The technologies used in this project includes:**
   - React – Building dynamic, component-based UIs.
   - Node.js – Server-side JavaScript runtime.
-  - Next.js – React framework for SSR/SSG and routing.
   - Express.js – Web server framework for Node.js APIs.
   - Axios – HTTP client for making API requests.
   - MongoDB – NoSQL database for flexible data storage.
