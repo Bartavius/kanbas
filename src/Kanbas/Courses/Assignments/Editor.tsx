@@ -1,17 +1,15 @@
-import { IoIosArrowDown } from "react-icons/io";
 import { RxCross2 } from "react-icons/rx";
 import { LuCalendarDays } from "react-icons/lu";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useCallback, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { setAssignments } from "./reducer";
 import * as assignmentClient from "./client";
 export default function AssignmentEditor( 
 ) {
   const {currentUser} = useSelector((state:any) => state.accountReducer);
   const navigate = useNavigate();
-  if (currentUser.role != "ADMIN" && currentUser.role != "FACULTY") {
+  if (currentUser.role !== "ADMIN" && currentUser.role !== "FACULTY") {
     console.log(JSON.stringify(currentUser))
     alert("User does not have access to this page.");
     navigate(-1);
