@@ -50,5 +50,5 @@ Future implementation that are planned includes more question types (short answe
 
 **Disclaimer**: This project was built while (and in order to) learning the aforementioned technologies and languages, as such there may be areas of code that looks "unoptimized" or "unclean." It may be rough around the edges, but it retains the functionalities of what it is intended to be.
 
-The server-side of the project is hosted on:
-The web app is hosted on:
+The server-side of the project is hosted on: https://cs4550-node-server-mongodb.onrender.com
+The web app is hosted on: https://kanbas-mern.netlify.app/
