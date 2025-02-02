@@ -2,16 +2,17 @@ import { Link, useLocation } from "react-router-dom";
 import { AiOutlineDashboard } from "react-icons/ai";
 import { IoCalendarOutline } from "react-icons/io5";
 import { LiaBookSolid, LiaCogSolid } from "react-icons/lia";
-import { FaInbox, FaRegCircleUser } from "react-icons/fa6";
+import { FaInbox, FaRegCircleUser, FaLinkedin, FaGithub } from "react-icons/fa6";
 
 export default function KanbasNavigation() {
   const { pathname } = useLocation();
   const links = [
-    { label: "Dashboard", path: "/Kanbas/Dashboard", icon: AiOutlineDashboard },
-    { label: "Courses",   path: "/Kanbas/Courses", icon: LiaBookSolid },
-    { label: "Calendar",  path: "/Kanbas/Calendar",  icon: IoCalendarOutline },
-    { label: "Inbox",     path: "/Kanbas/Inbox",     icon: FaInbox },
-    { label: "Labs",      path: "/Labs",             icon: LiaCogSolid },
+    { label: "Dashboard",            path: "/Kanbas/Dashboard", icon: AiOutlineDashboard },
+    { label: "Courses",              path: "/Kanbas/Courses",   icon: LiaBookSolid },
+    { label: "Calendar",             path: "/Kanbas/Calendar",  icon: IoCalendarOutline },
+    { label: "Inbox",                path: "/Kanbas/Inbox",     icon: FaInbox },
+    { label: "Developer Notes",      path: "/Kanbas/Notes",     icon: LiaCogSolid },
+    // { label: "Labs",              path: "/Labs",             icon: LiaCogSolid },
   ];
 
   return (
@@ -39,6 +40,15 @@ export default function KanbasNavigation() {
           {link.label}
         </Link>
       ))}
+
+      <a href="https://linkedin.com/in/jlojanarungsiri" target="_blank" className="list-group-item bg-black border-0 text-center text-white">
+        <FaLinkedin className="fs-1 text-danger" />
+        LinkedIn
+      </a>
+      <a href="https://github.com/Bartavius" target="_blank" className="list-group-item bg-black border-0 text-center text-white">
+        <FaGithub className="fs-1 text-danger" />
+        GitHub
+      </a>
 
     </div>
 );}

@@ -5,12 +5,11 @@ import Dashboard from "./Dashboard";
 import KanbasNavigation from "./Navigation";
 import "./styles.css";
 import ProtectedRoute from "./Account/ProtectedRoute";
-import { useSelector } from "react-redux";
 import ProtectedCourseRoute from "./ProtectedCourseRoute";
 import Session from "./Account/Session";
+import Notes from "./Notes";
 
 export default function Kanbas() {
-  const { currentUser } = useSelector((state: any) => state.accountReducer);
 
   return (
     <Session>
@@ -18,13 +17,14 @@ export default function Kanbas() {
         <KanbasNavigation />
         <div className="wd-main-content-offset p-3">
           <Routes>
-            <Route path="/" element={<Navigate to={ currentUser ? "/Kanbas/Account/Profile" : "/Kanbas/Account/Signin" } />} />
+            <Route path="/" element={<Navigate to={"/Kanbas/Notes"} />} />
             <Route path="/Account/*" element={<Account />} />
             <Route path="/Dashboard" element={<ProtectedRoute> <Dashboard/> </ProtectedRoute> } />
             <Route path="/Courses" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute> } />
             <Route path="/Courses/:cid/*" element={ <ProtectedRoute> <ProtectedCourseRoute> <Courses/> </ProtectedCourseRoute> </ProtectedRoute> } />
             <Route path="/Calendar" element={<h1>Calendar</h1>} />
             <Route path="/Inbox" element={<ProtectedRoute><h1>Inbox</h1></ProtectedRoute>} />
+            <Route path="/Notes" element={<Notes />} />
           </Routes>
         </div>
       </div>
