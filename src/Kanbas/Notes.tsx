@@ -2,7 +2,8 @@ export default function Notes() {
     return (
         <div className="container">
             <h1><b>Developer Notes</b></h1>
-            <h4>This project is a web app replication of the functionalities of the educational app, <b>Canvas</b>.</h4>
+            <h4>This project is a web app replication of the functionalities of the educational app, <b>Canvas</b>. Please view the website
+            on your laptop for the best experience.</h4>
             <p><i>Built by Jirath "Bart" Lojanarungsiri while under the guidance of Jose Annunziato. </i></p>
 
             <hr />
