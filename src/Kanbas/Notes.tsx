@@ -8,6 +8,12 @@ export default function Notes() {
 
             <hr />
 
+            <h3><b>Known Bugs to be Fixed:</b></h3>
+            <ol>
+                <li>People tab crashing</li>
+                <li>Taking quizzes crash the server</li>
+            </ol>
+
             <h4><b>Currently implemented functions: </b></h4>
             <span>
                 <b>User Information:</b>
