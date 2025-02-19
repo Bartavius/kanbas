@@ -1,3 +1,7 @@
+The server-side of the project is hosted on: https://cs4550-node-server-mongodb.onrender.com
+
+The web app is hosted on: https://kanbas-mern.netlify.app/
+
 This project is a web app replication of the functionalities of the educational app, 'Canvas.' Currently implemented functions include,
 
 **User Information:**
@@ -46,6 +50,3 @@ Future implementation that are planned includes more question types (short answe
  **Languages used:** HTML/CSS, Typescript, Javascript
 
 **Disclaimer**: This project was built while (and in order to) learning the aforementioned technologies and languages, as such there may be areas of code that looks "unoptimized" or "unclean." It may be rough around the edges, but it retains the functionalities of what it is intended to be.
-
-The server-side of the project is hosted on: https://cs4550-node-server-mongodb.onrender.com
-The web app is hosted on: https://kanbas-mern.netlify.app/
