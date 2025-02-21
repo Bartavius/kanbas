@@ -17,7 +17,7 @@ export default function Kanbas() {
         <KanbasNavigation />
         <div className="wd-main-content-offset p-3">
           <Routes>
-            <Route path="/" element={<Navigate to={"/Kanbas/Notes"} />} />
+            <Route path="/" element={<Navigate to={"/Kanbas/Account/Signin"} />} />
             <Route path="/Account/*" element={<Account />} />
             <Route path="/Dashboard" element={<ProtectedRoute> <Dashboard/> </ProtectedRoute> } />
             <Route path="/Courses" element={<ProtectedRoute> <Dashboard /> </ProtectedRoute> } />
