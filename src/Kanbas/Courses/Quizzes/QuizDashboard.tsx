@@ -40,34 +40,41 @@ export default function Quiz() {
           <div className="wd-quiz-header">
             <h1 className="d-inline"> {quiz.title} </h1>
             {currentUser.role !== "STUDENT" && (
-                <div>
-                  <button
-                    className="btn btn-secondary float-end me-2"
-                    onClick={() => {
-                      navigate("Take");
-                    }}
-                  >
-                    {" "}
-                    Preview{" "}
-                  </button>
-                  <button
-                    className="btn btn-danger float-end me-2"
-                    onClick={() => {
-                      navigate("Editor");
-                    }}
-                  >
-                    {" "}
-                    Edit
-                  </button>
-                </div>
-              )}
+              <div>
+                <button
+                  disabled={true}
+                  className="btn btn-secondary float-end me-2"
+                  onClick={() => {
+                    navigate("Take");
+                  }}
+                >
+                  {" "}
+                  Preview{" "}
+                </button>
+                <button
+                  className="btn btn-danger float-end me-2"
+                  onClick={() => {
+                    navigate("Editor");
+                  }}
+                >
+                  {" "}
+                  Edit
+                </button>
+              </div>
+            )}
             <h5> {quiz.description} </h5>
           </div>
           <hr />
 
           {currentUser.role === "STUDENT" ? (
             <div className="container justify-content-center d-flex m-5">
-              <button className="btn btn-danger w-25" onClick={(e) => navigate("Take")}> Start </button>
+              <button
+                className="btn btn-danger w-25"
+                onClick={(e) => navigate("Take")}
+              >
+                {" "}
+                Start{" "}
+              </button>
             </div>
           ) : (
             <div className="wd-faculty-quiz-details">
@@ -76,57 +83,77 @@ export default function Quiz() {
                 <span className="col-7">{quiz.quizType}</span>
               </div>
               <div className="row">
-                <b className="col-5 float-end d-flex justify-content-end">Points</b>
+                <b className="col-5 float-end d-flex justify-content-end">
+                  Points
+                </b>
                 <span className="col-7 float-start">{quiz.points}</span>
               </div>
               <div className="row">
-                <b className="col-5 float-end d-flex justify-content-end">Assignment Group</b>
+                <b className="col-5 float-end d-flex justify-content-end">
+                  Assignment Group
+                </b>
                 <span className="col-7 float-start">
                   {quiz.assignment_group}
                 </span>
               </div>
               <div className="row">
-                <b className="col-5 float-end d-flex justify-content-end">Shuffle Answers</b>
+                <b className="col-5 float-end d-flex justify-content-end">
+                  Shuffle Answers
+                </b>
                 <span className="col-7 float-start">
                   {quiz.shuffle ? "Yes" : "No"}
                 </span>
               </div>
               <div className="row">
-                <b className="col-5 float-end d-flex justify-content-end">Time Limit</b>
+                <b className="col-5 float-end d-flex justify-content-end">
+                  Time Limit
+                </b>
                 <span className="col-7 float-start">
                   {quiz.time_limit} Minutes
                 </span>
               </div>
               <div className="row">
-                <b className="col-5 float-end d-flex justify-content-end">Multiple Attempts</b>
+                <b className="col-5 float-end d-flex justify-content-end">
+                  Multiple Attempts
+                </b>
                 <span className="col-7 float-start">
                   {quiz.multiple_attempts ? "Yes" : "No"}
                 </span>
               </div>
               {quiz.multiple_attempts && (
                 <div className="row">
-                  <b className="col-5 float-end d-flex justify-content-end">How Many Attempts</b>
+                  <b className="col-5 float-end d-flex justify-content-end">
+                    How Many Attempts
+                  </b>
                   <span className="col-7 float-start">{quiz.attempts}</span>
                 </div>
               )}
               <div className="row">
-                <b className="col-5 float-end d-flex justify-content-end">Show Correct Answers</b>
+                <b className="col-5 float-end d-flex justify-content-end">
+                  Show Correct Answers
+                </b>
                 <span className="col-7 float-start">
                   {quiz.show_correct_answers ? "Yes" : "No"}
                 </span>
               </div>
               <div className="row">
-                <b className="col-5 float-end d-flex justify-content-end">Access Code</b>
+                <b className="col-5 float-end d-flex justify-content-end">
+                  Access Code
+                </b>
                 <span className="col-7 float-start">{quiz.access_code}</span>
               </div>
               <div className="row">
-                <b className="col-5 float-end d-flex justify-content-end">One Question At A Time</b>
+                <b className="col-5 float-end d-flex justify-content-end">
+                  One Question At A Time
+                </b>
                 <span className="col-7 float-start">
                   {quiz.one_question_at_a_time ? "Yes" : "No"}
                 </span>
               </div>
               <div className="row">
-                <b className="col-5 float-end d-flex justify-content-end">Webcam Required</b>
+                <b className="col-5 float-end d-flex justify-content-end">
+                  Webcam Required
+                </b>
                 <span className="col-7 float-start">
                   {quiz.webcam_required ? "Yes" : "No"}
                 </span>
