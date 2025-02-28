@@ -27,9 +27,6 @@ This project is a web app replication of the functionalities of the educational 
 - Course-specific quizzes display (can adjust 'publication status' to display on STUDENT webpage)
 - Course-specific quizzes modification (add, edit, delete)
 - quiz question and answers modification (add, edit types/details, delete; add answers, edit answer display/correct, delete answer)
-- quiz taking (faculty and admins can display a preview, while students can take graded quizzes with saved attempts depending on the question details)
-  - practice quizzes will not be saved
-  - single question per page / display all questions at once are implemented functionalities
   - time limits are placed based on the quiz detail
   - students will not be able to take the quiz until it is published and is within an allotted time period that is specified in the quiz detail
   - fill in the blanks, true/false, and multiple-choice questions are the only available question types at the moment
@@ -49,4 +46,4 @@ Future implementation that are planned includes more question types (short answe
 
  **Languages used:** HTML/CSS, Typescript, Javascript
 
-**Disclaimer**: This project was built while (and in order to) learning the aforementioned technologies and languages, as such there may be areas of code that looks "unoptimized" or "unclean." It may be rough around the edges, but it retains the functionalities of what it is intended to be.
+**Disclaimer**: This project was built while (and in order to) learning the aforementioned technologies and languages, as such there may be areas of code that looks "unoptimized" or "unclean." It may be rough around the edges, but it retains the functionalities of what it is intended to be. The project began in September / October of 2024 as part of the CS4550 Web Development Course
